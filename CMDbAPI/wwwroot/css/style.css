@@ -126,3 +126,39 @@ main figcaption {
     text-align: center;
     display: block;
 }
+
+
+
+/*MovieDetails sidan*/
+.page-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+
+#detailPage-column_facts {
+    width: 34%;
+    float: left;
+}
+
+#detailPage-column_image {
+    width: 34%;
+    float: left;
+}
+
+/* Har denna bara för att kunna visualisera slutresultatet, denna kommer inte att användas */
+#detailPage-column_mentimeter {
+    width: 29%;
+    float: right;
+}
+
+img {
+    max-height: 250px;
+}
+
+.clear {
+    clear: both;
+}

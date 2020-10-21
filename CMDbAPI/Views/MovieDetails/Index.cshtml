@@ -1,5 +1,51 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<!-- Specificierar var allt inom denna del ska förhålla sig till resten av sidan. -->
+<div class="page-container">
+
+    <!-- Första raden på detaljsidan innehållande fakta och en bild på filmen -->
+
+    <section id="detailPage-column_facts">
+        <h1>The Deer Hunter</h1>
+        <p>{Genre}:</p>
+        <p>{Längd}:</p>
+        <p>{Producerad år}:</p>
+        <p>{Inkomst}:</p>
+    </section>
+    <section id="detailPage-column_image">
+        <img src="Images/The Deer Hunter.jpg" />
+    </section>
+
+
+    <div class="clear"></div>
+
+    <!-- Andra raden på detaljsidan innehållande en summering och en sammanställning för hur populär filmen är -->
+    <section id="detailPage-column_facts">
+        <h3>Summary:</h3>
+        <p>Här kommer det stå en väldigt bra sammanfattning på engelska som vi har hämtat från "OMDb".</p>
+    </section>
+
+    <section id="detailPage-column_image">
+        <img id="img-detail" src="Images/progressionBar.jpg" />
+    </section>
+
+    <div class="clear"></div>
+
+    <!-- Tredje raden på detaljsidan innehållande alla skådelspelare och en bild på skådespelaren -->
+    <!--Visa en lista med properties i olika celler https://www.youtube.com/watch?v=nHAMDUtiV6w-->
+    <h3>Här nedanför presenteras en tabell/lista med skådelspelare i filmen:</h3>
+    <br>
+    <br>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Actor</th>
+                <th>NameInMovie</th>
+            </tr>
+        </thead>
+    </table>
+
+
+    <div class="clear"></div>
+
+</div>

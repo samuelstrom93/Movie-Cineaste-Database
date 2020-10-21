@@ -1,0 +1,128 @@
+﻿body {
+    background-color: #eee;
+}
+
+/* HEADER  */
+
+header {
+    min-height: 10vh;
+    background: #ba2d2d;
+}
+
+a {
+    color: #eee;
+    text-decoration: none;
+    font-size: 125%;
+}
+
+    a:hover {
+        background: black;
+        background-color: hsla(0, 0%, 2%, 0.2);
+    }
+
+.header-flex {
+    display: flex;
+}
+
+.movieSearch {
+    width: 50%;
+    height: 40px;
+    margin: auto;
+    margin-right: 0px;
+    margin-top: 2%;
+    border: none;
+    border-radius: 5px;
+}
+
+input[type="text"] {
+    font-size: 20px;
+    padding-left: 1%;
+}
+
+.btnMovieSearch {
+    height: 42px;
+    width: 10%;
+    margin: auto;
+    margin-left: 1px;
+    margin-top: 2%;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+}
+
+
+#CMDb-icon {
+    float: left;
+    height: 70px;
+    margin-right: 2%;
+}
+
+header figcaption {
+    text-align: center;
+    font-weight: bold;
+}
+
+#menu {
+    margin: auto;
+    margin-top: 2.5%;
+}
+
+#login {
+    margin: auto;
+    margin-top: 2.5%;
+}
+
+
+/* SECTION */
+
+main h1 {
+    text-align: center;
+    font-size: 3em;
+}
+
+.headline {
+    font-size: 2em;
+    text-align: center;
+}
+
+
+#top-movie {
+    align-content: center;
+    width: 20%;
+    height: 400px;
+    display: block;
+    margin: auto;
+}
+
+.ratings-flexbox {
+    display: flex;
+    /* justify-content: space-around; */
+    justify-content: center;
+    margin: 2% 0%;
+}
+
+    .ratings-flexbox div {
+        margin: 0% 5%;
+    }
+
+.rankings-flexbox {
+    display: flex;
+    justify-content: center;
+    /* justify-content: space-around; */
+}
+
+    .rankings-flexbox img {
+        width: 200px;
+        height: 250px;
+    }
+
+main figcaption {
+    font-weight: bold;
+    padding: 3px;
+    text-align: center;
+}
+
+.rankings-flexbox p {
+    text-align: center;
+    display: block;
+}

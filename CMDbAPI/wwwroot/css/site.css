@@ -129,36 +129,21 @@ main figcaption {
 
 
 
-/*MovieDetails sidan*/
-.page-container {
-    position: relative;
-    height: 100%;
+/*FOOTER*/
+
+.site-footer {
+    height: 150px;
     width: 100%;
-    margin-left: 15%;
-    margin-right: 15%;
+    padding: 1%;
+    background: #ba2d2d;
+    color: white;
+    /*    background: linear-gradient(to bottom right, #ba2d2d, rgb(113, 194, 144));*/
+    text-align: center;
+    display: block;
+    margin: auto;
 }
 
-
-#detailPage-column_facts {
-    width: 34%;
-    float: left;
-}
-
-#detailPage-column_image {
-    width: 34%;
-    float: left;
-}
-
-/* Har denna bara för att kunna visualisera slutresultatet, denna kommer inte att användas */
-#detailPage-column_mentimeter {
-    width: 29%;
-    float: right;
-}
-
-img {
-    max-height: 250px;
-}
-
-.clear {
-    clear: both;
+#copyright {
+    font-size: 20px;
+    font-weight: bold;
 }

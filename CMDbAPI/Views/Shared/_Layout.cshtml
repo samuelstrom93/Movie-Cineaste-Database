@@ -3,3 +3,63 @@
 *@
 @{
 }
+
+
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/site.css">
+    <title>Search for your movie</title>
+</head>
+
+<body>
+    <header>
+        <div class="header-flex">
+            <a href="index.html">
+                <figure>
+                    <img src="~/img/CMBb-picture.png" alt="Cineaste Movie Database" id="CMDb-icon">
+                    <figcaption>CMDb</figcaption>
+                </figure>
+            </a>
+            <a href="#" id="menu">Menu</a>
+            <label for="movie-search"></label>
+            <input type="text" name="movie-search" class="movieSearch" placeholder="Sök efter en film">
+            <input type="submit" class="btnMovieSearch" name="btn-movie-search" value="Sök">
+            <a href="#" id="login">Bli medlem</a>
+            <a href="#" id="login">Logga in</a>
+        </div>
+    </header>
+
+    @RenderBody();
+
+    <footer class="site-footer">
+        <div id="footern">
+            <p id="copyright">
+                Copyright 2020 &copy; Patric Lindberg & Samuel Ström
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

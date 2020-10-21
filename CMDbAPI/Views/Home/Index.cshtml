@@ -1,44 +1,11 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
 
 }
 
 
-
-<!DOCTYPE html>
-<html lang="sv">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="~/css/style.css">
-    <title>Search for your movie</title>
-</head>
-
-<body>
-    <header>
-        <div class="header-flex">
-            <a href="index.html">
-                <figure>
-                    <img src="images/CMBb-picture.png" alt="Cineaste Movie Database" id="CMDb-icon">
-                    <figcaption>CMDb</figcaption>
-                </figure>
-            </a>
-            <a href="#" id="menu">Menu</a>
-            <label for="movie-search"></label>
-            <input type="text" name="movie-search" class="movieSearch" placeholder="Sök efter en film">
-            <input type="submit" class="btnMovieSearch" name="btn-movie-search" value="Sök">
-            <a href="#" id="login">Bli medlem</a>
-            <a href="#" id="login">Logga in</a>
-        </div>
-    </header>
-
     <main>
         <h1>Toppfilmer</h1>
-
-        <img src="images/poster-apocalypsenow.jpg" alt="Vald film" id="top-movie">
+        <img src="~/img/poster-apocalypsenow.jpg" alt="Vald film" id="top-movie">
 
         <h2 class="headline">Ratings</h2>
         <div class="ratings-flexbox">
@@ -59,27 +26,24 @@
         <h2 class="headline">Topplistan</h2>
         <div class="rankings-flexbox">
             <figure class="rankings-figure">
-                <a href="#"><img src="images/part1.jpg" alt=""></a>
+                <a href="#"><img src="~/img/part1.jpg" alt=""></a>
                 <figcaption>Film ett</figcaption>
                 <p>Betyg osv</p>
             </figure>
             <figure class="rankings-figure">
-                <a href="#"><img src="images/part2.jpg" alt=""></a>
+                <a href="#"><img src="~/img/part2.jpg" alt=""></a>
                 <figcaption>Film två</figcaption>
                 <p>Betyg osv</p>
             </figure>
             <figure class="rankings-figure">
-                <a href="#"><img src="images/part3.jpg" alt=""></a>
+                <a href="#"><img src="~/img/part3.jpg" alt=""></a>
                 <figcaption>Film tre </figcaption>
                 <p>Betyg osv</p>
             </figure>
             <figure class="rankings-figure">
-                <a href="#"><img src="images/part3.jpg" alt=""></a>
+                <a href="#"><img src="~/img/part3.jpg" alt=""></a>
                 <figcaption>Film fyra </figcaption>
                 <p>Betyg osv</p>
             </figure>
         </div>
     </main>
-</body>
-
-</html>

@@ -19,8 +19,9 @@ namespace CMDbAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IMovieRepository, MovieRepository>();
-            services.AddControllers();
             services.AddControllersWithViews();
+            services.AddControllers();
+            services.AddMvc().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,23 +34,26 @@ namespace CMDbAPI
 
             app.UseHttpsRedirection();
 
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}"
+                    );
             });
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Start}/{action=Index}/{id?}"
-                    );
+                endpoints.MapControllers();
             });
-
+            
         }
+
     }
 }

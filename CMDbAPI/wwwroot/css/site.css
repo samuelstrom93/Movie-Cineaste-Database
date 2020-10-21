@@ -126,3 +126,24 @@ main figcaption {
     text-align: center;
     display: block;
 }
+
+
+
+/*FOOTER*/
+
+.site-footer {
+    height: 150px;
+    width: 100%;
+    padding: 1%;
+    background: #ba2d2d;
+    color: white;
+    /*    background: linear-gradient(to bottom right, #ba2d2d, rgb(113, 194, 144));*/
+    text-align: center;
+    display: block;
+    margin: auto;
+}
+
+#copyright {
+    font-size: 20px;
+    font-weight: bold;
+}

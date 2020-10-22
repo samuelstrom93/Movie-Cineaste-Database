@@ -26,7 +26,7 @@ namespace CMDbAPI.Controllers
         }
 
         [HttpGet("{imdbId}")]
-        // GET: api/Movie/3
+        // GET: api/Movie/
         public async Task<ActionResult<Movie>> MovieRating(string imdbId)
         {
             return await context.GetMovieRatings(imdbId);

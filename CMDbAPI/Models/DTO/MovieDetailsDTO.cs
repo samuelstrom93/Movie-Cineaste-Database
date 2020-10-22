@@ -11,5 +11,7 @@ namespace CMDbAPI.Models.DTO
         public int Year { get; set; }
         public string Runtime { get; set; }
         public string Genre { get; set; }
+        public string Actors { get; set; }
+        public string Poster { get; set; }
     }
 }

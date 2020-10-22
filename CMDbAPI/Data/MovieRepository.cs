@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace CMDbAPI
         private readonly IConfiguration dbSettings;
         private readonly string connectionString;
         #endregion
-        
+
         #region Constructor
         public MovieRepository(IConfiguration settings)
         {
@@ -235,30 +236,35 @@ namespace CMDbAPI
             }
         }
 
-        private MovieDetailsDTO movieDetailsDTO;
-        private Movie movie;
-        public Task<SummaryViewModel> GetSummary(string imdbId)
+
+        //private MovieDetailsDTO movieDetailsDTO;
+        //private Movie movie;
+
+
+
+
+        //public Task<SummaryViewModel> GetSummary(string imdbId)
+        public async Task<SummaryViewModel> GetSummary(string imdbId)
         {
-            var details = GetMovieDetails(imdbId);
-            var popularity = GetMovieRatings(imdbId);
+            var movie = await GetMovieDetails(imdbId);
+            var ratings = await GetMovieRatings(imdbId);
 
-            MovieSummaryDTO movieSummaryDTO = new MovieSummaryDTO(movieDetailsDTO, movie );
-
-
-            movieSummaryDTO.MovieDetailsDTO.Title = details.Result.Title;
-            movieSummaryDTO.MovieDetailsDTO.Year = details.Result.Year;
-            movieSummaryDTO.MovieDetailsDTO.Genre = details.Result.Genre;
-            movieSummaryDTO.MovieDetailsDTO.Runtime = details.Result.Runtime;
-            movieSummaryDTO.Movie.NumberOfDislikes = popularity.Result.NumberOfDislikes;
-            movieSummaryDTO.Movie.NumberOfLikes = popularity.Result.NumberOfLikes;
-
-
-            return null;
-
-           
+            SummaryViewModel summaryViewModel = new SummaryViewModel(movie, ratings);
+            return summaryViewModel;
         }
 
-       
+
+
+
+        // TODO: Förstår inte riktigt hur Erik använder sig av en liknande i HomeController för att komma åt datan
+        public Task<SummaryViewModel> GetSummaryViewModel(string imdb = null)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+
         #endregion
 
     }

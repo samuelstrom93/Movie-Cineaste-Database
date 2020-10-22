@@ -17,10 +17,14 @@ namespace CMDbAPI.Controllers
             this.movieRepository = movieRepository;
         }
 
-        public async Task <IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
+            //TODO: Erik använder en tom GetSummaryViewModel i hans repo
+            //var model = await movieRepository.GetSummaryViewModel();
 
+            // Döp denna till GetSummaryViewModel istället?
             var model = await movieRepository.GetSummary("tt3659388");
+            
             return View(model);
         }
 

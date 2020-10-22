@@ -40,6 +40,12 @@ namespace CMDbAPI
         Task<MovieDetailsDTO> GetMovieDetails(string id);
 
         Task<SummaryViewModel> GetSummary(string id);
-       
+
+
+        //Task<SummaryViewModel> GetSummaryViewModel(string imdb = null);
+        //TODO: ändra tillbka ifall det inte funkar
+        Task<SummaryViewModel> GetSummaryViewModel(string id);
+
+
     }
 }

@@ -11,11 +11,32 @@ namespace CMDbAPI.Controllers
     public class HomeController : Controller
     {
         private IMovieRepository movieRepository;
-        public IActionResult Index(IMovieRepository movieRepository)
+
+        public HomeController(IMovieRepository movieRepository)
         {
             this.movieRepository = movieRepository;
-           // var viewModel=movieRepository.
-            return View();
         }
+
+        public async Task <IActionResult> Index()
+        {
+
+            var model = await movieRepository.GetSummary("tt3659388");
+            return View(model);
+        }
+
+
+       
+
+
+
+        //public async Task<IActionResult> Summary()
+        //{
+        //    //TODO: Fixa så att man kan skicka in både summary och country
+        //    var summary = await movieRepository.GetSummary();
+        //    // var model = new SummaryViewModel(summary);
+
+
+        //    return View(summary);
+        //}
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using CMDbAPI.Models.DTO;
+using CMDbAPI.ViewModel;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CMDbAPI
@@ -32,5 +34,12 @@ namespace CMDbAPI
         /// </summary>
         /// <remarks>This operation will take time if there are many movies in the datatabase</remarks>
         Task<IEnumerable<Movie>> GetAllMovieRatings();
+
+
+
+        Task<MovieDetailsDTO> GetMovieDetails(string id);
+
+        Task<SummaryViewModel> GetSummary(string id);
+       
     }
 }

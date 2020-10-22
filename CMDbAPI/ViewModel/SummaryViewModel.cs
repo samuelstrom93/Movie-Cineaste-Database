@@ -27,15 +27,9 @@ namespace CMDbAPI.ViewModel
 
       
 
-        public SummaryViewModel(MovieDetailsDTO movieDetailsDTO, Movie movie)
+        public SummaryViewModel(MovieSummaryDTO movieSummaryDTO)
         {
-            // ger värden till alla properties
-            Title = movieDetailsDTO.Title;
-            Year = movieDetailsDTO.Year;
-            Runtime = movieDetailsDTO.Runtime;
-            Genre = movieDetailsDTO.Genre;
-            NumberOfLikes = movie.NumberOfLikes;
-            NumberOfDislikes = movie.NumberOfDislikes;
+            
         }
     }
 }

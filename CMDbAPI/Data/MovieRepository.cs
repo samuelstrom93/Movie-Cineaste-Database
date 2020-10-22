@@ -1,8 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using CMDbAPI.Controllers;
+using CMDbAPI.Models.DTO;
+using CMDbAPI.ViewModel;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using Npgsql;
 
 namespace CMDbAPI
@@ -212,7 +216,59 @@ namespace CMDbAPI
             }
             return movies;
         }
-    }  
+
+        #region Movie Details   
+
+        // Egen metod som hämtar en film från OMDbApi - Körs EJ automatiskt för tillfället
+        public async Task<MovieDetailsDTO> GetMovieDetails(string imdbId)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                //Använd baseUrl m.m på endpoint...
+                string endpoint = "http://www.omdbapi.com/?i=tt3659388&apikey=698a3567";
+                var respons = await client.GetAsync(endpoint, HttpCompletionOption.ResponseHeadersRead);
+                //TODO: Gör det här till en try/catch för att fånga exceptions
+                respons.EnsureSuccessStatusCode();
+                var data = await respons.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<MovieDetailsDTO>(data);
+                return result;
+            }
+        }
+
+        private MovieDetailsDTO movieDetailsDTO;
+        private Movie movie;
+        public Task<SummaryViewModel> GetSummary(string imdbId)
+        {
+            var details = GetMovieDetails(imdbId);
+            var popularity = GetMovieRatings(imdbId);
+
+            MovieSummaryDTO movieSummaryDTO = new MovieSummaryDTO(movieDetailsDTO, movie );
+
+
+            movieSummaryDTO.MovieDetailsDTO.Title = details.Result.Title;
+            movieSummaryDTO.MovieDetailsDTO.Year = details.Result.Year;
+            movieSummaryDTO.MovieDetailsDTO.Genre = details.Result.Genre;
+            movieSummaryDTO.MovieDetailsDTO.Runtime = details.Result.Runtime;
+            movieSummaryDTO.Movie.NumberOfDislikes = popularity.Result.NumberOfDislikes;
+            movieSummaryDTO.Movie.NumberOfLikes = popularity.Result.NumberOfLikes;
+
+
+            return null;
+
+           
+        }
+
+       
+        #endregion
+
+    }
     #endregion
+
+
+
+
+
+
+
     #endregion
 }

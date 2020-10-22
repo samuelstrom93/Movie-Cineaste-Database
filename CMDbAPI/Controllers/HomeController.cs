@@ -10,9 +10,11 @@ namespace CMDbAPI.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: /<controller>/
-        public IActionResult Index()
+        private IMovieRepository movieRepository;
+        public IActionResult Index(IMovieRepository movieRepository)
         {
+            this.movieRepository = movieRepository;
+           // var viewModel=movieRepository.
             return View();
         }
     }

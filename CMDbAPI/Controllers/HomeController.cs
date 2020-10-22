@@ -14,7 +14,7 @@ namespace CMDbAPI.Controllers
         public IActionResult Index(IMovieRepository movieRepository)
         {
             this.movieRepository = movieRepository;
-           // var viewModel=movieRepository.
+           // var viewModel=movieRepository.Get
             return View();
         }
     }

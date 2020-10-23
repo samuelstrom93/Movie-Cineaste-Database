@@ -1,8 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using CMDbAPI.Controllers;
+using CMDbAPI.Models.DTO;
+using CMDbAPI.ViewModel;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using Npgsql;
 
 namespace CMDbAPI
@@ -13,7 +18,7 @@ namespace CMDbAPI
         private readonly IConfiguration dbSettings;
         private readonly string connectionString;
         #endregion
-        
+
         #region Constructor
         public MovieRepository(IConfiguration settings)
         {
@@ -212,7 +217,64 @@ namespace CMDbAPI
             }
             return movies;
         }
-    }  
+
+        #region Movie Details   
+
+        // Egen metod som hämtar en film från OMDbApi - Körs EJ automatiskt för tillfället
+        public async Task<MovieDetailsDTO> GetMovieDetails(string imdbId)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                //Använd baseUrl m.m på endpoint...
+                string endpoint = "http://www.omdbapi.com/?i=tt3659388&apikey=698a3567";
+                var respons = await client.GetAsync(endpoint, HttpCompletionOption.ResponseHeadersRead);
+                //TODO: Gör det här till en try/catch för att fånga exceptions
+                respons.EnsureSuccessStatusCode();
+                var data = await respons.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<MovieDetailsDTO>(data);
+                return result;
+            }
+        }
+
+
+        //private MovieDetailsDTO movieDetailsDTO;
+        //private Movie movie;
+
+
+
+
+        //public Task<SummaryViewModel> GetSummary(string imdbId)
+        public async Task<SummaryViewModel> GetSummary(string imdbId)
+        {
+            var movie = await GetMovieDetails(imdbId);
+            var ratings = await GetMovieRatings(imdbId);
+
+            SummaryViewModel summaryViewModel = new SummaryViewModel(movie, ratings);
+            return summaryViewModel;
+        }
+
+
+
+
+        // TODO: Förstår inte riktigt hur Erik använder sig av en liknande i HomeController för att komma åt datan
+        public Task<SummaryViewModel> GetSummaryViewModel(string imdb = null)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+
+        #endregion
+
+    }
     #endregion
+
+
+
+
+
+
+
     #endregion
 }

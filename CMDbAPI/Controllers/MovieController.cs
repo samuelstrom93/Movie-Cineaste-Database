@@ -52,24 +52,7 @@ namespace CMDbAPI.Controllers
             return await context.Rate(imdbId, Rating.Dislike);
         }
 
-        #region Movie Details
-
-        // Egen metod som hämtar en film från OMDbApi - Körs EJ automatiskt för tillfället
-        public async Task<Movie> GetMovieDetails()
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                //Använd baseUrl m.m på endpoint...
-                string endpoint = "http://www.omdbapi.com/?i=tt0111161&apikey=698a3567";
-                var respons = await client.GetAsync(endpoint, HttpCompletionOption.ResponseHeadersRead);
-                //TODO: Gör det här till en try/catch för att fånga exceptions
-                respons.EnsureSuccessStatusCode();
-                var data = await respons.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<Movie>(data);
-                return result;
-            }
-        }
-        #endregion
+       
 
     }
 }

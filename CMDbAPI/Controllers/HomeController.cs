@@ -34,13 +34,13 @@ namespace CMDbAPI.Controllers
             Parameter parameter = new Parameter();
             {
                 parameter.Count = movies.Count();
-                //parameter.Count = 3; Bestämmer hur många som ska vara i topplistan
+                //parameter.Count = 4; Bestämmer hur många som ska vara i topplistan
 
-                //parameter.SortOrder = "Asc"; //Lägst först
-                parameter.SortOrder = "Desc";//Högst först (defaultvärde)
+                parameter.SortOrder = "Asc"; //Lägst först
+                //parameter.SortOrder = "Desc";//Högst först (defaultvärde)
 
-                //parameter.Type = "popularity"; // Sorterar enbart efter hur många som har betygsatt filmen, struntar i hur stor skillnaden är mellan likes & dislikes
-                parameter.Type = "ratings"; // Sorterar efter hur stor skillnaden är mellan likes & dislikes (defaultvärde)
+                parameter.Type = "popularity"; // Sorterar enbart efter hur många som har betygsatt filmen, struntar i hur stor skillnaden är mellan likes & dislikes
+                //parameter.Type = "ratings"; // Sorterar efter hur stor skillnaden är mellan likes & dislikes (defaultvärde)
             }             
             var toplist = await movieRepository.GetToplist(parameter); 
 

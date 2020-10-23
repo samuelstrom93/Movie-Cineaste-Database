@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CMDbAPI.Models.DTO;
+using CMDbAPI.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,7 +17,22 @@ namespace CMDbAPI.Test
             throw new NotImplementedException();
         }
 
+        public Task<MovieDetailsDTO> GetMovieDetails(string id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<Movie> GetMovieRatings(string imdbId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<SummaryViewModel> GetSummary(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<SummaryViewModel> GetSummaryViewModel(string id)
         {
             throw new NotImplementedException();
         }

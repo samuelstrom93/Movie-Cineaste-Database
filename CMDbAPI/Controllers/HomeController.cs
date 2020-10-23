@@ -17,6 +17,7 @@ namespace CMDbAPI.Controllers
         public HomeController(IMovieRepository movieRepository)
         {
             this.movieRepository = movieRepository;
+
         }
 
         public async Task<IActionResult> Index()

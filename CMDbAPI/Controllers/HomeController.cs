@@ -26,7 +26,9 @@ namespace CMDbAPI.Controllers
             //var model = await movieRepository.GetSummaryViewModel();
 
             // Döp denna till GetSummaryViewModel istället?
-            var model = await movieRepository.GetSummary("tt3659388");
+            var model = await movieRepository.GetSummarySingleMovie("tt3659388");
+
+
 
             var movies =await movieRepository.GetAllMovieRatings();
 
@@ -41,15 +43,22 @@ namespace CMDbAPI.Controllers
 
                 //parameter.Type = "popularity"; // Sorterar enbart efter hur många som har betygsatt filmen, struntar i hur stor skillnaden är mellan likes & dislikes
                 parameter.Type = "ratings"; // Sorterar efter hur stor skillnaden är mellan likes & dislikes (defaultvärde)
-            }             
-            var toplist = await movieRepository.GetToplist(parameter); 
+            }
 
+
+
+            //var toplist = await movieRepository.GetToplist(parameter);
             
-            return View(model);
+            var topplistan = await movieRepository.GetTopList();
+
+
+            return View(topplistan);
         }
 
+        
 
-       
+
+
 
 
 

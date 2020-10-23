@@ -1,5 +1,5 @@
 ﻿@{
-        
+
 }
 
 @model CMDbAPI.ViewModel.SummaryViewModel
@@ -13,10 +13,15 @@
         <img src="~/img/poster-apocalypsenow.jpg" alt="Vald film" id="top-movie">
 
 
+        @foreach (var entry in Model.movieSummaryDTOs)
+        {
+            <p>@entry.Title</p>
+        }
 
 
+        @*<p>@Html.DisplayFor(model => model)</p>*@
 
-        <p>@Html.DisplayFor(model => model.Title)</p>
+        @*<p>@Html.DisplayFor(model => model.Title)</p>
         <p>@Html.DisplayFor(model => model.ImdbID)</p>
         <p>@Html.DisplayFor(model => model.Genre)</p>
         <h3>Antal likes nedan:</h3>
@@ -24,7 +29,7 @@
         <h3>antal dislikes nedan:</h3>
         <p>@Html.DisplayFor(model => model.NumberOfDislikes)</p>
 
-        <img src="@Html.DisplayFor(model => model.Poster)" alt="Poster"/>
+        <img src="@Html.DisplayFor(model => model.Poster)" alt="Poster"/>*@
 
         @{
             //TODO: Fixa poster mm

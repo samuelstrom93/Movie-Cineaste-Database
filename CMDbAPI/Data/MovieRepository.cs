@@ -225,8 +225,10 @@ namespace CMDbAPI
         {
             using (HttpClient client = new HttpClient())
             {
+                //TODO: lägg till baseUrl  config/settings
                 //Använd baseUrl m.m på endpoint...
-                string endpoint = "http://www.omdbapi.com/?i=tt3659388&apikey=698a3567";
+
+                string endpoint = "http://www.omdbapi.com/?i=" + imdbId + "&apikey=743f5535";
                 var respons = await client.GetAsync(endpoint, HttpCompletionOption.ResponseHeadersRead);
                 //TODO: Gör det här till en try/catch för att fånga exceptions
                 respons.EnsureSuccessStatusCode();
@@ -237,30 +239,187 @@ namespace CMDbAPI
         }
 
 
+        public async Task<T> GetMovieDetailsGeneric<T>(string imdbID)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                //Använd baseUrl m.m på endpoint...
+                string endpoint = "http://www.omdbapi.com/?i=" + imdbID + "&apikey=743f5535";
+                var respons = await client.GetAsync(endpoint, HttpCompletionOption.ResponseHeadersRead);
+                //TODO: Gör det här till en try/catch för att fånga exceptions
+                respons.EnsureSuccessStatusCode();
+                var data = await respons.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<T>(data);
+                return result;
+            }
+        }
+
+
         //private MovieDetailsDTO movieDetailsDTO;
         //private Movie movie;
 
 
 
-
-        //public Task<SummaryViewModel> GetSummary(string imdbId)
-        public async Task<SummaryViewModel> GetSummary(string imdbId)
+        public async Task<SummaryViewModel> GetTopList()
         {
+
+            //EN LÖSNING
+            //Parameter parameter = new Parameter()
+            //{
+            //    Count = 10,
+            //};
+
+            //var toplist = await GetToplist(parameter);
+            //List<MovieDetailsDTO> movieDetailsDTOs = new List<MovieDetailsDTO>();
+
+            //foreach (var entry in toplist)
+            //{
+            //    MovieDetailsDTO movieDetailsDTO = await GetMovieDetails(entry.ImdbID);
+                
+            //    movieDetailsDTOs.Add(movieDetailsDTO);
+            //}
+
+            //SummaryViewModel summaryViewModel = new SummaryViewModel(movieDetailsDTOs, toplist);
+
+
+            //return summaryViewModel;
+
+
+
+            //TODO: behöver komprimeras
+            Parameter parameter = new Parameter()
+            {
+                Count = 10,
+            };
+
+            var toplist = await GetToplist(parameter);
+            //List<movieSummaryDTOs = new List<MovieSummaryDTO>();
+
+            SummaryViewModel summaryViewModel = new SummaryViewModel();
+
+            foreach (var entry in toplist)
+            {
+                MovieDetailsDTO movieDetailsDTO = await GetMovieDetails(entry.ImdbID);
+                MovieSummaryDTO movieSummaryDTO = new MovieSummaryDTO(entry, movieDetailsDTO);
+                // Bör kunna abstrahera bort och inte använda punktnotation för att komma åt
+                summaryViewModel.movieSummaryDTOs.Add(movieSummaryDTO);
+            }
+
+            return summaryViewModel;
+
+
+
+
+            //TODO
+            /*********
+             *LÖSNING TRE - EJ FÄRDIG
+            * ********/
+
+            //Parameter parameter = new Parameter()
+            //{
+            //    Count = 10,
+            //};
+            //var toplist = await GetToplist(parameter);
+
+            //// FÖRST movies (toplist)
+            //// Sedan MovieSummaryDTO
+
+            //MovieSummaryDTO movieSummaryDTO = new MovieSummaryDTO();
+
+            //List<SummaryViewModel> summaryViewModels = new List<SummaryViewModel>();
+            //foreach (var entry in toplist)
+            //{
+            //    var summary = await GetMovieDetailsGeneric<MovieDetailsDTO>(entry.ImdbID);
+
+            //    movieSummaryDTO.movieDetailsDTOs.Add(summary);
+
+            //}
+            // MovieDetailsDTO
+
+            //List<MovieDetailsDTO> movieDetailsDTOs = new List<MovieDetailsDTO>();
+
+
+
+            //SummaryViewModel summaryViewModel = new SummaryViewModel(movieDetailsDTOs, toplist);
+
+
+
+            //return null;
+
+
+
+
+        }
+
+
+
+
+        public async Task<MovieDetailsDTO> GetSummarySingleMovie(string imdbId)
+        {
+
             var movie = await GetMovieDetails(imdbId);
             var ratings = await GetMovieRatings(imdbId);
 
-            SummaryViewModel summaryViewModel = new SummaryViewModel(movie, ratings);
-            return summaryViewModel;
+            //MovieDetailsDTO
+
+            //SummaryViewModel summaryViewModel = new SummaryViewModel(movie, ratings);
+
+            return null;
         }
 
 
 
 
         // TODO: Förstår inte riktigt hur Erik använder sig av en liknande i HomeController för att komma åt datan
-        public Task<SummaryViewModel> GetSummaryViewModel(string imdb = null)
-        {
-            throw new NotImplementedException();
-        }
+        //public async Task<SummaryViewModel> GetSummaryViewModel(string imdb = null)
+        //{
+        //    // Jag vill returnera en lista som vi använder i index.cshtml - en IEnumerable. Då kan jag göra foreach i toppfilmerna 
+
+
+
+        //    /******************
+        //     * FUNKAR
+        //    //var movie = await GetMovieDetails(imdb);
+        //    //var ratings = await GetMovieRatings(imdb);
+
+        //    //SummaryViewModel summaryViewModel = new SummaryViewModel(movie, ratings);
+
+        //    //return summaryViewModel;
+        //    *******/
+
+
+
+
+
+
+
+
+        //    //var model = await movieRepository.GetSummary("tt3659388");
+
+
+
+        //    //var movies = await movieRepository.GetAllMovieRatings();
+
+
+        //    //Parameter parameter = new Parameter();
+        //    //{
+        //    //    parameter.Count = movies.Count();
+        //    //    //parameter.Count = 3; Bestämmer hur många som ska vara i topplistan
+
+        //    //    //parameter.SortOrder = "Asc"; //Lägst först
+        //    //    parameter.SortOrder = "Desc";//Högst först (defaultvärde)
+
+        //    //    //parameter.Type = "popularity"; // Sorterar enbart efter hur många som har betygsatt filmen, struntar i hur stor skillnaden är mellan likes & dislikes
+        //    //    parameter.Type = "ratings"; // Sorterar efter hur stor skillnaden är mellan likes & dislikes (defaultvärde)
+        //    //}
+        //    //var toplist = await movieRepository.GetToplist(parameter);
+
+
+        //    return null;
+            
+        //}
+
+        
 
 
 

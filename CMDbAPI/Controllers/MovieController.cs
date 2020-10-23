@@ -26,13 +26,13 @@ namespace CMDbAPI.Controllers
         }
 
         [HttpGet("{imdbId}")]
-        // GET: api/Movie/3
+        // GET: api/Movie/
         public async Task<ActionResult<Movie>> MovieRating(string imdbId)
         {
             return await context.GetMovieRatings(imdbId);
         }
 
-        [HttpPost("{imdbId}/like")]
+        [HttpGet("{imdbId}/like")]
         // GET: api/Movie/3/Like
         public async Task<ActionResult<Movie>> LikeMovie(string imdbId)
         {
@@ -42,7 +42,7 @@ namespace CMDbAPI.Controllers
             return await context.Rate(imdbId);
         }
 
-        [HttpPost("{imdbId}/dislike")]
+        [HttpGet("{imdbId}/dislike")]
         // GET: api/Movie/3/Dislike
         public async Task<ActionResult<Movie>> DislikeMovie(string imdbId)
         {

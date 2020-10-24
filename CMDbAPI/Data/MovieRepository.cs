@@ -238,7 +238,7 @@ namespace CMDbAPI
             }
         }
 
-        //TODO: gör funktionen generisk och skicka till en separat folder?
+        //TODO: gör funktionen generisk och skicka till en separat folder? Typ Infrastructure/API - Kolla eriks FL och repo
         // Kanske seprarera i olika mappar på OMDb-anrop och CMDb-anrop?
         public async Task<T> GetMovieDetailsGeneric<T>(string imdbID)
         {

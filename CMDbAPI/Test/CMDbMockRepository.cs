@@ -14,6 +14,7 @@ namespace CMDbAPI.Test
         {
         }
 
+
         public Task<IEnumerable<Movie>> GetAllMovieRatings()
         {
             throw new NotImplementedException();
@@ -49,12 +50,27 @@ namespace CMDbAPI.Test
             throw new NotImplementedException();
         }
 
-        public Task<SummaryViewModel> GetTopList()
+        public Task<IEnumerable<Movie>> GetToplist()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<SummaryViewModel> GetTopListAggregatedData()
         {
             throw new NotImplementedException();
         }
 
         public Task<Movie> Rate(string imdbId, Rating rating = Rating.Like)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<SummaryViewModel> IMovieRepository.GetSummarySingleMovie(string imdbId)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IEnumerable<SummaryViewModel>> IMovieRepository.GetTopListAggregatedData()
         {
             throw new NotImplementedException();
         }

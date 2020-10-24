@@ -20,6 +20,7 @@ namespace CMDbAPI
         /// <param name="imdbId"></param>
         /// <returns></returns>
         Task<Movie> GetMovieRatings(string imdbId);
+
         /// <summary>
         /// Generates a list of movies sorted by input parameter. 
         /// 
@@ -28,7 +29,7 @@ namespace CMDbAPI
         /// <remarks>Default is null</remarks>
         /// <returns></returns>
         Task<IEnumerable<Movie>> GetToplist(Parameter parameter = null);
-        
+
         /// <summary>
         /// Generates a list of all rated movies . 
         /// </summary>
@@ -36,17 +37,20 @@ namespace CMDbAPI
         Task<IEnumerable<Movie>> GetAllMovieRatings();
 
 
+        /// <summary>
+        /// Hämtar detaljer om filmen ifrån OMDb  
+        /// </summary>
+        /// <param name="imdbId"></param>
+        /// <returns></returns>
+        Task<MovieDetailsDTO> GetMovieDetails(string imdbId);
 
-        Task<MovieDetailsDTO> GetMovieDetails(string id);
-
-        Task<MovieDetailsDTO> GetSummarySingleMovie(string imdbId);
-        Task<SummaryViewModel> GetTopList();
-
-
-        //Task<SummaryViewModel> GetSummaryViewModel(string imdb = null);
-        //TODO: ändra tillbka ifall det inte funkar
-        //Task<SummaryViewModel> GetSummaryViewModel(string id);
-
+        /// <summary>
+        /// Hämtar information från både OMDb och CMDb till en summaryViewModel
+        /// </summary>
+        /// <param name="imdbId"></param>
+        /// <returns></returns>
+        Task<SummaryViewModel> GetSummarySingleMovie(string imdbId);
+        Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedData();
 
     }
 }

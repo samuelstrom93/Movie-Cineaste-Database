@@ -22,24 +22,10 @@ namespace CMDbAPI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //var model = await movieRepository.GetSummarySingleMovie("tt3659388");
-
-            var toplist = await movieRepository.GetTopList();
-
-
+            var toplist = await movieRepository.GetTopListAggregatedData();
+            
             return View(toplist);
         }
 
-        
-
-        //public async Task<IActionResult> Summary()
-        //{
-        //    //TODO: Fixa så att man kan skicka in både summary och country
-        //    var summary = await movieRepository.GetSummary();
-        //    // var model = new SummaryViewModel(summary);
-
-
-        //    return View(summary);
-        //}
     }
 }

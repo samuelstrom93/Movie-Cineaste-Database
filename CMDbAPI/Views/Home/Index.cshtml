@@ -2,8 +2,7 @@
 
 }
 
-@model CMDbAPI.ViewModel.SummaryViewModel
-
+@model IEnumerable<CMDbAPI.ViewModel.SummaryViewModel>
 
 
     <main>
@@ -13,10 +12,16 @@
         <img src="~/img/poster-apocalypsenow.jpg" alt="Vald film" id="top-movie">
 
 
-        @foreach (var entry in Model.movieSummaryDTOs)
+
+
+        @foreach (var movie in Model)
         {
-            <p>@entry.Title</p>
+            <p>@movie.Title - @movie.NumberOfLikes - @movie.NumberOfDislikes</p>
+
         }
+
+
+
 
 
         @*<p>@Html.DisplayFor(model => model)</p>*@
@@ -31,9 +36,7 @@
 
         <img src="@Html.DisplayFor(model => model.Poster)" alt="Poster"/>*@
 
-        @{
-            //TODO: Fixa poster mm
-        }
+        
 
 
 

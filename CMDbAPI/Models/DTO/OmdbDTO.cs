@@ -21,7 +21,7 @@ namespace CMDbAPI.Models.DTO
         public string Actors { get; set; }
         //[DefaultValue("/img/NoPosterAvaible.png")]
         public string Poster { get; set; }
-        //public Dictionary<Source, Value> ratings = new Dictionary<Source, Value>();
+        public string Plot { get; set; }
 
         //public string Ratings { get; set; }
         public List<Ratings> Ratings { get; set; }

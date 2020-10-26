@@ -75,6 +75,9 @@ header figcaption {
 
 /* SECTION */
 
+
+/************* TOPPFILMER ***********/
+
 main h1 {
     text-align: center;
     font-size: 3em;
@@ -85,50 +88,61 @@ main h1 {
     text-align: center;
 }
 
+.top-list-container {
+    border: 1px solid black;
+    text-align: center;
+}
 
-#top-movie {
-    align-content: center;
-    width: 20%;
-    height: 400px;
+.top-list-container p {
+    font: bold large Georgia;
+}
+
+.top-movie {
     display: block;
+    margin: auto;
+}
+
+.rankings-flexbox {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    /* justify-content: space-around; */
+}
+
+.ratings-container {
+    width: 75%;
     margin: auto;
 }
 
 .ratings-flexbox {
     display: flex;
-    /* justify-content: space-around; */
-    justify-content: center;
+    justify-content: space-evenly;
     margin: 2% 0%;
 }
 
-    .ratings-flexbox div {
-        margin: 0% 5%;
-    }
+/*img {
+    max-width: 220px;
+    max-height: 150px;
+}*/
 
-.rankings-figure {
+/*.rankings-figure {
+    border: thin #c0c0c0 solid;
     display: flex;
-    justify-content: space-evenly;
-    flex-direction:row;
-    flex-wrap:wrap;
-    /* justify-content: space-around; */
-}
+    flex-flow: column;
+    padding: 5px;
+    max-width: 220px;
+    margin: auto;
+}*/
 
-    .rankings-flexbox img {
-        width: 200px;
-        height: 250px;
-    }
-
-main figcaption {
-    font-weight: bold;
+.rankings-figure figcaption {
+    background-color: #222;
+    color: #fff;
+    font: italic smaller sans-serif;
     padding: 3px;
     text-align: center;
 }
-
-.rankings-flexbox p {
-    text-align: center;
-    display: block;
-}
-
 
 
 /*FOOTER*/
@@ -176,9 +190,9 @@ main figcaption {
     float: right;
 }
 
-img {
+/*img {
     max-height: 250px;
-}
+}*/
 
 .clear {
     clear: both;

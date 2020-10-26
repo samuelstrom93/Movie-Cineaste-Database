@@ -5,92 +5,65 @@
 @model IEnumerable<CMDbAPI.ViewModel.SummaryViewModel>
 
 
-<main>
-    <h1>Toppfilmer</h1>
-    <p>Test</p>
-    <p>Test2</p>
-    <img src="~/img/poster-apocalypsenow.jpg" alt="Vald film" id="top-movie">
-
-
-    <div class="rankings-flexbox">
-
-        @foreach (var movie in Model)
-
-        {
-
-            @*<p>@movie.Title</p>
-                <img src="@movie.Poster" />
-                <p> @movie.NumberOfLikes - @movie.NumberOfDislikes</p>*@
+    <main>
+        <h1>Toppfilmer</h1>
+        <p>Test</p>
+        <p>Test2</p>
 
 
 
-            <figure class="rankings-figure">
-                <a href="#"><img src="@movie.Poster" alt=""></a>
-                <figcaption>@movie.Title</figcaption>
-                <p> @movie.NumberOfLikes - @movie.NumberOfDislikes</p>
-            </figure>
+        @*<img src="~/img/poster-apocalypsenow.jpg" alt="Vald film" id="top-movie">*@
 
+        <div class="top-list-container">
+            @for (int i = 0; i < 1; i++)
+            {
+                <img src="@Model.FirstOrDefault().Poster" alt="Toppfilm" class="top-movie">
+                <h2> Likes - Dislikes </h2>
+                <p> @Model.FirstOrDefault().NumberOfLikes - @Model.FirstOrDefault().NumberOfDislikes </p>
 
-        }
-    </div>
+                <h2>Ratings</h2>
 
+                <div class="ratings-container">
+                    <div class="ratings-flexbox">
+                        @foreach (var ratings in Model.FirstOrDefault().Ratings)
+                        {
+                            <div>
+                                <p>@ratings.Source</p>
+                                <p>@ratings.Value</p>
+                            </div>
+                        }
+                    </div>
+                </div>
 
-
-
-
-    @*<p>@Html.DisplayFor(model => model)</p>*@
-
-    @*<p>@Html.DisplayFor(model => model.Title)</p>
-        <p>@Html.DisplayFor(model => model.ImdbID)</p>
-        <p>@Html.DisplayFor(model => model.Genre)</p>
-        <h3>Antal likes nedan:</h3>
-        <p>@Html.DisplayFor(model => model.NumberOfLikes)</p>
-        <h3>antal dislikes nedan:</h3>
-        <p>@Html.DisplayFor(model => model.NumberOfDislikes)</p>
-
-        <img src="@Html.DisplayFor(model => model.Poster)" alt="Poster"/>*@
-
-
-
-
-
-    <h2 class="headline">Ratings</h2>
-    <div class="ratings-flexbox">
-        <div class="rotten-tomatoes">
-            <strong>Rotten Tomatoes</strong>
-            <p>Procentvärden för filmen</p>
+            }
         </div>
-        <div class="metascore">
-            <strong>Metascore</strong>
-            <p>Procentvärden för filmen</p>
-        </div>
-        <div class="imdb">
-            <strong>Imdb</strong>
-            <p>Värden för filmen</p>
-        </div>
-    </div>
 
-    <h2 class="headline">Topplistan</h2>
-    <div class="rankings-flexbox">
-        <figure class="rankings-figure">
-            <a href="#"><img src="~/img/part1.jpg" alt=""></a>
-            <figcaption>Film ett</figcaption>
-            <p>Betyg osv</p>
-        </figure>
-        <figure class="rankings-figure">
-            <a href="#"><img src="~/img/part2.jpg" alt=""></a>
-            <figcaption>Film två</figcaption>
-            <p>Betyg osv</p>
-        </figure>
-        <figure class="rankings-figure">
-            <a href="#"><img src="~/img/part3.jpg" alt=""></a>
-            <figcaption>Film tre </figcaption>
-            <p>Betyg osv</p>
-        </figure>
-        <figure class="rankings-figure">
-            <a href="#"><img src="~/img/part3.jpg" alt=""></a>
-            <figcaption>Film fyra </figcaption>
-            <p>Betyg osv</p>
-        </figure>
-    </div>
-</main>
+        
+
+
+
+
+
+
+        <div class="rankings-flexbox">
+
+            @foreach (var movie in Model)
+            {
+                <figure class="rankings-figure">
+                    @*<a href="">*@
+                    <img src="@movie.Poster" alt="">
+                    @*</a>*@
+                    <figcaption>@movie.Title</figcaption>
+                    <h3>Likes - Dislikes</h3>
+                    <p> @movie.NumberOfLikes - @movie.NumberOfDislikes</p>
+                </figure>
+
+
+            }
+        </div>
+
+
+
+
+
+    </main>

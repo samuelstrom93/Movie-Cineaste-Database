@@ -1,4 +1,5 @@
-﻿using CMDbAPI.Models.DTO;
+﻿using CMDbAPI.Models;
+using CMDbAPI.Models.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,12 @@ namespace CMDbAPI.ViewModel
         public string Genre { get; set; }
 
         public string Actors { get; set; }
+
+
+        // TODO: skapa en dataannotation för att visa ett default ifall den är null/tom [displayname]
         public string Poster { get; set; }
+
+        public List<Ratings> Ratings { get; set; } = new List<Ratings>();
 
 
         // CMDbApi
@@ -41,6 +47,11 @@ namespace CMDbAPI.ViewModel
             this.Genre = movieDetailsDTO.Genre;
             this.Actors = movieDetailsDTO.Actors;
             this.Poster = movieDetailsDTO.Poster;
+
+            foreach (var ratings in movieDetailsDTO.Ratings)
+            {
+                Ratings.Add(ratings);
+            }
 
             this.NumberOfLikes = movie.NumberOfLikes;
             this.NumberOfDislikes = movie.NumberOfDislikes;

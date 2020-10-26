@@ -1,4 +1,6 @@
-﻿using System;
+using CMDbAPI.Models.DTO;
+using CMDbAPI.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CMDbAPI.Models.DTO;
@@ -20,7 +22,11 @@ namespace CMDbAPI.Test
             throw new NotImplementedException();
         }
 
+<<<<<<< HEAD
         public Task<OmdbDTO> GetMovieDetails(string id)
+=======
+        public Task<MovieDetailsDTO> GetMovieDetails(string id)
+>>>>>>> 028ac1b... implementerade alla metoder av IMovieRepository i CMDMockRepository.
         {
             throw new NotImplementedException();
         }
@@ -35,11 +41,14 @@ namespace CMDbAPI.Test
             throw new NotImplementedException();
         }
 
+<<<<<<< HEAD
         public Task<OmdbDTO> GetSummarySingleMovie(string imdbId)
         {
             throw new NotImplementedException();
         }
 
+=======
+>>>>>>> 028ac1b... implementerade alla metoder av IMovieRepository i CMDMockRepository.
         public Task<SummaryViewModel> GetSummaryViewModel(string id)
         {
             throw new NotImplementedException();

@@ -51,6 +51,8 @@ namespace CMDbAPI
         /// <returns></returns>
         Task<SummaryViewModel> GetSummarySingleMovie(string imdbId);
         Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedData();
+        Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedData(Parameter parameter);
+        // Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedData(int count=5, string sortorder="asc", string type="ratings");
 
     }
 }

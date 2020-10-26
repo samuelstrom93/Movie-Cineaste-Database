@@ -271,6 +271,13 @@ namespace CMDbAPI
                 SortOrder = "desc",
                 Type = "popularity"
             };
+
+            //Parameter parameter = new Parameter()
+            //{
+            //    Count = count,
+            //    SortOrder = sortOrder,
+            //    Type = type
+            //};
             var toplist = await GetToplist(parameter);
 
 
@@ -285,6 +292,29 @@ namespace CMDbAPI
 
 
             //var toplist = await GetToplist();
+
+            List<SummaryViewModel> summaryViewModels = new List<SummaryViewModel>();
+
+            foreach (var movie in toplist)
+            {
+                OmdbDTO omdbDTO = await GetMovieDetails(movie.ImdbID);
+                SummaryViewModel summaryViewModel = new SummaryViewModel(omdbDTO, movie); //movie och moviedetailsDTO som parametrar
+                summaryViewModels.Add(summaryViewModel);
+            }
+            return summaryViewModels;
+        }
+
+
+        //TODO: Fixa så att man kan skicka in parametrar för att styra hur du hämtar topplistna. Om T.ex. det ska vara en särskild count, type(rating eller popularity),
+        // sort (ascending eller descinding). Om fältet lämnas tomt så hämtar den hela topplistan
+        /// <summary>
+        /// Kunna skicka in parametrar och styra vilken data som du vill använda 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedData(Parameter parameter=null)
+        {            
+            var toplist = await GetToplist(parameter);
+
 
             List<SummaryViewModel> summaryViewModels = new List<SummaryViewModel>();
 

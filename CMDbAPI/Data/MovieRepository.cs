@@ -221,7 +221,7 @@ namespace CMDbAPI
         #region Movie Details   
 
         // Egen metod som hämtar en film från OMDbApi - Körs EJ automatiskt för tillfället
-        public async Task<MovieDetailsDTO> GetMovieDetails(string imdbId)
+        public async Task<OmdbDTO> GetMovieDetails(string imdbId)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -233,7 +233,7 @@ namespace CMDbAPI
                 //TODO: Gör det här till en try/catch för att fånga exceptions
                 respons.EnsureSuccessStatusCode();
                 var data = await respons.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<MovieDetailsDTO>(data);
+                var result = JsonConvert.DeserializeObject<OmdbDTO>(data);
                 return result;
             }
         }
@@ -285,12 +285,13 @@ namespace CMDbAPI
 
 
             //var toplist = await GetToplist();
+
             List<SummaryViewModel> summaryViewModels = new List<SummaryViewModel>();
 
-            foreach (var entry in toplist)
+            foreach (var movie in toplist)
             {
-                MovieDetailsDTO movieDetailsDTO = await GetMovieDetails(entry.ImdbID);
-                SummaryViewModel summaryViewModel = new SummaryViewModel(movieDetailsDTO, entry); //movie och moviedetailsDTO som parametrar
+                OmdbDTO omdbDTO = await GetMovieDetails(movie.ImdbID);
+                SummaryViewModel summaryViewModel = new SummaryViewModel(omdbDTO, movie); //movie och moviedetailsDTO som parametrar
                 summaryViewModels.Add(summaryViewModel);
             }
             return summaryViewModels;

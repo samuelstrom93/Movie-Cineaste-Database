@@ -33,7 +33,7 @@ namespace CMDbAPI.ViewModel
 
 
 
-        public SummaryViewModel(MovieDetailsDTO movieDetailsDTO, Movie movie)
+        public SummaryViewModel(OmdbDTO movieDetailsDTO, Movie movie)
         {
             this.Title = movieDetailsDTO.Title;
             this.Year = movieDetailsDTO.Year;

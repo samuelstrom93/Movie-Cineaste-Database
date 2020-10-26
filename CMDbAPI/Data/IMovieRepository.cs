@@ -42,7 +42,7 @@ namespace CMDbAPI
         /// </summary>
         /// <param name="imdbId"></param>
         /// <returns></returns>
-        Task<MovieDetailsDTO> GetMovieDetails(string imdbId);
+        Task<OmdbDTO> GetMovieDetails(string imdbId);
 
         /// <summary>
         /// Hämtar information från både OMDb och CMDb till en summaryViewModel

@@ -20,7 +20,7 @@ namespace CMDbAPI.Test
             throw new NotImplementedException();
         }
 
-        public Task<MovieDetailsDTO> GetMovieDetails(string id)
+        public Task<OmdbDTO> GetMovieDetails(string id)
         {
             throw new NotImplementedException();
         }
@@ -35,7 +35,7 @@ namespace CMDbAPI.Test
             throw new NotImplementedException();
         }
 
-        public Task<MovieDetailsDTO> GetSummarySingleMovie(string imdbId)
+        public Task<OmdbDTO> GetSummarySingleMovie(string imdbId)
         {
             throw new NotImplementedException();
         }

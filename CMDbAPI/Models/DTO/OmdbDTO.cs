@@ -5,8 +5,11 @@ using System.Threading.Tasks;
 
 namespace CMDbAPI.Models.DTO
 {
-    public class MovieDetailsDTO
+    public class OmdbDTO
     {
+
+
+        //TODO: Döp om till OMDbMovie?
         public string Title { get; set; }
 
         // Gjorde om till string

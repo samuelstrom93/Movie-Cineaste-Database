@@ -6,15 +6,10 @@
 
 
     <main>
-        <h1>Toppfilmer</h1>
-        <p>Test</p>
-        <p>Test2</p>
+        <h1>Toppfilm</h1>
 
-
-
-        @*<img src="~/img/poster-apocalypsenow.jpg" alt="Vald film" id="top-movie">*@
-
-        <div class="top-list-container">
+        
+        <div class="top-movie-container">
             @for (int i = 0; i < 1; i++)
             {
                 <img src="@Model.FirstOrDefault().Poster" alt="Toppfilm" class="top-movie">
@@ -28,18 +23,14 @@
                         @foreach (var ratings in Model.FirstOrDefault().Ratings)
                         {
                             <div>
-                                <p>@ratings.Source</p>
+                                <h3>@ratings.Source</h3>
                                 <p>@ratings.Value</p>
                             </div>
                         }
                     </div>
                 </div>
-
             }
         </div>
-
-        
-
 
 
 
@@ -50,9 +41,9 @@
             @foreach (var movie in Model)
             {
                 <figure class="rankings-figure">
-                    @*<a href="">*@
-                    <img src="@movie.Poster" alt="">
-                    @*</a>*@
+                    <a href="@Url.Action("Index", "MovieDetails", new { imdbID = movie.ImdbID })">
+                        <img src="@movie.Poster" alt="">
+                    </a>
                     <figcaption>@movie.Title</figcaption>
                     <h3>Likes - Dislikes</h3>
                     <p> @movie.NumberOfLikes - @movie.NumberOfDislikes</p>
@@ -61,8 +52,6 @@
 
             }
         </div>
-
-
 
 
 

@@ -19,7 +19,7 @@ namespace CMDbAPI.Models.DTO
         public string Genre { get; set; }
         public string Actors { get; set; }
         public string Poster { get; set; }
-        //public Dictionary<Source, Value> ratings = new Dictionary<Source, Value>();
+        public string Plot { get; set; }
 
         //public string Ratings { get; set; }
         public List<Ratings> Ratings { get; set; }

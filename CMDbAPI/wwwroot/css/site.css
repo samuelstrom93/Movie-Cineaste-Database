@@ -105,9 +105,11 @@ main h1 {
         margin: 0% 5%;
     }
 
-.rankings-flexbox {
+.rankings-figure {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+    flex-direction:row;
+    flex-wrap:wrap;
     /* justify-content: space-around; */
 }
 

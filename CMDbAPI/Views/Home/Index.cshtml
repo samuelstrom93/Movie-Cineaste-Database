@@ -5,27 +5,42 @@
 @model IEnumerable<CMDbAPI.ViewModel.SummaryViewModel>
 
 
-    <main>
-        <h1>Toppfilmer</h1>
-        <p>Test</p>
-        <p>Test2</p>
-        <img src="~/img/poster-apocalypsenow.jpg" alt="Vald film" id="top-movie">
+<main>
+    <h1>Toppfilmer</h1>
+    <p>Test</p>
+    <p>Test2</p>
+    <img src="~/img/poster-apocalypsenow.jpg" alt="Vald film" id="top-movie">
 
 
-
+    <div class="rankings-flexbox">
 
         @foreach (var movie in Model)
+
         {
-            <p>@movie.Title - @movie.NumberOfLikes - @movie.NumberOfDislikes</p>
+
+            @*<p>@movie.Title</p>
+                <img src="@movie.Poster" />
+                <p> @movie.NumberOfLikes - @movie.NumberOfDislikes</p>*@
+
+
+
+            <figure class="rankings-figure">
+                <a href="#"><img src="@movie.Poster" alt=""></a>
+                <figcaption>@movie.Title</figcaption>
+                <p> @movie.NumberOfLikes - @movie.NumberOfDislikes</p>
+            </figure>
+
+
         }
+    </div>
 
 
 
 
 
-        @*<p>@Html.DisplayFor(model => model)</p>*@
+    @*<p>@Html.DisplayFor(model => model)</p>*@
 
-        @*<p>@Html.DisplayFor(model => model.Title)</p>
+    @*<p>@Html.DisplayFor(model => model.Title)</p>
         <p>@Html.DisplayFor(model => model.ImdbID)</p>
         <p>@Html.DisplayFor(model => model.Genre)</p>
         <h3>Antal likes nedan:</h3>
@@ -35,47 +50,47 @@
 
         <img src="@Html.DisplayFor(model => model.Poster)" alt="Poster"/>*@
 
-        
 
 
 
-        <h2 class="headline">Ratings</h2>
-        <div class="ratings-flexbox">
-            <div class="rotten-tomatoes">
-                <strong>Rotten Tomatoes</strong>
-                <p>Procentvärden för filmen</p>
-            </div>
-            <div class="metascore">
-                <strong>Metascore</strong>
-                <p>Procentvärden för filmen</p>
-            </div>
-            <div class="imdb">
-                <strong>Imdb</strong>
-                <p>Värden för filmen</p>
-            </div>
+
+    <h2 class="headline">Ratings</h2>
+    <div class="ratings-flexbox">
+        <div class="rotten-tomatoes">
+            <strong>Rotten Tomatoes</strong>
+            <p>Procentvärden för filmen</p>
         </div>
-
-        <h2 class="headline">Topplistan</h2>
-        <div class="rankings-flexbox">
-            <figure class="rankings-figure">
-                <a href="#"><img src="~/img/part1.jpg" alt=""></a>
-                <figcaption>Film ett</figcaption>
-                <p>Betyg osv</p>
-            </figure>
-            <figure class="rankings-figure">
-                <a href="#"><img src="~/img/part2.jpg" alt=""></a>
-                <figcaption>Film två</figcaption>
-                <p>Betyg osv</p>
-            </figure>
-            <figure class="rankings-figure">
-                <a href="#"><img src="~/img/part3.jpg" alt=""></a>
-                <figcaption>Film tre </figcaption>
-                <p>Betyg osv</p>
-            </figure>
-            <figure class="rankings-figure">
-                <a href="#"><img src="~/img/part3.jpg" alt=""></a>
-                <figcaption>Film fyra </figcaption>
-                <p>Betyg osv</p>
-            </figure>
+        <div class="metascore">
+            <strong>Metascore</strong>
+            <p>Procentvärden för filmen</p>
         </div>
-    </main>
+        <div class="imdb">
+            <strong>Imdb</strong>
+            <p>Värden för filmen</p>
+        </div>
+    </div>
+
+    <h2 class="headline">Topplistan</h2>
+    <div class="rankings-flexbox">
+        <figure class="rankings-figure">
+            <a href="#"><img src="~/img/part1.jpg" alt=""></a>
+            <figcaption>Film ett</figcaption>
+            <p>Betyg osv</p>
+        </figure>
+        <figure class="rankings-figure">
+            <a href="#"><img src="~/img/part2.jpg" alt=""></a>
+            <figcaption>Film två</figcaption>
+            <p>Betyg osv</p>
+        </figure>
+        <figure class="rankings-figure">
+            <a href="#"><img src="~/img/part3.jpg" alt=""></a>
+            <figcaption>Film tre </figcaption>
+            <p>Betyg osv</p>
+        </figure>
+        <figure class="rankings-figure">
+            <a href="#"><img src="~/img/part3.jpg" alt=""></a>
+            <figcaption>Film fyra </figcaption>
+            <p>Betyg osv</p>
+        </figure>
+    </div>
+</main>

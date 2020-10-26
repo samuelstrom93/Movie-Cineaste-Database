@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using CMDbAPI.Models.DTO;
+using CMDbAPI.ViewModel;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CMDbAPI
@@ -18,6 +20,7 @@ namespace CMDbAPI
         /// <param name="imdbId"></param>
         /// <returns></returns>
         Task<Movie> GetMovieRatings(string imdbId);
+
         /// <summary>
         /// Generates a list of movies sorted by input parameter. 
         /// 
@@ -26,11 +29,28 @@ namespace CMDbAPI
         /// <remarks>Default is null</remarks>
         /// <returns></returns>
         Task<IEnumerable<Movie>> GetToplist(Parameter parameter = null);
-        
+
         /// <summary>
         /// Generates a list of all rated movies . 
         /// </summary>
         /// <remarks>This operation will take time if there are many movies in the datatabase</remarks>
         Task<IEnumerable<Movie>> GetAllMovieRatings();
+
+
+        /// <summary>
+        /// Hämtar detaljer om filmen ifrån OMDb  
+        /// </summary>
+        /// <param name="imdbId"></param>
+        /// <returns></returns>
+        Task<OmdbDTO> GetMovieDetails(string imdbId);
+
+        /// <summary>
+        /// Hämtar information från både OMDb och CMDb till en summaryViewModel
+        /// </summary>
+        /// <param name="imdbId"></param>
+        /// <returns></returns>
+        Task<SummaryViewModel> GetSummarySingleMovie(string imdbId);
+        Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedData();
+
     }
 }

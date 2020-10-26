@@ -2,12 +2,42 @@
 
 }
 
+@model IEnumerable<CMDbAPI.ViewModel.SummaryViewModel>
+
 
     <main>
         <h1>Toppfilmer</h1>
         <p>Test</p>
         <p>Test2</p>
         <img src="~/img/poster-apocalypsenow.jpg" alt="Vald film" id="top-movie">
+
+
+
+
+        @foreach (var movie in Model)
+        {
+            <p>@movie.Title - @movie.NumberOfLikes - @movie.NumberOfDislikes</p>
+        }
+
+
+
+
+
+        @*<p>@Html.DisplayFor(model => model)</p>*@
+
+        @*<p>@Html.DisplayFor(model => model.Title)</p>
+        <p>@Html.DisplayFor(model => model.ImdbID)</p>
+        <p>@Html.DisplayFor(model => model.Genre)</p>
+        <h3>Antal likes nedan:</h3>
+        <p>@Html.DisplayFor(model => model.NumberOfLikes)</p>
+        <h3>antal dislikes nedan:</h3>
+        <p>@Html.DisplayFor(model => model.NumberOfDislikes)</p>
+
+        <img src="@Html.DisplayFor(model => model.Poster)" alt="Poster"/>*@
+
+        
+
+
 
         <h2 class="headline">Ratings</h2>
         <div class="ratings-flexbox">

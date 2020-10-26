@@ -238,6 +238,7 @@ namespace CMDbAPI
             }
         }
 
+
         //TODO: gör funktionen generisk och skicka till en separat folder? Typ Infrastructure/API - Kolla eriks FL och repo
         // Kanske seprarera i olika mappar på OMDb-anrop och CMDb-anrop?
         public async Task<T> GetMovieDetailsGeneric<T>(string imdbID)
@@ -264,27 +265,9 @@ namespace CMDbAPI
         /// <returns></returns>
         public async Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedData()
         {
-
-            Parameter parameter = new Parameter()
-            {
-                Count = 10,
-                SortOrder = "desc",
-                Type = "popularity"
-            };
+            Parameter parameter = new Parameter();
+            
             var toplist = await GetToplist(parameter);
-
-
-            //    //    parameter.Count = movies.Count();
-            //    //    //parameter.Count = 3; Bestämmer hur många som ska vara i topplistan
-
-            //    //    //parameter.SortOrder = "Asc"; //Lägst först
-            //    //    parameter.SortOrder = "Desc";//Högst först (defaultvärde)
-
-            //    //    //parameter.Type = "popularity"; // Sorterar enbart efter hur många som har betygsatt filmen, struntar i hur stor skillnaden är mellan likes & dislikes
-            //    //    parameter.Type = "ratings"; // Sorterar efter hur stor skillnaden är mellan likes & dislikes (defaultvärde)
-
-
-            //var toplist = await GetToplist();
 
             List<SummaryViewModel> summaryViewModels = new List<SummaryViewModel>();
 
@@ -296,7 +279,6 @@ namespace CMDbAPI
             }
             return summaryViewModels;
         }
-
 
 
         public async Task<SummaryViewModel> GetSummarySingleMovie(string imdbId)

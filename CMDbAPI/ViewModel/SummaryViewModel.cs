@@ -22,6 +22,7 @@ namespace CMDbAPI.ViewModel
         // TODO: skapa en dataannotation för att visa ett default ifall den är null/tom [displayname]
         public string Poster { get; set; }
         public string Plot { get; set; }
+        public string Director { get; set; }
 
         public List<Ratings> Ratings { get; set; } = new List<Ratings>();
 
@@ -40,11 +41,6 @@ namespace CMDbAPI.ViewModel
 
 
 
-        //private IMovieRepository movieRepository;
-        //public async Task SummaryViewModel(string imdbID)
-        //{
-        //    SummaryViewModel summaryViewModel = await movieRepository.GetSummarySingleMovie(imdbID);
-        //}
 
         public SummaryViewModel(OmdbDTO movieDetailsDTO, Movie movie)
         {
@@ -55,6 +51,7 @@ namespace CMDbAPI.ViewModel
             this.Actors = movieDetailsDTO.Actors;
             this.Poster = movieDetailsDTO.Poster;
             this.Plot = movieDetailsDTO.Plot;
+            this.Director = movieDetailsDTO.Director;
 
             foreach (var ratings in movieDetailsDTO.Ratings)
             {

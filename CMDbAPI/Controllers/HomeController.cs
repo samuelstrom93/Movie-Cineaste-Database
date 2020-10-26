@@ -31,7 +31,7 @@ namespace CMDbAPI.Controllers
             {
                 if (string.IsNullOrEmpty(movie.Poster))
                 {
-                    movie.Poster = "~/ img /NoPosterAvaible.png";
+                    movie.Poster = "/img/NoPosterAvaible.png";
                 }
             }
 

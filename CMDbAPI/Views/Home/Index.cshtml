@@ -7,10 +7,15 @@
     <h1>Toppfilmer</h1>
 
 
+    <main>
+        <h1>@Model.FirstOrDefault().Title</h1>
+
+
+
 
     //TODO:Ändra så att man hämtar det exakta värdet på antalet filmer i databasen, vid val av "alla filmer""
 
-<<<<<<< HEAD
+
     <form asp-action="Search" asp-controller="Home" method="get">
         <label for="sortType">Sortera efter:</label>
         <select name="type"  id="sel">
@@ -32,25 +37,8 @@
 
     </form>
 
-
    
 
-=======
-    <main>
-        <h1>Toppfilm</h1>
-
-        
-        <div class="top-movie-container">
-            @for (int i = 0; i < 1; i++)
-            {
-                <img src="@Model.FirstOrDefault().Poster" alt="Toppfilm" class="top-movie">
-                <h2> Likes - Dislikes </h2>
-                <p> @Model.FirstOrDefault().NumberOfLikes - @Model.FirstOrDefault().NumberOfDislikes </p>
->>>>>>> 648e422... Bundit ihop en knapp så att man kan ogilla en film. Dock laddas sidan om vilket inte stämmer överens med kravet. Börjat koppla ihop Home-sidan med MovieDetails och lagt till css/element på båda sidorna.
-
-    @*<img src="~/img/poster-apocalypsenow.jpg" alt="Vald film" id="top-movie">*@
-
-<<<<<<< HEAD
     <div class="top-list-container">
         @for (int i = 0; i < 1; i++)
         {
@@ -76,9 +64,6 @@
     </div>
 
 
-
-
-=======
                 <div class="ratings-container">
                     <div class="ratings-flexbox">
                         @foreach (var ratings in Model.FirstOrDefault().Ratings)
@@ -93,14 +78,9 @@
             }
         </div>
 
->>>>>>> 648e422... Bundit ihop en knapp så att man kan ogilla en film. Dock laddas sidan om vilket inte stämmer överens med kravet. Börjat koppla ihop Home-sidan med MovieDetails och lagt till css/element på båda sidorna.
-
-
 
 
     <div class="rankings-flexbox">
-
-<<<<<<< HEAD
         @foreach (var movie in Model)
         {
             <figure class="rankings-figure">
@@ -111,29 +91,8 @@
                 <h3>Likes - Dislikes</h3>
                 <p> @movie.NumberOfLikes - @movie.NumberOfDislikes</p>
             </figure>
-=======
-            @foreach (var movie in Model)
-            {
-                <figure class="rankings-figure">
-                    <a href="@Url.Action("Index", "MovieDetails", new { imdbID = movie.ImdbID })">
-                        <img src="@movie.Poster" alt="">
-                    </a>
-                    <figcaption>@movie.Title</figcaption>
-                    <h3>Likes - Dislikes</h3>
-                    <p> @movie.NumberOfLikes - @movie.NumberOfDislikes</p>
-                </figure>
->>>>>>> 648e422... Bundit ihop en knapp så att man kan ogilla en film. Dock laddas sidan om vilket inte stämmer överens med kravet. Börjat koppla ihop Home-sidan med MovieDetails och lagt till css/element på båda sidorna.
 
 
         }
     </div>
-
-
-
-<<<<<<< HEAD
-
-
 </main>
-=======
-    </main>
->>>>>>> 648e422... Bundit ihop en knapp så att man kan ogilla en film. Dock laddas sidan om vilket inte stämmer överens med kravet. Börjat koppla ihop Home-sidan med MovieDetails och lagt till css/element på båda sidorna.

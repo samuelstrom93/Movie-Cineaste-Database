@@ -2,7 +2,7 @@
     background-color: #eee;
 }
 
-/* HEADER  */
+/*--------------------HEADER-------------  */
 
 header {
     min-height: 10vh;
@@ -23,6 +23,7 @@ a:hover {
 
 .header-flex {
     display: flex;
+    justify-content: space-evenly;
 }
 
 .movieSearch {
@@ -74,18 +75,14 @@ header figcaption {
 }
 
 
-/* SECTION */
 
-
-/************* TOPPFILMER ***********/
-
+/*-----------------TOPPFILMER------------  */
 h1 {
     text-align: center;
     font-size: 3em;
 }
 
 .top-movie-container {
-/*    border: 1px solid black;*/
     text-align: center;
     border-bottom: medium solid black;
     margin: 2% 0%;
@@ -106,7 +103,6 @@ h1 {
     flex-direction: row;
     flex-wrap: wrap;
     text-align: center;
-    /* justify-content: space-around; */
 }
 
 .ratings-container {
@@ -138,11 +134,98 @@ figcaption {
 
 
 
-/*FOOTER*/
 
+
+/* ----------------MovieDetails---------------------*/
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.flexbox-column {
+/*    border: 1px solid black;*/
+    width: 30%;
+    margin: 3% 10%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.flexbox-column-movie {
+/*    border: 1px solid black;*/
+/*    width: 30%;*/
+    margin: 3% 10%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.flexbox-row {
+    display: flex;
+    justify-content: center;
+}
+
+.flexbox-row p{
+    margin: 5% 5%;
+}
+
+.center {
+    margin: 2% 0%;
+    font-size: 2em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#plot {
+    font: italic medium Georgia;
+}
+
+#normal {
+    font: bold medium Georgia;
+}
+
+#normal-label {
+    font: larger Arial;
+}
+
+
+.bigger {
+    font: bold x-large Georgia;
+}
+
+.read-more {
+    margin: 0% auto;
+    height: 1.5em;
+    line-height: 1.5em;
+    background-color: black;
+    color: white;
+    width: 8vh;
+    text-decoration: none;
+}
+
+
+
+.wrapper-like {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#rating-icon {
+    width: 200px;
+}
+
+#rating-icon:hover {
+    background-color: #eee;
+    background-image: url("https://www.freeiconspng.com/uploads/dislike-button-png-1.png");
+}
+
+
+
+/* ----------------FOOTER---------------------*/
 .site-footer {
     height: 150px;
-    width: 100%;
     padding: 1%;
     background: #ba2d2d;
     color: white;
@@ -156,39 +239,3 @@ figcaption {
     font-size: 20px;
     font-weight: bold;
 }
-
-
-
-
-
-
-/* ----------------MovieDetails---------------------*/
-/*.page-container {
-    position: relative;
-    height: 100%;
-    width: 100%;
-    margin-left: 15%;
-    margin-right: 15%;
-}
-
-
-#detailPage-column_facts {
-    width: 34%;
-    float: left;
-}
-
-#detailPage-column_image {
-    width: 34%;
-    float: left;
-}*/
-
-/* Har denna bara för att kunna visualisera slutresultatet, denna kommer inte att användas */
-/*#detailPage-column_mentimeter {
-    width: 29%;
-    float: right;
-}
-
-
-.clear {
-    clear: both;
-}*/

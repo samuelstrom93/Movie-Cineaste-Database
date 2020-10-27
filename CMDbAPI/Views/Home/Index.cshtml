@@ -1,24 +1,19 @@
 
 
 @model IEnumerable<CMDbAPI.ViewModel.SummaryViewModel>
- 
 
 <main>
-    <h1>Toppfilmer</h1>
-
-
-    <main>
-        <h1>@Model.FirstOrDefault().Title</h1>
+    <h1>@Model.FirstOrDefault().Title</h1>
 
 
 
 
-    //TODO:Ändra så att man hämtar det exakta värdet på antalet filmer i databasen, vid val av "alla filmer""
+    @*//TODO:Ändra så att man hämtar det exakta värdet på antalet filmer i databasen, vid val av "alla filmer""*@
 
 
     <form asp-action="Search" asp-controller="Home" method="get">
         <label for="sortType">Sortera efter:</label>
-        <select name="type"  id="sel">
+        <select name="type" id="sel">
             <option value="rating">Skillnad Like/Dislike</option>
             <option value="popularity">Antal betyg</option>
         </select>
@@ -37,9 +32,9 @@
 
     </form>
 
-   
 
-    <div class="top-list-container">
+
+    <div class="top-movie-container">
         @for (int i = 0; i < 1; i++)
         {
             <img src="@Model.FirstOrDefault().Poster" alt="Toppfilm" class="top-movie">
@@ -53,46 +48,26 @@
                     @foreach (var ratings in Model.FirstOrDefault().Ratings)
                     {
                         <div>
-                            <p>@ratings.Source</p>
+                            <h3>@ratings.Source</h3>
                             <p>@ratings.Value</p>
                         </div>
                     }
                 </div>
             </div>
-
         }
     </div>
-
-
-                <div class="ratings-container">
-                    <div class="ratings-flexbox">
-                        @foreach (var ratings in Model.FirstOrDefault().Ratings)
-                        {
-                            <div>
-                                <h3>@ratings.Source</h3>
-                                <p>@ratings.Value</p>
-                            </div>
-                        }
-                    </div>
-                </div>
-            }
-        </div>
-
-
 
     <div class="rankings-flexbox">
         @foreach (var movie in Model)
         {
             <figure class="rankings-figure">
-                @*<a href="">*@
-                <img src="@movie.Poster" alt="">
-                @*</a>*@
+                <a href="@Url.Action("Index", "MovieDetails", new { imdbID = movie.ImdbID })">
+                    <img src="@movie.Poster" alt="">
+                </a>
                 <figcaption>@movie.Title</figcaption>
                 <h3>Likes - Dislikes</h3>
                 <p> @movie.NumberOfLikes - @movie.NumberOfDislikes</p>
             </figure>
-
-
         }
     </div>
 </main>

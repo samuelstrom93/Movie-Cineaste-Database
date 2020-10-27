@@ -64,15 +64,7 @@ header figcaption {
     font-weight: bold;
 }
 
-#menu {
-    margin: auto;
-    margin-top: 2.5%;
-}
 
-#login {
-    margin: auto;
-    margin-top: 2.5%;
-}
 
 
 
@@ -178,6 +170,11 @@ figcaption {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+#center {
+    text-align:center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 #plot {
     font: italic medium Georgia;
 }
@@ -187,7 +184,7 @@ figcaption {
 }
 
 #normal-label {
-    font: larger Arial;
+    font: larger Georgia;
 }
 
 

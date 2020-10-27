@@ -7,18 +7,19 @@
 header {
     min-height: 10vh;
     background: #ba2d2d;
+    background: linear-gradient(to bottom right, #C70D0D, rgb(148, 15, 15));
 }
 
-a {
+header a {
     color: #eee;
     text-decoration: none;
     font-size: 125%;
 }
 
-    a:hover {
-        background: black;
-        background-color: hsla(0, 0%, 2%, 0.2);
-    }
+a:hover {
+    background: black;
+    background-color: hsla(0, 0%, 2%, 0.2);
+}
 
 .header-flex {
     display: flex;
@@ -75,56 +76,64 @@ header figcaption {
 
 /* SECTION */
 
-main h1 {
+
+/************* TOPPFILMER ***********/
+
+h1 {
     text-align: center;
     font-size: 3em;
 }
 
-.headline {
-    font-size: 2em;
+.top-movie-container {
+/*    border: 1px solid black;*/
     text-align: center;
+    border-bottom: medium solid black;
+    margin: 2% 0%;
 }
 
+.top-movie-container p {
+    font: bold large Georgia;
+}
 
-#top-movie {
-    align-content: center;
-    width: 20%;
-    height: 400px;
+.top-movie {
     display: block;
+    margin: auto;
+}
+
+.rankings-flexbox {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    /* justify-content: space-around; */
+}
+
+.ratings-container {
+    width: 75%;
     margin: auto;
 }
 
 .ratings-flexbox {
     display: flex;
-    /* justify-content: space-around; */
-    justify-content: center;
+    justify-content: space-evenly;
     margin: 2% 0%;
 }
 
-    .ratings-flexbox div {
-        margin: 0% 5%;
-    }
-
-.rankings-flexbox {
+figure {
     display: flex;
-    justify-content: center;
-    /* justify-content: space-around; */
+    flex-flow: column;
+    padding: 5px;
+    margin: auto;
 }
 
-    .rankings-flexbox img {
-        width: 200px;
-        height: 250px;
-    }
-
-main figcaption {
-    font-weight: bold;
+figcaption {
+    background-color: #222;
+    color: #fff;
+    font: italic smaller sans-serif;
     padding: 3px;
     text-align: center;
-}
-
-.rankings-flexbox p {
-    text-align: center;
-    display: block;
+    margin-top: -4px;
 }
 
 
@@ -137,7 +146,7 @@ main figcaption {
     padding: 1%;
     background: #ba2d2d;
     color: white;
-    /*    background: linear-gradient(to bottom right, #ba2d2d, rgb(113, 194, 144));*/
+    background: linear-gradient(to bottom right, #C70D0D, rgb(148, 15, 15));
     text-align: center;
     display: block;
     margin: auto;
@@ -148,8 +157,13 @@ main figcaption {
     font-weight: bold;
 }
 
+
+
+
+
+
 /* ----------------MovieDetails---------------------*/
-.page-container {
+/*.page-container {
     position: relative;
     height: 100%;
     width: 100%;
@@ -166,18 +180,15 @@ main figcaption {
 #detailPage-column_image {
     width: 34%;
     float: left;
-}
+}*/
 
 /* Har denna bara för att kunna visualisera slutresultatet, denna kommer inte att användas */
-#detailPage-column_mentimeter {
+/*#detailPage-column_mentimeter {
     width: 29%;
     float: right;
 }
 
-img {
-    max-height: 250px;
-}
 
 .clear {
     clear: both;
-}
+}*/

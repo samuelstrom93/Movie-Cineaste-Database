@@ -17,6 +17,8 @@ namespace CMDbAPI
         #region private fields
         private readonly IConfiguration dbSettings;
         private readonly string connectionString;
+        private readonly string baseUrl, accessKey;
+        private Parameter parameter;
         #endregion
 
         #region Constructor
@@ -24,6 +26,8 @@ namespace CMDbAPI
         {
             dbSettings = settings;
             connectionString = dbSettings.GetValue<string>("ConnectionString");
+            baseUrl = settings.GetValue<string>("OMDbApi:BaseUrl");
+            accessKey = settings.GetValue<string>("OMDbApi:AccessKey");
         }
         #endregion
 
@@ -220,50 +224,99 @@ namespace CMDbAPI
 
         #region Movie Details   
 
-        // Egen metod som hämtar en film från OMDbApi - Körs EJ automatiskt för tillfället
-        public async Task<MovieDetailsDTO> GetMovieDetails(string imdbId)
+      /// <summary>
+      /// Hämtar information från Imdb.com genom att skicka in ett imdb-id
+      /// </summary>
+      /// <param name="imdbId"></param>
+      /// <returns></returns>
+        public async Task<OmdbDTO> GetMovieDetails(string imdbId)
         {
             using (HttpClient client = new HttpClient())
-            {
-                //Använd baseUrl m.m på endpoint...
-                string endpoint = "http://www.omdbapi.com/?i=tt3659388&apikey=698a3567";
+            {           
+
+                string endpoint = $"{baseUrl}i={imdbId}{accessKey}";
                 var respons = await client.GetAsync(endpoint, HttpCompletionOption.ResponseHeadersRead);
                 //TODO: Gör det här till en try/catch för att fånga exceptions
                 respons.EnsureSuccessStatusCode();
                 var data = await respons.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<MovieDetailsDTO>(data);
+                var result = JsonConvert.DeserializeObject<OmdbDTO>(data);
+                return result;
+            }
+        }
+
+        //TODO: gör funktionen generisk och skicka till en separat folder? Typ Infrastructure/API - Kolla eriks FL och repo
+        // Kanske seprarera i olika mappar på OMDb-anrop och CMDb-anrop?
+        public async Task<T> GetMovieDetailsGeneric<T>(string imdbId)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                //Använd baseUrl m.m på endpoint...
+                string endpoint = $"{baseUrl}i={imdbId}{accessKey}";
+                var respons = await client.GetAsync(endpoint, HttpCompletionOption.ResponseHeadersRead);
+                //TODO: Gör det här till en try/catch för att fånga exceptions
+                respons.EnsureSuccessStatusCode();
+                var data = await respons.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<T>(data);
                 return result;
             }
         }
 
 
-        //private MovieDetailsDTO movieDetailsDTO;
-        //private Movie movie;
+        //TODO: Fixa så att man kan skicka in parametrar för att styra hur du hämtar topplistna. Om T.ex. det ska vara en särskild count, type(rating eller popularity),
+        // sort (ascending eller descinding). Om fältet lämnas tomt så hämtar den hela topplistan
+        /// <summary>
+        /// Kunna skicka in parametrar och styra vilken data som du vill använda 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedDataDefaultValues()
+        {
+            parameter = new Parameter();
+            var toplist = await GetToplist(parameter);
+
+            List<SummaryViewModel> summaryViewModels = new List<SummaryViewModel>();
+
+            foreach (var movie in toplist)
+            {
+                OmdbDTO omdbDTO = await GetMovieDetails(movie.ImdbID);
+                SummaryViewModel summaryViewModel = new SummaryViewModel(omdbDTO, movie); //movie och moviedetailsDTO som parametrar
+                summaryViewModels.Add(summaryViewModel);
+            }
+            return summaryViewModels;
+        }
+
+
+        //TODO: Fixa så att man kan skicka in parametrar för att styra hur du hämtar topplistna. Om T.ex. det ska vara en särskild count, type(rating eller popularity),
+        // sort (ascending eller descinding). Om fältet lämnas tomt så hämtar den hela topplistan
+        /// <summary>
+        /// Kunna skicka in parametrar och styra vilken data som du vill använda 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedData(Parameter parameter=null)
+        {            
+            var toplist = await GetToplist(parameter);
+
+
+            List<SummaryViewModel> summaryViewModels = new List<SummaryViewModel>();
+
+            foreach (var movie in toplist)
+            {
+                OmdbDTO omdbDTO = await GetMovieDetails(movie.ImdbID);
+                SummaryViewModel summaryViewModel = new SummaryViewModel(omdbDTO, movie); //movie och moviedetailsDTO som parametrar
+                summaryViewModels.Add(summaryViewModel);
+            }
+            return summaryViewModels;
+        }
 
 
 
-
-        //public Task<SummaryViewModel> GetSummary(string imdbId)
-        public async Task<SummaryViewModel> GetSummary(string imdbId)
+        public async Task<SummaryViewModel> GetSummarySingleMovie(string imdbId)
         {
             var movie = await GetMovieDetails(imdbId);
             var ratings = await GetMovieRatings(imdbId);
-
             SummaryViewModel summaryViewModel = new SummaryViewModel(movie, ratings);
+
             return summaryViewModel;
         }
-
-
-
-
-        // TODO: Förstår inte riktigt hur Erik använder sig av en liknande i HomeController för att komma åt datan
-        public Task<SummaryViewModel> GetSummaryViewModel(string imdb = null)
-        {
-            throw new NotImplementedException();
-        }
-
-
-
 
         #endregion
 

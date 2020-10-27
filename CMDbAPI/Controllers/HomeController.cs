@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CMDbAPI.Models.DTO;
+using CMDbAPI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,6 +15,8 @@ namespace CMDbAPI.Controllers
     public class HomeController : Controller
     {
         private IMovieRepository movieRepository;
+        private Parameter parameter;
+       
 
         public HomeController(IMovieRepository movieRepository)
         {
@@ -22,45 +26,47 @@ namespace CMDbAPI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //TODO: Erik använder en tom GetSummaryViewModel i hans repo
-            //var model = await movieRepository.GetSummaryViewModel();
+            var toplist = await movieRepository.GetTopListAggregatedDataDefaultValues();
 
-            // Döp denna till GetSummaryViewModel istället?
-            var model = await movieRepository.GetSummary("tt3659388");
-
-            var movies =await movieRepository.GetAllMovieRatings();
-
-
-            Parameter parameter = new Parameter();
+            foreach (var movie in toplist)
             {
-                parameter.Count = movies.Count();
-                //parameter.Count = 4; Bestämmer hur många som ska vara i topplistan
+                if (string.IsNullOrEmpty(movie.Poster))
+                {
+                    movie.Poster = "/img/NoPosterAvaible.png";
+                }
+            }
 
-                parameter.SortOrder = "Asc"; //Lägst först
-                //parameter.SortOrder = "Desc";//Högst först (defaultvärde)
+           
 
-                parameter.Type = "popularity"; // Sorterar enbart efter hur många som har betygsatt filmen, struntar i hur stor skillnaden är mellan likes & dislikes
-                //parameter.Type = "ratings"; // Sorterar efter hur stor skillnaden är mellan likes & dislikes (defaultvärde)
-            }             
-            var toplist = await movieRepository.GetToplist(parameter); 
-
-            
-            return View(model);
+            return View(toplist);
         }
 
 
-       
+        [HttpGet]
+        public async Task<IActionResult> Search(int count, string sortOrder, string type)
+
+        {
+            parameter = new Parameter(count,sortOrder,type);
 
 
 
-        //public async Task<IActionResult> Summary()
-        //{
-        //    //TODO: Fixa så att man kan skicka in både summary och country
-        //    var summary = await movieRepository.GetSummary();
-        //    // var model = new SummaryViewModel(summary);
+            parameter.Count = count;
+            parameter.SortOrder = sortOrder;
+            parameter.Type = type;        
 
+            //TODO: sätt ett defaultvärde som kan behållas i propertyn om värdet är N/A           
+            var toplist = await movieRepository.GetTopListAggregatedData(parameter);
 
-        //    return View(summary);
-        //}
+            foreach (var movie in toplist)
+            {
+                if (movie.Poster.Contains("N/A"))
+                {
+                    movie.Poster = "/img/NoPosterAvaible.png";
+                }
+            }
+
+            return View("index", toplist);    
+        }     
+
     }
 }

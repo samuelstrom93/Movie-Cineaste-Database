@@ -9,4 +9,12 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.9" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Test\" />
+    <Folder Include="Test\Mockdata\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Test\CMDbMockRepository.cs" />
+  </ItemGroup>
 </Project>

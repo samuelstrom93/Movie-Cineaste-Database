@@ -1,4 +1,3 @@
-using CMDbAPI.Test;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,8 +18,8 @@ namespace CMDbAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddScoped<IMovieRepository, MovieRepository>();
-            services.AddScoped<IMovieRepository, CMDbMockRepository>();
+            services.AddScoped<IMovieRepository, MovieRepository>();
+            //services.AddScoped<IMovieRepository, <CMDbMockRepository>();
             services.AddControllersWithViews();
             services.AddControllers();
             services.AddMvc().AddRazorRuntimeCompilation();            

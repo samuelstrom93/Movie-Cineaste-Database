@@ -15,7 +15,8 @@ namespace CMDbAPI.Controllers
     public class HomeController : Controller
     {
         private IMovieRepository movieRepository;
-        private Parameter parameter= new Parameter();
+        private Parameter parameter;
+       
 
         public HomeController(IMovieRepository movieRepository)
         {
@@ -25,7 +26,7 @@ namespace CMDbAPI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var toplist = await movieRepository.GetTopListAggregatedData();
+            var toplist = await movieRepository.GetTopListAggregatedDataDefaultValues();
 
             foreach (var movie in toplist)
             {
@@ -45,11 +46,15 @@ namespace CMDbAPI.Controllers
         public async Task<IActionResult> Search(int count, string sortOrder, string type)
 
         {
+            parameter = new Parameter(count,sortOrder,type);
+
+
+
             parameter.Count = count;
             parameter.SortOrder = sortOrder;
             parameter.Type = type;        
 
-                       
+            //TODO: sätt ett defaultvärde som kan behållas i propertyn om värdet är N/A           
             var toplist = await movieRepository.GetTopListAggregatedData(parameter);
 
             foreach (var movie in toplist)

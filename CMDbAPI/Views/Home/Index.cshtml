@@ -1,35 +1,38 @@
 ﻿
 
 @model IEnumerable<CMDbAPI.ViewModel.SummaryViewModel>
-
+ 
 
 <main>
     <h1>Toppfilmer</h1>
-    <p>Test</p>
-    <p>Test2</p>
 
 
- 
-<form asp-action="Search" asp-controller="Home" method="get">
-    <label for="sortType">Sortera efter:</label>
-    <select name="type" >
-        <option value="rating">Skillnad Like/Dislike</option>
-        <option value="popularity">Antal betyg</option>
-    </select>
-    <label for="show">Visa antal:</label>
-    <select name="count">
-        <option value="10">10</option>
-        <option value="5">5</option>
-    </select>
-    <select name="sortOrder">
-        <option value="desc">Högst först</option>
-        <option value="asc">Lägst först</option>
-    </select>
-    <br><br>
-    <input type="submit" value="Submit">
-    
-</form>
 
+    //TODO:Ändra så att man hämtar det exakta värdet på antalet filmer i databasen, vid val av "alla filmer""
+
+    <form asp-action="Search" asp-controller="Home" method="get">
+        <label for="sortType">Sortera efter:</label>
+        <select  id="sel">
+            <option value="rating">Skillnad Like/Dislike</option>
+            <option value="popularity">Antal betyg</option>
+        </select>
+        <label for="show">Visa antal:</label>
+        <select name="count">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="10000">Alla</option>
+        </select>
+        <select name="sortOrder">
+            <option value="desc">Högst först</option>
+            <option value="asc">Lägst först</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Submit" id="btn">
+
+    </form>
+
+
+   
 
 
     @*<img src="~/img/poster-apocalypsenow.jpg" alt="Vald film" id="top-movie">*@

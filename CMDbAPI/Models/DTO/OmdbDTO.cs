@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,9 +19,12 @@ namespace CMDbAPI.Models.DTO
         public string Runtime { get; set; }
         public string Genre { get; set; }
         public string Actors { get; set; }
+        //[DefaultValue("/img/NoPosterAvaible.png")]
         public string Poster { get; set; }
         public string Plot { get; set; }
+
         public string Director { get; set; }
+
 
         //public string Ratings { get; set; }
         public List<Ratings> Ratings { get; set; }

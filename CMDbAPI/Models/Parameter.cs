@@ -12,19 +12,33 @@ namespace CMDbAPI
         /// Desc = descending
         /// Asc = ascending
         /// </summary>
-        ///
-        public string SortOrder { get; set; }
+        public string SortOrder { get; set; } = "desc";
         /// <summary>
         /// Number of movies  to recevie
         /// </summary>
-        ///
-        public int? Count { get; set; } = 10;
+        public int? Count { get; set; } = 5;
+
         /// <summary>
         /// Type of movielist
         /// Ratings = sort by CMDb rating quota (like - dislike = quota)
         /// Popularity = sort by sum of likes and dislikes. Many reactions equals high popularity 
         /// </summary>
-        ///
-        public string Type { get; set; }
+
+        public string Type { get; set; } = "rating";
+
+        public Parameter()
+        {
+
+        }
+
+        public Parameter(int count, string sortorder, string type)
+        {
+            this.Count = count;
+            this.SortOrder = sortorder;
+            this.Type = type;
+        }
+
     }
+
+   
 }

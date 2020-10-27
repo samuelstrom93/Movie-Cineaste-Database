@@ -24,6 +24,7 @@ namespace CMDbAPI.ViewModel
         public string Plot { get; set; }
         public string Director { get; set; }
 
+
         public List<Ratings> Ratings { get; set; } = new List<Ratings>();
 
 
@@ -41,7 +42,6 @@ namespace CMDbAPI.ViewModel
 
 
 
-
         public SummaryViewModel(OmdbDTO movieDetailsDTO, Movie movie)
         {
             this.Title = movieDetailsDTO.Title;
@@ -52,6 +52,7 @@ namespace CMDbAPI.ViewModel
             this.Poster = movieDetailsDTO.Poster;
             this.Plot = movieDetailsDTO.Plot;
             this.Director = movieDetailsDTO.Director;
+
 
             foreach (var ratings in movieDetailsDTO.Ratings)
             {

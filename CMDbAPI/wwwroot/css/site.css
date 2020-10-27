@@ -75,6 +75,7 @@ header figcaption {
 }
 
 
+
 /*-----------------TOPPFILMER------------  */
 h1 {
     text-align: center;
@@ -189,6 +190,7 @@ figcaption {
     font: larger Arial;
 }
 
+
 .bigger {
     font: bold x-large Georgia;
 }
@@ -204,6 +206,7 @@ figcaption {
 }
 
 
+
 .wrapper-like {
     display: flex;
     justify-content: space-evenly;
@@ -213,10 +216,10 @@ figcaption {
     width: 200px;
 }
 
-    #rating-icon:hover {
-        background-color: #eee;
-        background-image: url("https://www.freeiconspng.com/uploads/dislike-button-png-1.png");
-    }
+#rating-icon:hover {
+    background-color: #eee;
+    background-image: url("https://www.freeiconspng.com/uploads/dislike-button-png-1.png");
+}
 
 
 
@@ -236,7 +239,3 @@ figcaption {
     font-size: 20px;
     font-weight: bold;
 }
-
-
-
-

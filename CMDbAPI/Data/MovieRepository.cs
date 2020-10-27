@@ -17,6 +17,8 @@ namespace CMDbAPI
         #region private fields
         private readonly IConfiguration dbSettings;
         private readonly string connectionString;
+        private readonly string baseUrl, accessKey;
+        private Parameter parameter;
         #endregion
 
         #region Constructor
@@ -24,6 +26,8 @@ namespace CMDbAPI
         {
             dbSettings = settings;
             connectionString = dbSettings.GetValue<string>("ConnectionString");
+            baseUrl = settings.GetValue<string>("OMDbApi:BaseUrl");
+            accessKey = settings.GetValue<string>("OMDbApi:AccessKey");
         }
         #endregion
 
@@ -220,15 +224,17 @@ namespace CMDbAPI
 
         #region Movie Details   
 
-        // Egen metod som hämtar en film från OMDbApi - Körs EJ automatiskt för tillfället
+      /// <summary>
+      /// Hämtar information från Imdb.com genom att skicka in ett imdb-id
+      /// </summary>
+      /// <param name="imdbId"></param>
+      /// <returns></returns>
         public async Task<OmdbDTO> GetMovieDetails(string imdbId)
         {
             using (HttpClient client = new HttpClient())
-            {
-                //TODO: lägg till baseUrl  config/settings
-                //Använd baseUrl m.m på endpoint...
+            {           
 
-                string endpoint = "http://www.omdbapi.com/?i=" + imdbId + "&apikey=743f5535";
+                string endpoint = $"{baseUrl}i={imdbId}{accessKey}";
                 var respons = await client.GetAsync(endpoint, HttpCompletionOption.ResponseHeadersRead);
                 //TODO: Gör det här till en try/catch för att fånga exceptions
                 respons.EnsureSuccessStatusCode();
@@ -241,12 +247,12 @@ namespace CMDbAPI
 
         //TODO: gör funktionen generisk och skicka till en separat folder? Typ Infrastructure/API - Kolla eriks FL och repo
         // Kanske seprarera i olika mappar på OMDb-anrop och CMDb-anrop?
-        public async Task<T> GetMovieDetailsGeneric<T>(string imdbID)
+        public async Task<T> GetMovieDetailsGeneric<T>(string imdbId)
         {
             using (HttpClient client = new HttpClient())
             {
                 //Använd baseUrl m.m på endpoint...
-                string endpoint = "http://www.omdbapi.com/?i=" + imdbID + "&apikey=743f5535";
+                string endpoint = $"{baseUrl}i={imdbId}{accessKey}";
                 var respons = await client.GetAsync(endpoint, HttpCompletionOption.ResponseHeadersRead);
                 //TODO: Gör det här till en try/catch för att fånga exceptions
                 respons.EnsureSuccessStatusCode();
@@ -263,11 +269,35 @@ namespace CMDbAPI
         /// Kunna skicka in parametrar och styra vilken data som du vill använda 
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedData()
+        public async Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedDataDefaultValues()
         {
-            Parameter parameter = new Parameter();
-            
+
+            parameter = new Parameter();
             var toplist = await GetToplist(parameter);
+
+            List<SummaryViewModel> summaryViewModels = new List<SummaryViewModel>();
+
+            foreach (var movie in toplist)
+            {
+                OmdbDTO omdbDTO = await GetMovieDetails(movie.ImdbID);
+                SummaryViewModel summaryViewModel = new SummaryViewModel(omdbDTO, movie); //movie och moviedetailsDTO som parametrar
+                summaryViewModels.Add(summaryViewModel);
+            }
+            return summaryViewModels;
+        }
+
+
+        //TODO: Fixa så att man kan skicka in parametrar för att styra hur du hämtar topplistna. Om T.ex. det ska vara en särskild count, type(rating eller popularity),
+        // sort (ascending eller descinding). Om fältet lämnas tomt så hämtar den hela topplistan
+        /// <summary>
+        /// Kunna skicka in parametrar och styra vilken data som du vill använda 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedData(Parameter parameter=null)
+        {            
+            var toplist = await GetToplist(parameter);
+
+
 
             List<SummaryViewModel> summaryViewModels = new List<SummaryViewModel>();
 

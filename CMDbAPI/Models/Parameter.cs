@@ -20,7 +20,7 @@
         /// Ratings = sort by CMDb rating quota (like - dislike = quota)
         /// Popularity = sort by sum of likes and dislikes. Many reactions equals high popularity 
         /// </summary>
-        public string Type { get; set; } = "popularity";
+        public string Type { get; set; } = "rating";
 
         public Parameter()
         {

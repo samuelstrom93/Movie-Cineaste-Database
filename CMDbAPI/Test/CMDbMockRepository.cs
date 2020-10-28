@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CMDbAPI.Models.DTO;
 using CMDbAPI.ViewModel;
+using CMDbAPI.Models;
 
 namespace CMDbAPI.Test
 {
@@ -18,6 +19,11 @@ namespace CMDbAPI.Test
 
 
         public Task<IEnumerable<Movie>> GetAllMovieRatings()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<MovieDetailsDTO> GetAllMoviesContaining(string searchString)
         {
             throw new NotImplementedException();
         }

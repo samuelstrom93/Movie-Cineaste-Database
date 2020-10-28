@@ -21,6 +21,9 @@ namespace CMDbAPI.ViewModel
 
         // TODO: skapa en dataannotation för att visa ett default ifall den är null/tom [displayname]
         public string Poster { get; set; }
+        public string Plot { get; set; }
+        public string Director { get; set; }
+
 
         public List<Ratings> Ratings { get; set; } = new List<Ratings>();
 
@@ -47,6 +50,9 @@ namespace CMDbAPI.ViewModel
             this.Genre = movieDetailsDTO.Genre;
             this.Actors = movieDetailsDTO.Actors;
             this.Poster = movieDetailsDTO.Poster;
+            this.Plot = movieDetailsDTO.Plot;
+            this.Director = movieDetailsDTO.Director;
+
 
             foreach (var ratings in movieDetailsDTO.Ratings)
             {

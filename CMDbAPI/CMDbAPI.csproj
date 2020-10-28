@@ -14,7 +14,4 @@
     <Folder Include="Test\" />
     <Folder Include="Test\Mockdata\" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Test\CMDbMockRepository.cs" />
-  </ItemGroup>
-</Project>
+  </Project>

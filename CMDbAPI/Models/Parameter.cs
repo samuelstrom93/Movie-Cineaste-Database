@@ -1,4 +1,6 @@
-﻿namespace CMDbAPI
+﻿using System.ComponentModel;
+
+namespace CMDbAPI
 {
     /// <summary>
     /// DTO object for passing parameters to repository
@@ -15,11 +17,13 @@
         /// Number of movies  to recevie
         /// </summary>
         public int? Count { get; set; } = 5;
+
         /// <summary>
         /// Type of movielist
         /// Ratings = sort by CMDb rating quota (like - dislike = quota)
         /// Popularity = sort by sum of likes and dislikes. Many reactions equals high popularity 
         /// </summary>
+
         public string Type { get; set; } = "rating";
 
         public Parameter()
@@ -33,6 +37,7 @@
             this.SortOrder = sortorder;
             this.Type = type;
         }
+
     }
 
    

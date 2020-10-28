@@ -49,10 +49,16 @@ namespace CMDbAPI.Controllers
             if (!imdbId.IsValidImdbId())
                 return BadRequest();
 
-            return await context.Rate(imdbId, Rating.Dislike);
+            //return await context.Rate(imdbId, Rating.Dislike);
+
+
+            //TODO: nedan är det jag lagt till i Eriks metoder
+            await context.Rate(imdbId, Rating.Dislike);
+            return RedirectToAction("Index", "MovieDetails", new { imdbID = imdbId });
+
         }
 
-       
+
 
     }
 }

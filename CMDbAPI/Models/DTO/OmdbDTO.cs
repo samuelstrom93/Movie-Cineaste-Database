@@ -21,21 +21,18 @@ namespace CMDbAPI.Models.DTO
         public string Actors { get; set; }
         //[DefaultValue("/img/NoPosterAvaible.png")]
         public string Poster { get; set; }
-        //public Dictionary<Source, Value> ratings = new Dictionary<Source, Value>();
-
-        //public string Ratings { get; set; }
+    
         public List<Ratings> Ratings { get; set; }
-
-        //public string Source { get; set; }
-        //public string Value { get; set; }
-
-
-        //public IEnumerable<T> Ratings 
+         
+    
+        public string imdbID { get; set; }
+        public string Type { get; set; }
 
 
-        
+       
 
-            
+
+
 
     }
 }

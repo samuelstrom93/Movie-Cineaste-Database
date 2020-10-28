@@ -4,10 +4,13 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using CMDbAPI.Controllers;
+using CMDbAPI.Infrastructure;
+using CMDbAPI.Models;
 using CMDbAPI.Models.DTO;
 using CMDbAPI.ViewModel;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Npgsql;
 
 namespace CMDbAPI
@@ -19,15 +22,18 @@ namespace CMDbAPI
         private readonly string connectionString;
         private readonly string baseUrl, accessKey;
         private Parameter parameter;
+        IApiWebClient apiWebClient;
+
         #endregion
 
         #region Constructor
-        public MovieRepository(IConfiguration settings)
+        public MovieRepository(IConfiguration settings, IApiWebClient apiWebClient)
         {
             dbSettings = settings;
             connectionString = dbSettings.GetValue<string>("ConnectionString");
             baseUrl = settings.GetValue<string>("OMDbApi:BaseUrl");
             accessKey = settings.GetValue<string>("OMDbApi:AccessKey");
+            this.apiWebClient = apiWebClient;
         }
         #endregion
 
@@ -275,7 +281,7 @@ namespace CMDbAPI
 
             List<SummaryViewModel> summaryViewModels = new List<SummaryViewModel>();
 
-            foreach (var movie in toplist)
+                foreach (var movie in toplist)
             {
                 OmdbDTO omdbDTO = await GetMovieDetails(movie.ImdbID);
                 SummaryViewModel summaryViewModel = new SummaryViewModel(omdbDTO, movie); //movie och moviedetailsDTO som parametrar
@@ -318,6 +324,17 @@ namespace CMDbAPI
             return summaryViewModel;
         }
 
+
+        public async Task<MovieDetailsDTO> GetAllMoviesContaining(string searchedWord)
+        {           
+
+            string searchString = baseUrl+"s=" + searchedWord + accessKey;             
+            return await apiWebClient.GetAsync<MovieDetailsDTO>(searchString);             
+
+        }       
+
+        }
+
         #endregion
 
     }
@@ -330,4 +347,5 @@ namespace CMDbAPI
 
 
     #endregion
-}
+
+

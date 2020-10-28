@@ -14,5 +14,6 @@
         /// Number of dislikes from CMDb Community
         /// </summary>
         public int NumberOfDislikes { get; set; }
+
     }
 }

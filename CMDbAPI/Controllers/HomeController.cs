@@ -24,8 +24,16 @@ namespace CMDbAPI.Controllers
 
         }
 
+
+      
         public async Task<IActionResult> Index()
         {
+           
+            var listOfMovies = await movieRepository.GetAllMoviesContaining("sunshine");
+
+
+
+
             var toplist = await movieRepository.GetTopListAggregatedDataDefaultValues();
 
             foreach (var movie in toplist)
@@ -34,12 +42,24 @@ namespace CMDbAPI.Controllers
                 {
                     movie.Poster = "/img/NoPosterAvaible.png";
                 }
-            }
-
-           
-
+            }          
             return View(toplist);
         }
+
+
+        //public async Task<IActionResult> Index(string searchString)
+        //{
+        //    var movies = from m in _context.Movie
+        //                 select m;
+
+        //    if (!String.IsNullOrEmpty(searchString))
+        //    {
+              
+        //        movies = movies.Where(s => s.Title.Contains(searchString));
+        //    }
+
+        //    return View(await movies.ToListAsync());
+        //}
 
 
         [HttpGet]

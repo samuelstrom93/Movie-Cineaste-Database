@@ -1,4 +1,5 @@
-﻿using CMDbAPI.Models.DTO;
+﻿using CMDbAPI.Models;
+using CMDbAPI.Models.DTO;
 using CMDbAPI.ViewModel;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -53,6 +54,9 @@ namespace CMDbAPI
         Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedDataDefaultValues();
         Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedData(Parameter parameter);
         // Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedData(int count=5, string sortorder="asc", string type="ratings");
+
+
+        Task<MovieDetailsDTO> GetAllMoviesContaining(string searchString);
 
     }
 }

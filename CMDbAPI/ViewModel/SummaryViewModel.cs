@@ -42,16 +42,17 @@ namespace CMDbAPI.ViewModel
 
 
 
+
         public SummaryViewModel(OmdbDTO movieDetailsDTO, Movie movie)
         {
-            this.Title = movieDetailsDTO.Title;
-            this.Year = movieDetailsDTO.Year;
-            this.Runtime = movieDetailsDTO.Runtime;
-            this.Genre = movieDetailsDTO.Genre;
-            this.Actors = movieDetailsDTO.Actors;
-            this.Poster = movieDetailsDTO.Poster;
-            this.Plot = movieDetailsDTO.Plot;
-            this.Director = movieDetailsDTO.Director;
+            Title = movieDetailsDTO.Title;
+            Year = movieDetailsDTO.Year;
+            Runtime = movieDetailsDTO.Runtime;
+            Genre = movieDetailsDTO.Genre;
+            Actors = movieDetailsDTO.Actors;
+            Poster = movieDetailsDTO.Poster;
+            Plot = movieDetailsDTO.Plot;
+            Director = movieDetailsDTO.Director;
 
 
             foreach (var ratings in movieDetailsDTO.Ratings)
@@ -59,9 +60,26 @@ namespace CMDbAPI.ViewModel
                 Ratings.Add(ratings);
             }
 
-            this.NumberOfLikes = movie.NumberOfLikes;
-            this.NumberOfDislikes = movie.NumberOfDislikes;
-            this.ImdbID = movie.ImdbID;
+            if (movie != null)
+            {
+                NumberOfLikes = movie.NumberOfLikes;
+                NumberOfDislikes = movie.NumberOfDislikes;
+                ImdbID = movie.ImdbID;
+
+            }
+        }
+
+
+        //TODO: Försöker lägga till den söka filmen i en lista av SummaryViewModel för att kunna presentera i Vyn
+        public SummaryViewModel(OmdbDTO omdbDTO)
+        {
+
+            Title = omdbDTO.Title;
+            Poster = omdbDTO.Poster;
+            ImdbID = omdbDTO.imdbID;
+
+
+
         }
     }
 }

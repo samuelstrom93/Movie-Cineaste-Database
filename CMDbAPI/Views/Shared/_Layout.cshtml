@@ -27,9 +27,13 @@
                     <figcaption>CMDb</figcaption>
                 </figure>
             </a>
-            <label for="movie-search"></label>
-            <input type="text" name="movie-search" class="movieSearch" placeholder="Search for a movie">
-            <input type="submit" class="btnMovieSearch" name="btn-movie-search" value="Search">
+            <form asp-controller="Home" asp-action="SearchMovie">
+                <p>
+                    <input type="text" name="SearchString" placeholder="Search for a movie">
+                    <input type="submit" value="Search" />
+
+                </p>
+            </form>
         </div>
     </header>
 

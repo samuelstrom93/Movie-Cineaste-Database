@@ -327,14 +327,13 @@ namespace CMDbAPI
         }
 
 
-        public async Task<MovieDetailsDTO> GetAllMoviesContaining(string searchedWord)
+          public async Task<MovieDetailsDTO> GetAllMoviesContaining(string searchedWord)
         {           
 
             string searchString = baseUrl+"s=" + searchedWord + accessKey;             
             return await apiWebClient.GetAsync<MovieDetailsDTO>(searchString);             
 
-        }       
-
+        }   
         }
 
         #endregion

@@ -22,11 +22,7 @@ namespace CMDbAPI.Test
             throw new NotImplementedException();
         }
 
-<<<<<<< HEAD
         public Task<OmdbDTO> GetMovieDetails(string id)
-=======
-        public Task<MovieDetailsDTO> GetMovieDetails(string id)
->>>>>>> 028ac1b... implementerade alla metoder av IMovieRepository i CMDMockRepository.
         {
             throw new NotImplementedException();
         }
@@ -41,14 +37,11 @@ namespace CMDbAPI.Test
             throw new NotImplementedException();
         }
 
-<<<<<<< HEAD
         public Task<OmdbDTO> GetSummarySingleMovie(string imdbId)
         {
             throw new NotImplementedException();
         }
 
-=======
->>>>>>> 028ac1b... implementerade alla metoder av IMovieRepository i CMDMockRepository.
         public Task<SummaryViewModel> GetSummaryViewModel(string id)
         {
             throw new NotImplementedException();
@@ -69,6 +62,16 @@ namespace CMDbAPI.Test
             throw new NotImplementedException();
         }
 
+        public Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedData(Parameter parameter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedDataDefaultValues()
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<Movie> Rate(string imdbId, Rating rating = Rating.Like)
         {
             throw new NotImplementedException();
@@ -79,9 +82,9 @@ namespace CMDbAPI.Test
             throw new NotImplementedException();
         }
 
-        Task<IEnumerable<SummaryViewModel>> IMovieRepository.GetTopListAggregatedData()
-        {
-            throw new NotImplementedException();
-        }
+        //Task<IEnumerable<SummaryViewModel>> IMovieRepository.GetTopListAggregatedData()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

@@ -9,6 +9,7 @@ namespace CMDbAPI
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,6 +26,22 @@ namespace CMDbAPI
             services.AddScoped<IMovieRepository, MovieRepository>();
             //services.AddScoped<IMovieRepository, MovieMockRepository>();
             services.AddScoped<IApiWebClient, ApiWebClient>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("https://localhost:5001");
+                                  });
+            });
+
+
+            //services.AddCors(c =>
+            //{
+            //    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            //});
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,7 +72,11 @@ namespace CMDbAPI
             {
                 endpoints.MapControllers();
             });
-            
+
+            app.UseCors(MyAllowSpecificOrigins);
+            //app.UseCors(options => options.AllowAnyOrigin());
+
+
         }
 
     }

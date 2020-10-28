@@ -52,6 +52,11 @@ input[type="text"] {
     font-size: 1.2em;
 }
 
+.btnMovieSearch:hover {
+    cursor: pointer;
+    background-color: grey;
+}
+
 
 #CMDb-icon {
     float: left;
@@ -178,6 +183,9 @@ figcaption {
 #plot {
     font: italic medium Georgia;
 }
+#subplot {
+    font: bold medium Georgia;
+}
 
 #normal {
     font: bold medium Georgia;
@@ -194,13 +202,34 @@ figcaption {
 
 .read-more {
     margin: 0% auto;
+/*    height: 1.5em;
+    line-height: 1.5em;*/
+    color: white;
+    background-color: black;
+    width: 10vh;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.read-more:hover {
+    background-color: grey;
+    cursor: pointer;
+}
+#more {
+    display: none;
+}
+
+/*Gamla knappen*/
+/*.read-more {
+    margin: 0% auto;
     height: 1.5em;
     line-height: 1.5em;
     background-color: black;
     color: white;
     width: 8vh;
     text-decoration: none;
-}
+    border-radius: 8px;
+}*/
 
 
 

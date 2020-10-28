@@ -2,3 +2,6 @@
 function onChange(val) {
     window.location="/home/index"+val
 }
+
+
+document.querySelector('.movie-title').textContent = 'HAJ'

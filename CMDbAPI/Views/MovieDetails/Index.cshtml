@@ -1,58 +1,59 @@
 ﻿
 @model CMDbAPI.ViewModel.SummaryViewModel
 
-<article>
-    <div class="wrapper">
-        <div class="flexbox-column">
-            <h2 class="center">@Model.Title</h2>
-            <p><strong>Year:</strong><br />@Model.Year</p>
-            <p><strong>Runtime:</strong><br />@Model.Runtime</p>
-            <p><strong>Genre:</strong><br />@Model.Genre</p>
-            <p><strong>Director:</strong><br />@Model.Director</p>
-            <p><strong>Actors:</strong><br />@Model.Actors</p>
-            <p id="plot"><label id="normal">Plot:</label></><br />@Model.Plot.Substring(0, 60)...</p>
-            <a href="#" class="read-more">Läs mer</a>
-
-            <p id="plot">
-                Ska dyka upp vid klick<br />
-                @Model.Plot</p>
-        </div>
+    <article>
+        <div class="wrapper">
+            <div class="flexbox-column">
+                <h2 class="center">@Model.Title</h2>
+                <p><strong>Year:</strong><br />@Model.Year</p>
+                <p><strong>Runtime:</strong><br />@Model.Runtime</p>
+                <p><strong>Genre:</strong><br />@Model.Genre</p>
+                <p><strong>Director:</strong><br />@Model.Director</p>
+                <p><strong>Actors:</strong><br />@Model.Actors</p>
 
 
-        <div class="flexbox-column-movie">
-            <img src="@Model.Poster" alt="Poster" class="top-movie-details">
-            <div class="flexbox-row">
-                <p id="normal-label"><label class="bigger">Likes</label><br />@Model.NumberOfLikes</p>
-                <p id="normal-label"><label class="bigger">Dislikes</label><br />@Model.NumberOfDislikes</p>
+
+                <p id="plot"><label id="subplot">Plot:</label></><br />
+                @Model.Plot.Substring(0, 60)<span id="dots">...</span><span id="more">@Model.Plot.Substring(60)</span>
+                </p>
+                <button class="read-more">Read More</button>
             </div>
-            @foreach (var rating in @Model.Ratings)
-            {
-                <p><strong>@rating.Source</strong><br />@rating.Value</p>
-            }
+
+
+            <div class="flexbox-column-movie">
+                <img src="@Model.Poster" alt="Poster" class="top-movie-details">
+                <div class="flexbox-row">
+                    <p id="normal-label"><label class="bigger">Likes</label><br />@Model.NumberOfLikes</p>
+                    <p id="normal-label"><label class="bigger">Dislikes</label><br />@Model.NumberOfDislikes</p>
+                </div>
+                @foreach (var rating in @Model.Ratings)
+                {
+                    <p><strong>@rating.Source</strong><br />@rating.Value</p>
+                }
+            </div>
+
         </div>
 
-    </div>
 
-
-
-
-    <div class="wrapper-like">
-        <div>
-            <h2 style="text-align:center">Like</h2>
-            <a href="@Url.Action("DislikeMovie", "Movie", new { imdbID = Model.ImdbID })">
-                <img src="https://i.dlpng.com/static/png/6959900_preview.png" id="rating-icon" />
-            </a>
+        <div class="wrapper-like">
+            <div>
+                <h2 style="text-align:center">Like</h2>
+                <a href="@Url.Action("DislikeMovie", "Movie", new { imdbID = Model.ImdbID })">
+                    <img src="https://i.dlpng.com/static/png/6959900_preview.png" id="rating-icon" />
+                </a>
+            </div>
+            <div>
+                <h2 style="text-align:center">Dislike</h2>
+                <a href="@Url.Action("DislikeMovie", "Movie", new { imdbID = Model.ImdbID })">
+                    <img src="https://www.freeiconspng.com/uploads/dislike-button-png-1.png" id="rating-icon" />
+                </a>
+            </div>
         </div>
-        <div>
-            <h2 style="text-align:center">Dislike</h2>
-            <a href="@Url.Action("DislikeMovie", "Movie", new { imdbID = Model.ImdbID })">
-                <img src="https://www.freeiconspng.com/uploads/dislike-button-png-1.png" id="rating-icon" />
-            </a>
-        </div>
-    </div>
 
-   
-</article>
+
+        
+
+    </article>
 
 
 

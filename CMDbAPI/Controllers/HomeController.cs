@@ -25,7 +25,6 @@ namespace CMDbAPI.Controllers
         }
 
 
-      
         public async Task<IActionResult> Index()
         {
            

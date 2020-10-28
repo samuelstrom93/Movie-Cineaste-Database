@@ -29,6 +29,10 @@ namespace CMDbAPI.Models.DTO
         //public string Ratings { get; set; }
         public List<Ratings> Ratings { get; set; }
 
+        //TODO: imdbID finns i både OMDbDTO- och Movie-klasserna. Strukturera upp bättre
+        public string imdbID { get; set; }
+        public string Type { get; set; }
+
         //public string Source { get; set; }
         //public string Value { get; set; }
 
@@ -36,9 +40,9 @@ namespace CMDbAPI.Models.DTO
         //public IEnumerable<T> Ratings 
 
 
-        
 
-            
+
+
 
     }
 }

@@ -1,0 +1,17 @@
+﻿@model IEnumerable<CMDbAPI.ViewModel.SummaryViewModel>
+
+
+
+<div>
+    <ul>
+        @foreach (var movie in Model)
+        {
+            <div>
+
+                <a href="@Url.Action("Index", "MovieDetails", new { imdbID = movie.ImdbID })">
+                    <img id="searchedMovieImg" src="@movie.Poster" alt="">
+                </a>
+            </div>
+        }
+    </ul>
+</div>

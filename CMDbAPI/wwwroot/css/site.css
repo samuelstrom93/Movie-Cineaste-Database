@@ -130,6 +130,11 @@ figcaption {
 }
 
 
+/*-----------------Sökta filmer------------  */
+
+#searchedMovieImg {
+    max-height: 50px;
+}
 
 
 

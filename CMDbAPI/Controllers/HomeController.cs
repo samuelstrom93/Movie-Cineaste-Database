@@ -44,7 +44,7 @@ namespace CMDbAPI.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Search(int count, string sortOrder, string type)
+        public async Task<IActionResult> FilterTopList(int count, string sortOrder, string type)
 
         {
             parameter = new Parameter(count, sortOrder, type);
@@ -63,24 +63,6 @@ namespace CMDbAPI.Controllers
             return View("index", toplist);
         }
 
-
-
-        //[Route("Home/SearchMovie{}")]
-        public async Task<IActionResult> SearchMovie(string searchString)
-
-        {
-            var listOfMovies = await movieRepository.GetAllMoviesContaining(searchString);
-
-            List<SummaryViewModel> summaryViewModels = new List<SummaryViewModel>();
-
-            for (int i = 0; i < listOfMovies.Search.Count; i++)
-            {
-                SummaryViewModel summaryViewModel = new SummaryViewModel(listOfMovies.Search[i]);
-                summaryViewModels.Add(summaryViewModel);
-            }
-
-            return View("searchPage", summaryViewModels);
-        }
 
 
 

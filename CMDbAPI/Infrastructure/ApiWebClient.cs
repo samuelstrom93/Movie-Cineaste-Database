@@ -10,12 +10,12 @@ namespace CMDbAPI.Infrastructure
 {
     public class ApiWebClient:IApiWebClient
     {
-        public async Task<T> GetAsync<T>(string searchString)
+        public async Task<T> GetAsync<T>(string urlString)
         {
             //TODO: Fixa så att koden inte upprepas
             using (HttpClient client = new HttpClient())
             {
-                var response = await client.GetAsync(searchString, HttpCompletionOption.ResponseHeadersRead);
+                var response = await client.GetAsync(urlString, HttpCompletionOption.ResponseHeadersRead);
                 response.EnsureSuccessStatusCode();
                 var data = await response.Content.ReadAsStringAsync();              
                var result = JsonConvert.DeserializeObject<T>(data);

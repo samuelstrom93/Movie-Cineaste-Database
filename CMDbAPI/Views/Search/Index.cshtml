@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CMDbAPI.ViewModel.SummaryViewModel>
+﻿@model IEnumerable<CMDbAPI.ViewModel.SummarySearchViewModel>
 
 
 
@@ -6,11 +6,14 @@
     <ul>
         @foreach (var movie in Model)
         {
-            <div>
+            <div class="searchedMovie-flexbox">
 
                 <a href="@Url.Action("Index", "MovieDetails", new { imdbID = movie.ImdbID })">
                     <img id="searchedMovieImg" src="@movie.Poster" alt="">
                 </a>
+                <p>@movie.Title</p>
+                <p>@movie.Year</p>
+                <p>@movie.Type</p>
             </div>
         }
     </ul>

@@ -133,7 +133,21 @@ figcaption {
 /*-----------------Sökta filmer------------  */
 
 #searchedMovieImg {
-    max-height: 50px;
+    max-height: 300px;
+}
+
+.searchedMovie-flexbox {
+    display: flex;
+    /*/justify-content: space-evenly;*/
+        flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    
+}
+
+.searhedMovie-container {
+    width: 75%;
+    margin: auto;
 }
 
 

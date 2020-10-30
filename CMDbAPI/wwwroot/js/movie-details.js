@@ -1,138 +1,73 @@
-﻿
+﻿let imdbID = $("#ImdbID").val();
 
 const moreBtn = document.querySelector('.read-more');
 moreBtn.addEventListener('click', readMore);
 
-
-// Behöver kanske ändar till getelementbyid
 function readMore() {
-    let dots = document.getElementById("dots");
+    let dots = document.querySelector("#dots"); 
     let moreText = document.querySelector('#more');
     let btnText = document.querySelector('.read-more');
 
     if (dots.style.display === "none") {
         dots.style.display = "inline";
-        btnText.innerHTML = "Read more"; // textContent
+        btnText.textContent = "Read more"; 
         moreText.style.display = "none";
     } else {
         dots.style.display = "none";
-        btnText.innerHTML = "Read less"; // textContent
+        btnText.textContent = "Read less"; 
         moreText.style.display = "inline";
     }
 }
 
 
-alert('baseUrl');
-
-
-// Länka till
-//<script type="text/javascript">
-//    var testProperty = '@Model.TestProperty';
-//</script>
-
 
 
 // kunna klicka en gång på knappen och sen disabled
-
 // Funkar
 
 //const btn = document.querySelector('.test-btn');
 //form.addEventListener('click', (event) => event.preventDefault(form))
 
-//form.addEventListener('click', dislike(btn);
-
-
-//function dislike(element) {
-//    element.preventDefault();
-//    let result = $this
-//}
-
-//$("form").submit(function (e) {
-//    e.preventDefault();
-//    let form = $(this).serialize();
-//    $.ajax({
-//        url: 'https://localhost:5001/api/movie/tt0028815/dislike',
-//        method: 'GET',
-//        data: form,
-//        dataType: 'json',
-//        success: function (data) {
-//            //success function
-//            //return data form server
-//            console.log(data)
-//        },
-//        error: function (data) { //error function
-//            console.log(data)
-//        }
-//    });
-
-//});
-
-
-//(function (e) {
-//    form.addEventListener('click', (event) => event.preventDefault(form));
-//    let form = $(this).serialize();
-//    $.ajax({
-//        url: 'https://localhost:5001/api/movie/tt0028815/dislike',
-//        method: 'GET',
-//        data: form,
-//        dataType: 'json',
-//        success: function (data) { console.log(data) }, error: function (data) { console.log(data) }
-//    });
-//});
-
-const testBtn = document.querySelector('.test-btn')
-testBtn.addEventListener('click', dislike);
-
-//function lobbyLeader() {
-//    var obj;
-//    $.ajax({
-//        async: false;
-//        data: { "id": 1, "request": "lobbyinfo", "method": "read" },
-//        url: 'https://localhost:5001/api/movie/tt0028815/dislike',
-//        dataType: 'json',
-//        success: function (data) {
-//            obj = JSON.parse(data);
-//        }
-//    });
-//    return obj;
-//}
 
 
 
+const dislikeBtn = document.querySelector('.dislike-btn')
+dislikeBtn.addEventListener('click', dislike);
 
+// Lägg till så att dislike skickar med parameter och en event.PreventDefault-knappen
 
 function dislike() {
-    let data = $(this).serialize();
+    let url = new URL('/api/movie/' + imdbID + '/dislike', 'https://localhost:5001');
     $.ajax({
-        url: 'https://localhost:5001/api/movie/tt0028815/dislike',
+        url: url,
         type: 'GET',
         dataType: 'json',
-        data: data,
-        success: function (response) { console.log(response.data) },
-        error: function (response) { console.log(response.data) }
+        success: function (response) {
+            console.log(response);
+            document.querySelector('#dislikes').textContent = response.numberOfDislikes;
+        },
+        error: function (response) { console.log(response) }
     });
-    return response.data;
-
-    alert('går igenom metoden iaf')
 }
 
 
 
-//console.log(json.);
+// event.preventDefault
 
+const likeBtn = document.querySelector('.like-btn')
+likeBtn.addEventListener('click', like);
 
-
-//string endpoint = $"{baseUrl}i={imdbId}{accessKey}";
-
-// Kom åt imdbID med javascript. Kan komma åt @Model?
-
-
-
-
-
-
-
-
-
-
+function like() {
+    let url = new URL('/api/movie/' + imdbID + '/like', 'https://localhost:5001');
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            console.log(response);
+            document.querySelector('#likes').textContent = response.numberOfLikes;
+        },
+        error: function (response) { console.log(response) }
+    });
+}
 

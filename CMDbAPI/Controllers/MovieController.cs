@@ -43,65 +43,14 @@ namespace CMDbAPI.Controllers
             return await context.Rate(imdbId);
         }
 
-        //[HttpGet("{imdbId}/dislike")]
-        //// GET: api/Movie/3/Dislike
-        //public async Task<ActionResult<Movie>> DislikeMovie(string imdbId)
-        //{
-        //    if (!imdbId.IsValidImdbId())
-        //        return BadRequest();
-
-        //    //return await context.Rate(imdbId, Rating.Dislike);
-
-
-        //    //var data = await respons.Content.ReadAsStringAsync();
-        //    //var result = JsonConvert.DeserializeObject<T>(data);
-        //    //return result;
-
-        //    var movieData = await context.Rate(imdbId, Rating.Dislike);
-        //    string json = JsonConvert.SerializeObject(movieData);
-
-        //    return json;
-
-        //    //return JsonConvert.DeserializeObject<Movie>(movieData.ToString());
-
-        //    //return result;
-
-        //    //TODO: nedan är det jag lagt till i Eriks metoder
-        //    //await context.Rate(imdbId, Rating.Dislike);
-        //    //return RedirectToAction("Index", "MovieDetails", new { imdbID = imdbId });
-        //}
-
-
-        //TODO: returnerar JSON istället
         [HttpGet("{imdbId}/dislike")]
         // GET: api/Movie/3/Dislike
-        public async Task<ActionResult<string>> DislikeMovie(string imdbId)
+        public async Task<ActionResult<Movie>> DislikeMovie(string imdbId)
         {
             if (!imdbId.IsValidImdbId())
                 return BadRequest();
 
-            //return await context.Rate(imdbId, Rating.Dislike);
-
-
-            //var data = await respons.Content.ReadAsStringAsync();
-            //var result = JsonConvert.DeserializeObject<T>(data);
-            //return result;
-
-            var movieData = await context.Rate(imdbId, Rating.Dislike);
-            string json = JsonConvert.SerializeObject(movieData);
-
-            return json;
-
-            //return JsonConvert.DeserializeObject<Movie>(movieData.ToString());
-
-            //return result;
-
-            //TODO: nedan är det jag lagt till i Eriks metoder
-            //await context.Rate(imdbId, Rating.Dislike);
-            //return RedirectToAction("Index", "MovieDetails", new { imdbID = imdbId });
+            return await context.Rate(imdbId, Rating.Dislike);
         }
-
-
-
     }
 }

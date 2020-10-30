@@ -1,6 +1,9 @@
 ﻿
 @model CMDbAPI.ViewModel.SummaryViewModel
 
+@Html.HiddenFor(x=>x.NumberOfDislikes)
+@Html.HiddenFor(x=>x.ImdbID)
+
     <article>
         <div class="wrapper">
             <div class="flexbox-column">
@@ -13,8 +16,9 @@
 
 
 
-                <p id="plot"><label id="subplot">Plot:</label></><br />
-                @Model.Plot.Substring(0, 60)<span id="dots">...</span><span id="more">@Model.Plot.Substring(60)</span>
+                <p id="plot">
+                    <label id="subplot">Plot:</label></><br />
+                    @Model.Plot.Substring(0, 60)<span id="dots">...</span><span id="more">@Model.Plot.Substring(60)</span>
                 </p>
                 <button class="read-more">Read More</button>
             </div>
@@ -23,8 +27,8 @@
             <div class="flexbox-column-movie">
                 <img src="@Model.Poster" alt="Poster" class="top-movie-details">
                 <div class="flexbox-row">
-                    <p id="normal-label"><label class="bigger">Likes</label><br />@Model.NumberOfLikes</p>
-                    <p id="normal-label"><label class="bigger">Dislikes</label><br />@Model.NumberOfDislikes</p>
+                    <p id="normal-label"><label class="bigger">Likes</label><br /> <span id="likes">@Model.NumberOfLikes</span></p>
+                    <p id="normal-label"><label class="bigger">Dislikes</label><br /><span id="dislikes">@Model.NumberOfDislikes</span></p>
                 </div>
                 @foreach (var rating in @Model.Ratings)
                 {
@@ -35,6 +39,8 @@
         </div>
 
 
+
+        @*// Ändra om så att de är kopplade till likes och dislikes istället*@
         <div class="wrapper-like">
             <div>
                 <h2 style="text-align:center">Like</h2>
@@ -50,16 +56,14 @@
             </div>
         </div>
 
-        <form action="#" method="post">
-            <input type="hidden" name="imdbID" /> 
-            <input type="hidden" name="numberOfLikes" />
-            <input type="hidden" name="numberOfDislikes" />
-            <input type="submit" name="submit" class="form-btn" />
-        </form>
 
+        <button class="like-btn">Like</button>
         <br />
-        <button class="test-btn">Test för dislike</button>
-        
+        <button class="dislike-btn">Dislike</button>
+        <br />
+
+
+
 
     </article>
 

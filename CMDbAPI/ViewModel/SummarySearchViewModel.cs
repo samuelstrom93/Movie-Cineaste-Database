@@ -27,6 +27,12 @@ namespace CMDbAPI.ViewModel
             ImdbID = omdbDTO.imdbID;
             Year = omdbDTO.Year;
             Type = omdbDTO.Type;
+
+            if (string.IsNullOrEmpty(omdbDTO.Poster) || omdbDTO.Poster.Contains("N/A"))
+            {
+                Poster = "/img/NoPosterAvaible.png";
+            }
+
         }
     }
 }

@@ -27,38 +27,14 @@ namespace CMDbAPI.Controllers
 
         public async Task<IActionResult> Index()
         {
-           
+
+            //TODO: ta bort?
             var listOfMovies = await movieRepository.GetAllMoviesContaining("sunshine");
 
 
-
-
             var toplist = await movieRepository.GetTopListAggregatedDataDefaultValues();
-
-            foreach (var movie in toplist)
-            {
-                if (string.IsNullOrEmpty(movie.Poster))
-                {
-                    movie.Poster = "/img/NoPosterAvaible.png";
-                }
-            }          
             return View(toplist);
         }
-
-
-        //public async Task<IActionResult> Index(string searchString)
-        //{
-        //    var movies = from m in _context.Movie
-        //                 select m;
-
-        //    if (!String.IsNullOrEmpty(searchString))
-        //    {
-              
-        //        movies = movies.Where(s => s.Title.Contains(searchString));
-        //    }
-
-        //    return View(await movies.ToListAsync());
-        //}
 
 
         [HttpGet]
@@ -67,6 +43,8 @@ namespace CMDbAPI.Controllers
         {
             parameter = new Parameter(count,sortOrder,type);
 
+
+            //TODO: ta bort dessa?
             parameter.Count = count;
             parameter.SortOrder = sortOrder;
             parameter.Type = type;        
@@ -74,16 +52,26 @@ namespace CMDbAPI.Controllers
             //TODO: sätt ett defaultvärde som kan behållas i propertyn om värdet är N/A           
             var toplist = await movieRepository.GetTopListAggregatedData(parameter);
 
-            foreach (var movie in toplist)
-            {
-                if (movie.Poster.Contains("N/A"))
-                {
-                    movie.Poster = "/img/NoPosterAvaible.png";
-                }
-            }
-
             return View("index", toplist);    
-        }     
+        }
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> FilterTopList(int count, string sortOrder, string type)
+
+        {
+            parameter = new Parameter(count, sortOrder, type);
+
+
+            //TODO: sätt ett defaultvärde som kan behållas i propertyn om värdet är N/A           
+            var toplist = await movieRepository.GetTopListAggregatedData(parameter);
+
+            ViewData["sortOrder"] = sortOrder;
+            ViewData["count"] = count;
+            ViewData["type"] = type;
+            return View("index", toplist);
+        }
 
     }
 }

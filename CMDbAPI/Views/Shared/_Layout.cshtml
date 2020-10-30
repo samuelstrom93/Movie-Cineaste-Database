@@ -28,9 +28,9 @@
             </a>
             <span id="title-header">CMDB</span>
 
-            <form asp-controller="Search" asp-action="Index" class="form-flex">
-                    <input type="text" name="SearchString" placeholder="Search for a movie" class="movie-search">
-                    <input type="submit" value="Search" class="btn-moviesearch" />
+            <form action="@Url.Action("Index", "Search")" class="form-flex">
+                <input type="text" name="SearchString" placeholder="Search for a movie" class="movie-search">
+                <input type="submit" value="Search" class="btn-moviesearch" />
             </form>
         </div>
     </header>

@@ -17,25 +17,37 @@ namespace CMDbAPI.Controllers
             this.movieRepository = movieRepository;
         }
 
+        [HttpGet]
         public async Task< IActionResult> Index(string searchString)
         {
             var listOfMovies = await movieRepository.GetAllMoviesContaining(searchString);
-
             List<SummarySearchViewModel> summarySearchViewModels = new List<SummarySearchViewModel>();
 
-            for (int i = 0; i < listOfMovies.Search.Count; i++)
+
+            if (listOfMovies.Search != null)
             {
-                SummarySearchViewModel movie = new SummarySearchViewModel(listOfMovies.Search[i]);
-               
-                    if (string.IsNullOrEmpty(movie.Poster) || movie.Poster.Contains("N/A"))
-                    {
-                        movie.Poster = "/img/NoPosterAvaible.png";
-                    }
-                
-                summarySearchViewModels.Add(movie);
+                foreach (var movie in listOfMovies.Search)
+                {
+                    SummarySearchViewModel summarySearchViewModel = new SummarySearchViewModel(movie);
+                    summarySearchViewModels.Add(summarySearchViewModel);
+                }
+                return View(summarySearchViewModels);
+            }
+            else
+            {
+                return View();
             }
 
-            return View(summarySearchViewModels);
+
+            //for (int i = 0; i < listOfMovies.Search.Count; i++)
+            //    {
+            //        SummarySearchViewModel movie = new SummarySearchViewModel(listOfMovies.Search[i]);
+            //        summarySearchViewModels.Add(movie);
+            //    }
+            
+            
+
+            //return View(summarySearchViewModels) ?? View();
         }
     }
 }

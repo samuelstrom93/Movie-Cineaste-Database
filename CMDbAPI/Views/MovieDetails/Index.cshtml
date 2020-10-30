@@ -43,13 +43,8 @@
                 <h3 class="bigger">Ratings</h3><br />
                 @foreach (var rating in @Model.Ratings)
                 {
-                    @*if (rating.ToString())
-                    {
-
-                    }*@
                     <p><b>@rating.Source</b></p>
                     <span class="score-big">
-                        Betyg
                         <br />
                         <br />
                         <span class="score">@rating.Value</span>

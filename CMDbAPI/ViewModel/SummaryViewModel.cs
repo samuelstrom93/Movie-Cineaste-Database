@@ -56,10 +56,14 @@ namespace CMDbAPI.ViewModel
             Plot = movieDetailsDTO.Plot;
             Director = movieDetailsDTO.Director;
 
-
             foreach (var ratings in movieDetailsDTO.Ratings)
             {
                 Ratings.Add(ratings);
+            }
+
+            if (string.IsNullOrEmpty(movieDetailsDTO.Poster) || movieDetailsDTO.Poster.Contains("N/A"))
+                {
+                Poster = "/img/NoPosterAvaible.png";
             }
 
             //TODO: Den här if-koden hör hemma i SummarySearchViewModel, den ska inte vara här.

@@ -20,9 +20,18 @@
                     <label id="subplot">Plot:</label></><br />
                     @Model.Plot.Substring(0, 60)<span id="dots">...</span><span id="more">@Model.Plot.Substring(60)</span>
                 </p>
-            <p class="read-more">Read More &darr;</p>
-            </div>
+                <p class="read-more">Read More &darr;</p>
 
+                <div class="ratings-container">
+                    <h2>Do you like the movie?<br /> Contribute below</h2>
+                    <div class="wrapper-like">
+                        <button class="like-btn">Like</button>
+                        <button class="dislike-btn">Dislike</button>
+                    </div>
+                </div>
+
+
+            </div>
 
             <div class="flexbox-column-movie">
                 <img src="@Model.Poster" alt="Poster" class="top-movie-details">
@@ -30,28 +39,29 @@
                     <p id="normal-label"><label class="bigger">Likes</label><br /> <span id="likes">@Model.NumberOfLikes</span></p>
                     <p id="normal-label"><label class="bigger">Dislikes</label><br /><span id="dislikes">@Model.NumberOfDislikes</span></p>
                 </div>
+                <br />
+                <h3 class="bigger">Ratings</h3><br />
                 @foreach (var rating in @Model.Ratings)
                 {
-                    <p><strong>@rating.Source</strong><br />@rating.Value</p>
+                    @*if (rating.ToString())
+                    {
+
+                    }*@
+                    <p><b>@rating.Source</b></p>
+                    <span class="score-big">
+                        Betyg
+                        <br />
+                        <br />
+                        <span class="score">@rating.Value</span>
+                    </span>
+
                 }
             </div>
 
         </div>
 
 
-
-        <div class="wrapper-like">
-            <div>
-                @*<h2 style="text-align:center">Like</h2>*@
-                <button class="like-btn">Like</button>
-                
-            </div>
-            <div>
-                @*<h2 style="text-align:center">Dislike</h2>*@
-                <button class="dislike-btn">Dislike</button>
-
-            </div>
-        </div>
+        
 
 
 

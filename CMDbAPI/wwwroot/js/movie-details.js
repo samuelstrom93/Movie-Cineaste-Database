@@ -45,8 +45,8 @@ function dislike() {
             document.querySelector('#dislikes').textContent = response.numberOfDislikes;
             likeBtn.disabled = true;
             dislikeBtn.disabled = true;
-            likeBtn.style.opacity = "0.7";
-            dislikeBtn.style.opacity = "0.7";
+            likeBtn.style.opacity = "0.3";
+            dislikeBtn.style.opacity = "0.3";
         },
         error: function (response) { console.log(response) }
     });

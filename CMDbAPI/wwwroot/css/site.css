@@ -169,6 +169,7 @@ figcaption {
 /*    width: 30%;*/
     margin: 3% 10%;
     text-align: center;
+    align-items: center;
     display: flex;
     flex-direction: column;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -212,6 +213,7 @@ figcaption {
 
 .bigger {
     font: bold x-large Georgia;
+    margin-bottom: 0%;
 }
 
 .read-more {
@@ -228,27 +230,30 @@ figcaption {
     display: none;
 }
 
+.ratings-container {
+    margin-top: 15%;
+}
+
 .wrapper-like {
     display: flex;
     justify-content: space-evenly;
     text-align: center;
-    margin: 5%;
 }
 
 .like-btn {
     background-color: green;
     border-radius: 5px;
-    width: 15vh;
-    height: 2.5vh;
+    width: 12.5vh;
+    height: 3vh;
     border: thin solid black;
     font: bold large Georgia;
 }
 
 .dislike-btn {
     background-color: red;
-    width: 15vh;
+    width: 13vh;
     border-radius: 5px;
-    height: 2.5vh;
+    height: 3vh;
     border: thin solid black;
     font: bold large Georgia;
 }
@@ -264,6 +269,26 @@ figcaption {
     background-color: darkgrey;
     cursor: pointer;
     /*    background-image: url("https://www.freeiconspng.com/uploads/dislike-button-png-1.png");*/
+}
+
+.score-big {
+/*    float: right;*/
+    width: 110px;
+    height: 100px;
+    color: #fff;
+    font-size: 0.7em;
+    background: #333;
+    padding: 5px 0 0 0;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 1.2em;
+    font: bold medium Georgia;
+}
+
+.score-big .score {
+    font-size: 1.8em;
+    font-weight: bold;
+    line-height: 0.8em;
 }
 
 

@@ -4,4 +4,3 @@ function onChange(val) {
 }
 
 
-alert('test av javascript')

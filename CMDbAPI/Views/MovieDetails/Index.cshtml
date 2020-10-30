@@ -40,27 +40,18 @@
 
 
 
-        @*// Ändra om så att de är kopplade till likes och dislikes istället*@
         <div class="wrapper-like">
             <div>
                 <h2 style="text-align:center">Like</h2>
-                <a href="@Url.Action("DislikeMovie", "Movie", new { imdbID = Model.ImdbID })">
-                    <img src="https://i.dlpng.com/static/png/6959900_preview.png" id="rating-icon" />
-                </a>
+                <button class="like-btn"><img src="~/img/like-button.png" class="like-btn"></button>
+                
             </div>
             <div>
                 <h2 style="text-align:center">Dislike</h2>
-                <a href="@Url.Action("DislikeMovie", "Movie", new { imdbID = Model.ImdbID })">
-                    <img src="https://www.freeiconspng.com/uploads/dislike-button-png-1.png" id="rating-icon" />
-                </a>
+                <button class="dislike-btn"><img src="~/img/dislike-button.png" class="dislike-btn"></button>
+
             </div>
         </div>
-
-
-        <button class="like-btn">Like</button>
-        <br />
-        <button class="dislike-btn">Dislike</button>
-        <br />
 
 
 

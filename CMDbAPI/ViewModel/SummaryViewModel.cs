@@ -40,6 +40,8 @@ namespace CMDbAPI.ViewModel
 
         public string ImdbID { get; set; }
 
+        public string Type { get; set; }
+
 
 
 
@@ -60,6 +62,7 @@ namespace CMDbAPI.ViewModel
                 Ratings.Add(ratings);
             }
 
+            //TODO: Den här if-koden hör hemma i SummarySearchViewModel, den ska inte vara här.
             if (movie != null)
             {
                 NumberOfLikes = movie.NumberOfLikes;
@@ -68,18 +71,6 @@ namespace CMDbAPI.ViewModel
 
             }
         }
-
-
-        //TODO: Försöker lägga till den söka filmen i en lista av SummaryViewModel för att kunna presentera i Vyn
-        public SummaryViewModel(OmdbDTO omdbDTO)
-        {
-
-            Title = omdbDTO.Title;
-            Poster = omdbDTO.Poster;
-            ImdbID = omdbDTO.imdbID;
-
-
-
-        }
+     
     }
 }

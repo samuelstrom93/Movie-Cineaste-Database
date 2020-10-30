@@ -8,10 +8,8 @@
 
 
 
-    @*//TODO:Ändra så att man hämtar det exakta värdet på antalet filmer i databasen, vid val av "alla filmer""*@
-
-
-    <form asp-action="Search" asp-controller="Home" method="get">
+    
+    <form asp-action="FilterTopList" asp-controller="Home" method="get">
         <label for="sortType">Sortera efter:</label>
         <select name="type" id="sel">
             <option value="rating">Skillnad Like/Dislike</option>
@@ -28,7 +26,7 @@
             <option value="asc">Lägst först</option>
         </select>
         <br><br>
-        <input type="submit" value="Submit" id="btn">
+        <input type="submit" value="Submit" id="btn"/>
 
     </form>
 

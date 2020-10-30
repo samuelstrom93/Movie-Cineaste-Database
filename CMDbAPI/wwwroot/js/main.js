@@ -4,4 +4,4 @@ function onChange(val) {
 }
 
 
-document.querySelector('.movie-title').textContent = 'HAJ'
+alert('test av javascript')

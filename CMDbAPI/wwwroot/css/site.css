@@ -159,6 +159,8 @@ figcaption {
     justify-content: center;
 }
 
+
+
 .flexbox-column {
 /*    border: 1px solid black;*/
     width: 30%;
@@ -238,32 +240,33 @@ figcaption {
     display: none;
 }
 
-/*Gamla knappen*/
-/*.read-more {
-    margin: 0% auto;
-    height: 1.5em;
-    line-height: 1.5em;
-    background-color: black;
-    color: white;
-    width: 8vh;
-    text-decoration: none;
-    border-radius: 8px;
-}*/
-
-
-
 .wrapper-like {
     display: flex;
     justify-content: space-evenly;
+    text-align: center;
 }
 
-#rating-icon {
+.like-btn {
+/*    width: 25%;*/
     width: 200px;
 }
 
-#rating-icon:hover {
-    background-color: #eee;
-    background-image: url("https://www.freeiconspng.com/uploads/dislike-button-png-1.png");
+.dislike-btn {
+/*    width: 25%;*/
+    width: 200px;
+}
+
+
+.like-btn:hover {
+    background-color: grey;
+    cursor: pointer;
+    /*    background-image: url("https://www.freeiconspng.com/uploads/dislike-button-png-1.png");*/
+}
+
+.dislike-btn:hover {
+    background-color: grey;
+    cursor: pointer;
+    /*    background-image: url("https://www.freeiconspng.com/uploads/dislike-button-png-1.png");*/
 }
 
 

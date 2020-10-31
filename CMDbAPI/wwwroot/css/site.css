@@ -145,7 +145,27 @@ figcaption {
 }
 
 
+/* ----------------Search---------------------*/
+.search-container {
+    border: 1px solid black;
+    width: 85%;
+    margin: auto;
+}
 
+.search-movies-flexbox {
+    display: flex;
+    border: 1px solid black;
+    align-items: center;
+    font: bold medium Times;
+}
+
+.search-movies-flexbox p {
+    margin-right: 15%;
+}
+
+.search-movies-flexbox img {
+    width: 60%;
+}
 
 
 /* ----------------MovieDetails---------------------*/
@@ -255,6 +275,16 @@ figcaption {
     margin-right: 5%;
 }
 
+.like-btn:disabled {
+    pointer-events: none;
+}
+
+.like-btn:hover {
+    background-color: darkgrey;
+    cursor: pointer;
+    /*    background-image: url("https://www.freeiconspng.com/uploads/dislike-button-png-1.png");*/
+}
+
 .dislike-btn {
     background-color: red;
     width: 13vh;
@@ -266,16 +296,14 @@ figcaption {
 }
 
 
-.like-btn:hover {
+.dislike-btn:hover {
     background-color: darkgrey;
     cursor: pointer;
     /*    background-image: url("https://www.freeiconspng.com/uploads/dislike-button-png-1.png");*/
 }
 
-.dislike-btn:hover {
-    background-color: darkgrey;
-    cursor: pointer;
-    /*    background-image: url("https://www.freeiconspng.com/uploads/dislike-button-png-1.png");*/
+.dislike-btn:disabled {
+    pointer-events: none;
 }
 
 .score-big {

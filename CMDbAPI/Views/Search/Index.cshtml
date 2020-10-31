@@ -2,17 +2,15 @@
 
 
 
-<div>
+<div class="search-container">
         @foreach (var movie in Model)
         {
-            <div class="searchedMovie-flexbox">
+            <div class="search-movies-flexbox">
 
                 <a href="@Url.Action("Index", "MovieDetails", new { imdbID = movie.ImdbID })">
                     <img id="searchedMovieImg" src="@movie.Poster" alt="">
                 </a>
-                <p>@movie.Title</p>
-                <p>@movie.Year</p>
-                <p>@movie.Type</p>
+                <p>@movie.Title<br />@movie.Year<br />@movie.Type <br />@movie.Director </p>
             </div>
         }
 </div>

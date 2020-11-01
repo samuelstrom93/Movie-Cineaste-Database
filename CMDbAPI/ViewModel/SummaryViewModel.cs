@@ -19,7 +19,6 @@ namespace CMDbAPI.ViewModel
         public string Actors { get; set; }
 
 
-        // TODO: skapa en dataannotation för att visa ett default ifall den är null/tom [displayname]
         public string Poster { get; set; }
         public string Plot { get; set; }
         public string Director { get; set; }
@@ -54,7 +53,6 @@ namespace CMDbAPI.ViewModel
             Actors = movieDetailsDTO.Actors;
             Poster = movieDetailsDTO.Poster;
             Plot = movieDetailsDTO.Plot;
-            Director = movieDetailsDTO.Director;
 
             foreach (var ratings in movieDetailsDTO.Ratings)
             {
@@ -64,6 +62,11 @@ namespace CMDbAPI.ViewModel
             if (string.IsNullOrEmpty(movieDetailsDTO.Poster) || movieDetailsDTO.Poster.Contains("N/A"))
                 {
                 Poster = "/img/NoPosterAvaible.png";
+            }
+
+            if (string.IsNullOrEmpty(movieDetailsDTO.Plot) || movieDetailsDTO.Poster.Contains("N/A"))
+            {
+                Poster = "No plot available";
             }
 
             //TODO: Den här if-koden hör hemma i SummarySearchViewModel, den ska inte vara här.

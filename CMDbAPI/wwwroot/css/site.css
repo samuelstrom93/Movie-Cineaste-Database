@@ -13,13 +13,12 @@ header {
 header a {
     color: #eee;
     text-decoration: none;
-    font-size: 125%;
 }
 
 #title-header {
     font: bold xx-large Georgia;
     color: white;
-    margin-right: 5%;
+    margin-right: 15%;
 }
 
 a:hover {
@@ -66,8 +65,7 @@ input[type="text"] {
 }
 
 .header-flex figure {
-    margin-left: 10%;
-    margin-top: 10%;
+    margin: 1% 0%;
 }
 
 
@@ -104,6 +102,13 @@ h1 {
 .top-movie {
     display: block;
     margin: auto;
+    height: 450px;
+    width: 300px;
+}
+
+.movie-container {
+    border: thin black solid;
+    width: 320px;
 }
 
 .rankings-flexbox {
@@ -128,6 +133,11 @@ h1 {
     align-items: center;
 }
 
+#ratings-title {
+    margin-top: 5%;
+    margin-bottom: -25px;
+}
+
 figure {
     display: flex;
     flex-flow: column;
@@ -144,6 +154,11 @@ figcaption {
     margin-top: -4px;
 }
 
+.likes-flexbox {
+    display: flex;
+    justify-content: space-evenly;
+}
+
 
 /* ----------------Search---------------------*/
 .search-container {
@@ -156,15 +171,16 @@ figcaption {
     display: flex;
     border: 1px solid black;
     align-items: center;
-    font: bold medium Times;
+    font: large Times;
 }
 
 .search-movies-flexbox p {
-    margin-right: 15%;
+    margin-left: 10%;
 }
 
 .search-movies-flexbox img {
-    width: 60%;
+    width: 180px;
+    height: 250px;
 }
 
 

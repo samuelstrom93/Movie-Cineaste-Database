@@ -59,17 +59,9 @@ namespace CMDbAPI.Controllers
 
         [HttpGet]
         public async Task<IActionResult> FilterTopList(int count, string sortOrder, string type)
-
         {
             parameter = new Parameter(count, sortOrder, type);
-
-
-            //TODO: sätt ett defaultvärde som kan behållas i propertyn om värdet är N/A           
             var toplist = await movieRepository.GetTopListAggregatedData(parameter);
-
-            ViewData["sortOrder"] = sortOrder;
-            ViewData["count"] = count;
-            ViewData["type"] = type;
             return View("index", toplist);
         }
 

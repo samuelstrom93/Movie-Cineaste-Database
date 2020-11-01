@@ -8,9 +8,10 @@
             <div class="search-movies-flexbox">
 
                 <a href="@Url.Action("Index", "MovieDetails", new { imdbID = movie.ImdbID })">
-                    <img id="searchedMovieImg" src="@movie.Poster" alt="">
-                </a>
-                <p>@movie.Title<br />@movie.Year<br />@movie.Type <br />@movie.Director </p>
+                    <img id="searchedMovieImg" src="@movie.Poster" alt=""></a>
+                <p><b>Title:</b> @movie.Title<br /><br />
+                <b>Year:</b> @movie.Year<br /><br />
+                <b>Type:</b> @movie.Type<br /><br />
             </div>
         }
 </div>

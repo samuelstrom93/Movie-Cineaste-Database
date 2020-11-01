@@ -2,74 +2,91 @@
 
 @model IEnumerable<CMDbAPI.ViewModel.SummaryViewModel>
 
-    <main>
-        @*<form asp-action="FilterTopList" asp-controller="Home" method="get">*@
-            <form action="@Url.Action("FilterTopList", "Home")" class="form-flex">
-                <label for="sortType">Sortera efter:</label>
-                <select name="type" id="sel">
-                    <option value="rating">Skillnad Like/Dislike</option>
-                    <option value="popularity">Antal betyg</option>
-                </select>
-                <label for="show">Visa antal:</label>
-                <select name="count">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="0">Alla</option>
-                </select>
-                <select name="sortOrder">
-                    <option value="desc">Högst först</option>
-                    <option value="asc">Lägst först</option>
-                </select>
-                <br><br>
-                <input type="submit" value="Submit" id="btn" />
+<main>
+    @*<form asp-action="FilterTopList" asp-controller="Home" method="get">*@
+    <form action="@Url.Action("FilterTopList", "Home")" class="form-flex">
+        <label for="sortType">Sortera efter:</label>
+        <select name="type" id="sel">
+            <option value="rating">Skillnad Like/Dislike</option>
+            <option value="popularity">Antal betyg</option>
+        </select>
+        <label for="show">Visa antal:</label>
+        <select name="count">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="0">Alla</option>
+        </select>
+        <select name="sortOrder">
+            <option value="desc">Högst först</option>
+            <option value="asc">Lägst först</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Submit" id="btn" />
 
-            </form>
-
-
-        <h1>@ViewData["count"]</h1>
-
-            <h1 class="movie-title">@Model.FirstOrDefault().Title</h1>
+    </form>
 
 
 
-            <div class="top-movie-container">
-                @for (int i = 0; i < 1; i++)
+    <h1 class="movie-title">@Model.FirstOrDefault().Title</h1>
+
+    <div class="top-movie-container">
+        @for (int i = 0; i < 1; i++)
+        {
+            <img src="@Model.FirstOrDefault().Poster" alt="Toppfilm" class="top-movie">
+            <h2> Likes - Dislikes </h2>
+            <p> @Model.FirstOrDefault().NumberOfLikes - @Model.FirstOrDefault().NumberOfDislikes </p>
+
+            <h2 id="ratings-title">Ratings</h2>
+            <div class="rating-container-home">
+                @foreach (var rating in Model.FirstOrDefault().Ratings)
                 {
-                    <img src="@Model.FirstOrDefault().Poster" alt="Toppfilm" class="top-movie">
-                    <h2> Likes - Dislikes </h2>
-                    <p> @Model.FirstOrDefault().NumberOfLikes - @Model.FirstOrDefault().NumberOfDislikes </p>
+                    <div class="ratings-flexbox">
 
-                    <h2>Ratings</h2>
-
-                    <div class="rating-container-home">
-                        @foreach (var rating in Model.FirstOrDefault().Ratings)
-                        {
-                            <div class="ratings-flexbox">
-
-                                <p><b>@rating.Source</b></p>
-                                <span class="score-big">
-                                    Rating
-                                    <br />
-                                    <br />
-                                    <span class="score">@rating.Value</span>
-                                </span>
-                            </div>
-                        }
+                        <p><b>@rating.Source</b></p>
+                        <span class="score-big">
+                            Rating
+                            <br />
+                            <br />
+                            <span class="score">@rating.Value</span>
+                        </span>
                     </div>
                 }
             </div>
+        }
+    </div>
 
-            <div class="rankings-flexbox">
-                @foreach (var movie in Model)
-                {
-                    <figure class="rankings-figure">
-                        <a href="@Url.Action("Index", "MovieDetails", new { imdbID = movie.ImdbID })">
-                            <img src="@movie.Poster" alt="">
-                        </a>
-                        <figcaption>@movie.Title</figcaption>
-                        <h3>Likes - Dislikes</h3>
-                        <p> @movie.NumberOfLikes - @movie.NumberOfDislikes</p>
-                    </figure>
-                }
+    <div class="rankings-flexbox">
+        @foreach (var movie in Model)
+        {
+            <div class="movie-container">
+                <figure class="rankings-figure">
+                    <a href="@Url.Action("Index", "MovieDetails", new { imdbID = movie.ImdbID })">
+                        <img src="@movie.Poster" alt="toppfilmer" class="top-movie">
+                    </a>
+                    <figcaption>@movie.Title</figcaption>
+                    <div class="likes-flexbox">
+                        <p id="normal-label"><label class="bigger">Likes</label><br /> <span id="likes">@movie.NumberOfLikes</span></p>
+                        <p id="normal-label"><label class="bigger">Dislikes</label><br /><span id="dislikes">@movie.NumberOfDislikes</span></p>
+                    </div>
+                    @if (movie.Plot == "N/A")
+                    {
+                        <p id="plot">
+                            <label id="subplot">Plot:</label><br />
+                            No plot available
+                        </p>
+                    }
+                    else
+                    {
+                        <p id="plot">
+                            <label id="subplot">Plot:</label><br />
+                            @movie.Plot.Substring(0, 40)<span id="dots">...</span><span id="more">@movie.Plot.Substring(40)</span>
+                        </p>
+                        <p class="read-more">Read More &darr;</p>
+                    }
+                </figure>
             </div>
+
+        }
+    </div>
+
 </main>

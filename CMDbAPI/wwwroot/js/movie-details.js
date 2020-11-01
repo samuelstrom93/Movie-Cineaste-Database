@@ -1,7 +1,7 @@
 ﻿let imdbID = $("#ImdbID").val();
 
-const moreBtn = document.querySelector('.read-more');
-moreBtn.addEventListener('click', readMore);
+//const moreBtn = document.querySelector('.read-more');
+//moreBtn.addEventListener('click', readMore);
 
 const likeBtn = document.querySelector('.like-btn')
 likeBtn.addEventListener('click', like);
@@ -53,18 +53,18 @@ function dislike() {
 }
 
 
-function readMore() {
-    let dots = document.querySelector("#dots");
-    let moreText = document.querySelector('#more');
-    let btnText = document.querySelector('.read-more');
+//function readMore() {
+//    let dots = document.querySelector("#dots");
+//    let moreText = document.querySelector('#more');
+//    let btnText = document.querySelector('.read-more');
 
-    if (dots.style.display === "none") {
-        dots.style.display = "inline";
-        btnText.innerHTML = "Read more &darr;";
-        moreText.style.display = "none";
-    } else {
-        dots.style.display = "none";
-        btnText.innerHTML = "Read less &uarr;";
-        moreText.style.display = "inline";
-    }
-}
+//    if (dots.style.display === "none") {
+//        dots.style.display = "inline";
+//        btnText.innerHTML = "Read more &darr;";
+//        moreText.style.display = "none";
+//    } else {
+//        dots.style.display = "none";
+//        btnText.innerHTML = "Read less &uarr;";
+//        moreText.style.display = "inline";
+//    }
+//}

@@ -37,17 +37,7 @@ namespace CMDbAPI.Controllers
             {
                 return View();
             }
-
-
-            //for (int i = 0; i < listOfMovies.Search.Count; i++)
-            //    {
-            //        SummarySearchViewModel movie = new SummarySearchViewModel(listOfMovies.Search[i]);
-            //        summarySearchViewModels.Add(movie);
-            //    }
             
-            
-
-            //return View(summarySearchViewModels) ?? View();
         }
     }
 }

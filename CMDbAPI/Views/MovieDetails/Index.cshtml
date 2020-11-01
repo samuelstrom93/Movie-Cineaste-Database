@@ -15,12 +15,21 @@
                 <p><strong>Actors:</strong><br />@Model.Actors</p>
 
 
-
-                <p id="plot">
-                    <label id="subplot">Plot:</label></><br />
-                    @Model.Plot.Substring(0, 60)<span id="dots">...</span><span id="more">@Model.Plot.Substring(60)</span>
-                </p>
-                <p class="read-more">Read More &darr;</p>
+                @if (Model.Plot == "N/A")
+                {
+                    <p id="plot">
+                    <label id="subplot">Plot:</label><br />
+                    No plot available
+                    </p>
+                }
+                else
+                {
+                    <p id="plot">
+                        <label id="subplot">Plot:</label><br />
+                        @Model.Plot.Substring(0, 60)<span id="dots">...</span><span id="more">@Model.Plot.Substring(60)</span>
+                    </p>
+                    <p class="read-more">Read More &darr;</p>
+                }
 
                 <div class="ratings-container">
                     <h2>Do you like the movie?<br /> Contribute below</h2>

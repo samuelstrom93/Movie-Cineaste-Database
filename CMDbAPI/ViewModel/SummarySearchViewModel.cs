@@ -19,9 +19,6 @@ namespace CMDbAPI.ViewModel
         public string Type { get; set; }
 
 
-        // TODO: lägg till director
-        public string Director { get; set; }
-
 
 
         public SummarySearchViewModel(OmdbDTO omdbDTO)
@@ -31,8 +28,6 @@ namespace CMDbAPI.ViewModel
             ImdbID = omdbDTO.imdbID;
             Year = omdbDTO.Year;
             Type = omdbDTO.Type;
-            
-            //Director = omdbDTO.Director;
 
             if (string.IsNullOrEmpty(omdbDTO.Poster) || omdbDTO.Poster.Contains("N/A"))
             {

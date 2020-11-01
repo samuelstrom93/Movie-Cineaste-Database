@@ -44,10 +44,10 @@ namespace CMDbAPI.Controllers
             parameter = new Parameter(count,sortOrder,type);
 
 
-            //TODO: ta bort dessa?
-            parameter.Count = count;
-            parameter.SortOrder = sortOrder;
-            parameter.Type = type;        
+            ////TODO: ta bort dessa?
+            //parameter.Count = count;
+            //parameter.SortOrder = sortOrder;
+            //parameter.Type = type;        
 
             //TODO: sätt ett defaultvärde som kan behållas i propertyn om värdet är N/A           
             var toplist = await movieRepository.GetTopListAggregatedData(parameter);

@@ -68,18 +68,28 @@
                         <p id="normal-label"><label class="bigger">Likes</label><br /> <span id="likes">@movie.NumberOfLikes</span></p>
                         <p id="normal-label"><label class="bigger">Dislikes</label><br /><span id="dislikes">@movie.NumberOfDislikes</span></p>
                     </div>
-                    @if (movie.Plot == "N/A")
+                    @if (movie.Plot == "No plot available")
                     {
                         <p id="plot">
                             <label id="subplot">Plot:</label><br />
-                            No plot available
+                            @movie.Plot
                         </p>
                     }
+
+                    else if (movie.Plot.Length < 30)
+                    {
+                        <p id="plot">
+                            <label id="subplot">Plot:</label><br />
+                            @movie.Plot.Substring(0, 20)<span id="dots">...</span><span id="more">@movie.Plot.Substring(20)</span>
+                        </p>
+                        <p class="read-more">Read More &darr;</p>
+                    }
+
                     else
                     {
                         <p id="plot">
                             <label id="subplot">Plot:</label><br />
-                            @movie.Plot.Substring(0, 40)<span id="dots">...</span><span id="more">@movie.Plot.Substring(40)</span>
+                            @movie.Plot.Substring(0, 30)<span id="dots">...</span><span id="more">@movie.Plot.Substring(30)</span>
                         </p>
                         <p class="read-more">Read More &darr;</p>
                     }

@@ -1,76 +1,64 @@
 ﻿
 @model CMDbAPI.ViewModel.SummaryViewModel
 
-@Html.HiddenFor(x=>x.NumberOfDislikes)
-@Html.HiddenFor(x=>x.ImdbID)
+@Html.HiddenFor(x => x.NumberOfDislikes)
+@Html.HiddenFor(x => x.ImdbID)
 
-    <article>
-        <div class="wrapper">
-            <div class="flexbox-column">
-                <h2 class="center">@Model.Title</h2>
-                <p><strong>Year:</strong><br />@Model.Year</p>
-                <p><strong>Runtime:</strong><br />@Model.Runtime</p>
-                <p><strong>Genre:</strong><br />@Model.Genre</p>
-                <p><strong>Director:</strong><br />@Model.Director</p>
-                <p><strong>Actors:</strong><br />@Model.Actors</p>
+<article>
+    <div class="wrapper">
+        <div class="flexbox-column">
+            <h2 class="center">@Model.Title</h2>
+            <p><strong>Year:</strong><br />@Model.Year</p>
+            <p><strong>Runtime:</strong><br />@Model.Runtime</p>
+            <p><strong>Genre:</strong><br />@Model.Genre</p>
+            <p><strong>Director:</strong><br />@Model.Director</p>
+            <p><strong>Actors:</strong><br />@Model.Actors</p>
 
+            <p id="plot">
+                <label id="subplot">Plot:</label><br />
+                @Model.Plot
+            </p>
 
-                @if (Model.Plot == "N/A")
-                {
-                    <p id="plot">
-                    <label id="subplot">Plot:</label><br />
-                    No plot available
-                    </p>
-                }
-                else
-                {
-                    <p id="plot">
-                        <label id="subplot">Plot:</label><br />
-                        @Model.Plot.Substring(0, 60)<span id="dots">...</span><span id="more">@Model.Plot.Substring(60)</span>
-                    </p>
-                    <p class="read-more">Read More &darr;</p>
-                }
-
-                <div class="ratings-container">
-                    <h2>Do you like the movie?<br /> Contribute below</h2>
-                    <div class="wrapper-like">
-                        <button class="like-btn">Like</button>
-                        <button class="dislike-btn">Dislike</button>
-                    </div>
+            <div class="ratings-container">
+                <h2>Do you like the movie?<br /> Contribute below</h2>
+                <div class="wrapper-like">
+                    <button class="like-btn">Like</button>
+                    <button class="dislike-btn">Dislike</button>
                 </div>
-
-
             </div>
 
-            <div class="flexbox-column-movie">
-                <img src="@Model.Poster" alt="Poster" class="top-movie-details">
-                <div class="flexbox-row">
-                    <p id="normal-label"><label class="bigger">Likes</label><br /> <span id="likes">@Model.NumberOfLikes</span></p>
-                    <p id="normal-label"><label class="bigger">Dislikes</label><br /><span id="dislikes">@Model.NumberOfDislikes</span></p>
-                </div>
-                <br />
-                <h3 class="bigger">Ratings</h3><br />
-                @foreach (var rating in @Model.Ratings)
-                {
-                    <p><b>@rating.Source</b></p>
-                    <span class="score-big">
-                        <br />
-                        <br />
-                        <span class="score">@rating.Value</span>
-                    </span>
-
-                }
-            </div>
 
         </div>
 
+        <div class="flexbox-column-movie">
+            <img src="@Model.Poster" alt="Poster" class="top-movie-details">
+            <div class="flexbox-row">
+                <p id="normal-label"><label class="bigger">Likes</label><br /> <span id="likes">@Model.NumberOfLikes</span></p>
+                <p id="normal-label"><label class="bigger">Dislikes</label><br /><span id="dislikes">@Model.NumberOfDislikes</span></p>
+            </div>
+            <br />
+            <h3 class="bigger">Ratings</h3><br />
+            @foreach (var rating in @Model.Ratings)
+            {
+                <p><b>@rating.Source</b></p>
+                <span class="score-big">
+                    <br />
+                    <br />
+                    <span class="score">@rating.Value</span>
+                </span>
 
-        
+            }
+        </div>
+
+    </div>
 
 
 
 
-    </article>
+
+
+
+</article>
 
 
 

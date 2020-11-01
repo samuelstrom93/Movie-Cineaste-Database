@@ -60,13 +60,13 @@ namespace CMDbAPI.ViewModel
             }
 
             if (string.IsNullOrEmpty(movieDetailsDTO.Poster) || movieDetailsDTO.Poster.Contains("N/A"))
-                {
+            {
                 Poster = "/img/NoPosterAvaible.png";
             }
 
-            if (string.IsNullOrEmpty(movieDetailsDTO.Plot) || movieDetailsDTO.Poster.Contains("N/A"))
+            if (string.IsNullOrEmpty(movieDetailsDTO.Plot) || movieDetailsDTO.Plot.Contains("N/A"))
             {
-                Poster = "No plot available";
+                Plot = "No plot available";
             }
 
             //TODO: Den här if-koden hör hemma i SummarySearchViewModel, den ska inte vara här.
@@ -78,6 +78,6 @@ namespace CMDbAPI.ViewModel
 
             }
         }
-     
+
     }
 }

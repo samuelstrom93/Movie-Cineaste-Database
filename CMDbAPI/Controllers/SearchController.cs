@@ -35,7 +35,8 @@ namespace CMDbAPI.Controllers
             }
             else
             {
-                return View();
+                ViewBag.search = searchString;
+                return View(summarySearchViewModels);
             }
             
         }

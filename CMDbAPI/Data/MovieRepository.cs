@@ -293,8 +293,6 @@ namespace CMDbAPI
                 HomeTopListMovieDTO topListMovie=  await GetTopListMovieDetails(movie.ImdbID);
                 topListMovie.NumberOfLikes = movie.NumberOfLikes;
                 topListMovie.NumberOfDislikes = movie.NumberOfDislikes;
-                
-
                 homeViewModel.TopListMovies.Add(topListMovie);
             }           
             return homeViewModel;

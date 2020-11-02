@@ -14,7 +14,9 @@ namespace CMDbAPI.Models.DTO
         public int NumberOfLikes { get; set; }   
         public int NumberOfDislikes { get; set; }
         public List<Ratings> Ratings { get; set; } = new List<Ratings>();
+        public string Plot { get; set; }
     }
+
 
 
 }

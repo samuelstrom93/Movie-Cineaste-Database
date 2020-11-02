@@ -1,20 +1,28 @@
 ﻿@model CMDbAPI.ViewModel.SearchViewModel
 
 
+<div class="search-container">
 
-<div>
-    <ul>
+
+    @if (Model.Search == null)
+    {
+        <p id="center">No results found for <b>"@ViewBag.search"</b> </p>
+    }
+    else
+    {
         @foreach (var movie in Model.Search)
         {
-            <div class="searchedMovie-flexbox">
+            <div class="search-movies-flexbox">
 
                 <a href="@Url.Action("Index", "MovieDetails", new { imdbID = movie.ImdbID })">
                     <img id="searchedMovieImg" src="@movie.Poster" alt="">
                 </a>
-                <p>@movie.Title</p>
-                <p>@movie.Year</p>
-                <p>@movie.Type</p>
+                <p>
+                    <b>Title:</b> @movie.Title<br /><br />
+                    <b>Year:</b> @movie.Year<br /><br />
+                    <b>Type:</b> @movie.Type<br /><br />
             </div>
         }
-    </ul>
+
+    }
 </div>

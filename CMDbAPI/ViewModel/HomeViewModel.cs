@@ -23,9 +23,7 @@ namespace CMDbAPI.ViewModel
             SelectedCount =(int)parameter.Count;
             SelectedSortOrder = parameter.SortOrder;
             SelectedType = parameter.Type;
-
         }
-
 
     }
 

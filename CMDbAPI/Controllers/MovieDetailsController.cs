@@ -28,9 +28,11 @@ namespace CMDbAPI.Controllers
             // Får just nu problem med async
             //MovieSummaryDTO movieSummary = await movieRepository.GetSummarySingleMovie(imdbID);
             //MovieSummaryViewModel movieSummaryViewModel = new MovieSummaryViewModel();
-            MovieDetailsViewModel movieSummaryViewModel = await movieRepository.GetSummarySingleMovie(imdbID);
 
-            return View(movieSummaryViewModel);
+
+            MovieDetailsViewModel movieDetailsViewModel = await movieRepository.GetSummarySingleMovie(imdbID);
+
+            return View(movieDetailsViewModel);
         }
     }
 }

@@ -3,8 +3,6 @@ using CMDbAPI.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CMDbAPI.Models.DTO;
-using CMDbAPI.ViewModel;
 using CMDbAPI.Models;
 
 namespace CMDbAPI.Test

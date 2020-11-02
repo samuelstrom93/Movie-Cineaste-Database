@@ -20,4 +20,8 @@ namespace CMDbAPI.Models.DTO
         public string Director { get; set; }
         public List<Ratings> Ratings { get; set; } = new List<Ratings>();     
     }
+
+
+
+
 }

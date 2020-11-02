@@ -13,13 +13,12 @@ header {
 header a {
     color: #eee;
     text-decoration: none;
-    font-size: 125%;
 }
 
 #title-header {
     font: bold xx-large Georgia;
     color: white;
-    margin-right: 5%;
+    margin-right: 15%;
 }
 
 a:hover {
@@ -66,8 +65,7 @@ input[type="text"] {
 }
 
 .header-flex figure {
-    margin-left: 10%;
-    margin-top: 10%;
+    margin: 1% 0%;
 }
 
 
@@ -104,25 +102,39 @@ h1 {
 .top-movie {
     display: block;
     margin: auto;
+    height: 450px;
+    width: 300px;
+}
+
+.movie-container {
+    width: 320px;
 }
 
 .rankings-flexbox {
     display: flex;
     justify-content: space-evenly;
-    flex-direction: row;
     flex-wrap: wrap;
+    margin: 2% auto;
     text-align: center;
 }
 
-.ratings-container {
-    width: 75%;
-    margin: auto;
+.rating-container-home {
+    display: flex;
+    justify-content: space-evenly;
+    margin-right: 4%;
 }
 
 .ratings-flexbox {
     display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
     margin: 2% 0%;
+    align-items: center;
+}
+
+#ratings-title {
+    margin-top: 5%;
+    margin-bottom: -25px;
 }
 
 figure {
@@ -137,12 +149,45 @@ figcaption {
     color: #fff;
     font: italic smaller sans-serif;
     padding: 3px;
+    margin: auto;
+    display: block;
     text-align: center;
+    width: 294px;
     margin-top: -4px;
 }
 
+.likes-flexbox {
+    display: flex;
+    justify-content: space-evenly;
+}
 
 
+/* ----------------Search---------------------*/
+.search-container {
+    border: 1px solid black;
+    width: 85%;
+    margin: 1% auto;
+}
+
+.search-movies-flexbox {
+    display: flex;
+    border: 1px solid black;
+    align-items: center;
+    font: large Times;
+}
+
+.search-movies-flexbox p {
+    margin-left: 10%;
+}
+
+.search-movies-flexbox img {
+    width: 180px;
+    height: 250px;
+}
+
+#center {
+    text-align: center;
+}
 
 
 /* ----------------MovieDetails---------------------*/
@@ -152,10 +197,14 @@ figcaption {
     justify-content: center;
 }
 
+.ratings-container {
+    width: 75%;
+    margin: auto;
+    text-align: center;
+}
 
 
 .flexbox-column {
-/*    border: 1px solid black;*/
     width: 30%;
     margin: 3% 10%;
     text-align: center;
@@ -165,10 +214,9 @@ figcaption {
 }
 
 .flexbox-column-movie {
-/*    border: 1px solid black;*/
-/*    width: 30%;*/
     margin: 3% 10%;
     text-align: center;
+    align-items: center;
     display: flex;
     flex-direction: column;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -212,6 +260,7 @@ figcaption {
 
 .bigger {
     font: bold x-large Georgia;
+    margin-bottom: 0%;
 }
 
 .read-more {
@@ -228,31 +277,29 @@ figcaption {
     display: none;
 }
 
+.ratings-container {
+    margin-top: 15%;
+}
+
 .wrapper-like {
     display: flex;
     justify-content: space-evenly;
     text-align: center;
-    margin: 5%;
 }
 
 .like-btn {
     background-color: green;
     border-radius: 5px;
-    width: 15vh;
-    height: 2.5vh;
+    width: 12.5vh;
+    height: 3vh;
     border: thin solid black;
     font: bold large Georgia;
+    margin-right: 5%;
 }
 
-.dislike-btn {
-    background-color: red;
-    width: 15vh;
-    border-radius: 5px;
-    height: 2.5vh;
-    border: thin solid black;
-    font: bold large Georgia;
+.like-btn:disabled {
+    pointer-events: none;
 }
-
 
 .like-btn:hover {
     background-color: darkgrey;
@@ -260,10 +307,44 @@ figcaption {
     /*    background-image: url("https://www.freeiconspng.com/uploads/dislike-button-png-1.png");*/
 }
 
+.dislike-btn {
+    background-color: red;
+    width: 13vh;
+    border-radius: 5px;
+    height: 3vh;
+    border: thin solid black;
+    font: bold large Georgia;
+    margin-left: 5%;
+}
+
+
 .dislike-btn:hover {
     background-color: darkgrey;
     cursor: pointer;
     /*    background-image: url("https://www.freeiconspng.com/uploads/dislike-button-png-1.png");*/
+}
+
+.dislike-btn:disabled {
+    pointer-events: none;
+}
+
+.score-big {
+    width: 125px;
+    height: 110px;
+    color: #fff;
+    font-size: 0.7em;
+    background: #333;
+    padding: 5px 0 0 0;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 1.2em;
+    font: bold medium Georgia;
+}
+
+.score-big .score {
+    font-size: 1.8em;
+    font-weight: bold;
+    line-height: 0.8em;
 }
 
 

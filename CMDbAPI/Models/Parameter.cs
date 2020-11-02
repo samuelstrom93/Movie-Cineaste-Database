@@ -12,7 +12,7 @@ namespace CMDbAPI
         /// Desc = descending
         /// Asc = ascending
         /// </summary>
-        public string SortOrder { get; set; } = "asc";
+        public string SortOrder { get; set; } = "desc";
         /// <summary>
         /// Number of movies  to recevie
         /// </summary>
@@ -24,6 +24,7 @@ namespace CMDbAPI
         /// Popularity = sort by sum of likes and dislikes. Many reactions equals high popularity 
         /// </summary>
 
+        // TEST
         public string Type { get; set; } = "rating";
 
         public Parameter()

@@ -27,40 +27,61 @@ namespace CMDbAPI.Controllers
 
         public async Task<IActionResult> Index()
         {
+
             parameter = new Parameter();
             var toplist = await movieRepository.GetTopListAggregatedData(parameter);
 
-            foreach (var movie in toplist.TopListMovies)
-            {
-                if (string.IsNullOrEmpty(movie.Poster))
-                {
-                    movie.Poster = "/img/NoPosterAvaible.png";
-                }
-            }          
+
+            //TODO: flytta validering till modellen ist
+            //foreach (var item in toplist.TopListMovies)
+            //{
+            //    if (string.IsNullOrEmpty(item.Poster) || item.Poster.Contains("N/A"))
+            //    {
+            //        item.Poster = "/img/NoPosterAvaible.png";
+            //    }
+
+            //    if (string.IsNullOrEmpty(item.Plot) || item.Plot.Contains("N/A"))
+            //    {
+            //        item.Plot = "No plot available";
+            //    }
+            //}
+
+
+
             return View(toplist);
         }
 
 
-  
+
+        //[HttpGet]
+        //public async Task<IActionResult> Search(int count, string sortOrder, string type)
+        //{
+        //    parameter = new Parameter(count,sortOrder,type);         
+        //    var toplist = await movieRepository.GetTopListAggregatedData(parameter);           
+
+
+        //    //TODO: fixa
+        //    foreach (var movie in toplist.TopListMovies)
+        //    {
+        //        if (movie.Poster.Contains("N/A"))
+        //        {
+        //            movie.Poster = "/img/NoPosterAvaible.png";
+        //        }
+        //    }
+
+        //    // Ändra till att gå till search-controll?
+        //    return View("index", toplist);    
+        //}
+
 
 
         [HttpGet]
-        public async Task<IActionResult> Search(int count, string sortOrder, string type)
-
+        public async Task<IActionResult> FilterTopList(int count, string sortOrder, string type)
         {
-            parameter = new Parameter(count,sortOrder,type);         
-            var toplist = await movieRepository.GetTopListAggregatedData(parameter);           
-
-            foreach (var movie in toplist.TopListMovies)
-            {
-                if (movie.Poster.Contains("N/A"))
-                {
-                    movie.Poster = "/img/NoPosterAvaible.png";
-                }
-            }
-
-            return View("index", toplist);    
-        }     
+            parameter = new Parameter(count, sortOrder, type);
+            var toplist = await movieRepository.GetTopListAggregatedData(parameter);
+            return View("index", toplist);
+        }
 
     }
 }

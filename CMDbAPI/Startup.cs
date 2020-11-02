@@ -45,6 +45,11 @@ namespace CMDbAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseStatusCodePagesWithReExecute("Error/{0}");
+            }
 
             app.UseHttpsRedirection();
 
@@ -62,12 +67,12 @@ namespace CMDbAPI
                     );
             });
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //});
 
-            app.UseCors(MyAllowSpecificOrigins);
+            //app.UseCors(MyAllowSpecificOrigins);
         }
 
     }

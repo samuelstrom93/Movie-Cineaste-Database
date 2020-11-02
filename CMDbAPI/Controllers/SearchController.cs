@@ -21,21 +21,22 @@ namespace CMDbAPI.Controllers
         {
             var listOfMovies = await movieRepository.GetAllMoviesContaining(searchString);
 
-            List<SummarySearchViewModel> summarySearchViewModels = new List<SummarySearchViewModel>();
+            //SummarySearchViewModel summarySearchViewModel = new SummarySearchViewModel();
+            //summarySearchViewModel = listOfMovies;
 
-            for (int i = 0; i < listOfMovies.Search.Count; i++)
-            {
-                SummarySearchViewModel movie = new SummarySearchViewModel(listOfMovies.Search[i]);
+            //for (int i = 0; i < listOfMovies.Count; i++)
+            //{
+            //    summarySearchViewModel. (listOfMovies[i]);
                
-                    if (string.IsNullOrEmpty(movie.Poster) || movie.Poster.Contains("N/A"))
-                    {
-                        movie.Poster = "/img/NoPosterAvaible.png";
-                    }
+            //        if (string.IsNullOrEmpty(Poster) || movie.Poster.Contains("N/A"))
+            //        {
+            //            movie.Poster = "/img/NoPosterAvaible.png";
+            //        }
                 
-                summarySearchViewModels.Add(movie);
-            }
+            //    summarySearchViewModels.Add(movie);
+            //}
 
-            return View(summarySearchViewModels);
+            return View(listOfMovies);
         }
     }
 }

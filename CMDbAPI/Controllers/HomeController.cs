@@ -27,15 +27,10 @@ namespace CMDbAPI.Controllers
 
         public async Task<IActionResult> Index()
         {
-           
-            var listOfMovies = await movieRepository.GetAllMoviesContaining("sunshine");
+            parameter = new Parameter();
+            var toplist = await movieRepository.GetTopListAggregatedData(parameter);
 
-
-
-
-            var toplist = await movieRepository.GetTopListAggregatedDataDefaultValues();
-
-            foreach (var movie in toplist)
+            foreach (var movie in toplist.TopListMovies)
             {
                 if (string.IsNullOrEmpty(movie.Poster))
                 {
@@ -46,35 +41,17 @@ namespace CMDbAPI.Controllers
         }
 
 
-        //public async Task<IActionResult> Index(string searchString)
-        //{
-        //    var movies = from m in _context.Movie
-        //                 select m;
-
-        //    if (!String.IsNullOrEmpty(searchString))
-        //    {
-              
-        //        movies = movies.Where(s => s.Title.Contains(searchString));
-        //    }
-
-        //    return View(await movies.ToListAsync());
-        //}
+  
 
 
         [HttpGet]
         public async Task<IActionResult> Search(int count, string sortOrder, string type)
 
         {
-            parameter = new Parameter(count,sortOrder,type);
+            parameter = new Parameter(count,sortOrder,type);         
+            var toplist = await movieRepository.GetTopListAggregatedData(parameter);           
 
-            parameter.Count = count;
-            parameter.SortOrder = sortOrder;
-            parameter.Type = type;        
-
-            //TODO: sätt ett defaultvärde som kan behållas i propertyn om värdet är N/A           
-            var toplist = await movieRepository.GetTopListAggregatedData(parameter);
-
-            foreach (var movie in toplist)
+            foreach (var movie in toplist.TopListMovies)
             {
                 if (movie.Poster.Contains("N/A"))
                 {

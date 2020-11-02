@@ -1,10 +1,10 @@
-﻿@model IEnumerable<CMDbAPI.ViewModel.SummarySearchViewModel>
+﻿@model CMDbAPI.ViewModel.SearchViewModel
 
 
 
 <div>
     <ul>
-        @foreach (var movie in Model)
+        @foreach (var movie in Model.Search)
         {
             <div class="searchedMovie-flexbox">
 

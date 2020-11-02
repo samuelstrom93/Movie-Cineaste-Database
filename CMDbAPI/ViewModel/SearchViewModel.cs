@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CMDbAPI.Models
+namespace CMDbAPI.ViewModel
 {
-    public class MovieDetailsDTO
+    public class SearchViewModel
     {
-        public List<OmdbDTO> Search { get; set; }
-        }
+      public List<SearchMovieDTO> Search { get; set; }
+    }
 }

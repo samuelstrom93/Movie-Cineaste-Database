@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CMDbAPI.Models.DTO;
 using CMDbAPI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,9 +26,11 @@ namespace CMDbAPI.Controllers
         {
             //TODO: skapa en konstruktor i SummaryViewModel där parametern imdbID förser med all info.
             // Får just nu problem med async
-            SummaryViewModel summaryViewModel = await movieRepository.GetSummarySingleMovie(imdbID);
-            
-            return View(summaryViewModel);
+            //MovieSummaryDTO movieSummary = await movieRepository.GetSummarySingleMovie(imdbID);
+            //MovieSummaryViewModel movieSummaryViewModel = new MovieSummaryViewModel();
+            MovieDetailsViewModel movieSummaryViewModel = await movieRepository.GetSummarySingleMovie(imdbID);
+
+            return View(movieSummaryViewModel);
         }
     }
 }

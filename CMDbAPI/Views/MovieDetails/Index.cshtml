@@ -20,7 +20,7 @@
                     <label id="subplot">Plot:</label></><br />
                     @Model.Plot.Substring(0, 60)<span id="dots">...</span><span id="more">@Model.Plot.Substring(60)</span>
                 </p>
-                <button class="read-more">Read More</button>
+            <p class="read-more">Read More &darr;</p>
             </div>
 
 
@@ -42,13 +42,13 @@
 
         <div class="wrapper-like">
             <div>
-                <h2 style="text-align:center">Like</h2>
-                <button class="like-btn"><img src="~/img/like-button.png" class="like-btn"></button>
+                @*<h2 style="text-align:center">Like</h2>*@
+                <button class="like-btn">Like</button>
                 
             </div>
             <div>
-                <h2 style="text-align:center">Dislike</h2>
-                <button class="dislike-btn"><img src="~/img/dislike-button.png" class="dislike-btn"></button>
+                @*<h2 style="text-align:center">Dislike</h2>*@
+                <button class="dislike-btn">Dislike</button>
 
             </div>
         </div>

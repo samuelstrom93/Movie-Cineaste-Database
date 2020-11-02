@@ -16,13 +16,13 @@ namespace CMDbAPI.Controllers
     {
         private IMovieRepository movieRepository;
         private Parameter parameter;
-
+       
 
         public HomeController(IMovieRepository movieRepository)
         {
             this.movieRepository = movieRepository;
-        }
 
+        }
 
 
         public async Task<IActionResult> Index()
@@ -30,43 +30,37 @@ namespace CMDbAPI.Controllers
             parameter = new Parameter();
             var toplist = await movieRepository.GetTopListAggregatedData(parameter);
 
-
             foreach (var movie in toplist.TopListMovies)
             {
-                if (string.IsNullOrEmpty(movie.Poster) || movie.Poster.Contains("N/A"))
+                if (string.IsNullOrEmpty(movie.Poster))
                 {
                     movie.Poster = "/img/NoPosterAvaible.png";
                 }
-            }
+            }          
             return View(toplist);
         }
 
 
+  
 
 
         [HttpGet]
-        public async Task<IActionResult> FilterTopList(int count, string sortOrder, string type)
+        public async Task<IActionResult> Search(int count, string sortOrder, string type)
 
         {
-            parameter = new Parameter(count, sortOrder, type);
-
-            //TODO: sätt ett defaultvärde som kan behållas i propertyn om värdet är N/A           
-            var toplist = await movieRepository.GetTopListAggregatedData(parameter);
-           
+            parameter = new Parameter(count,sortOrder,type);         
+            var toplist = await movieRepository.GetTopListAggregatedData(parameter);           
 
             foreach (var movie in toplist.TopListMovies)
             {
-                if (string.IsNullOrEmpty(movie.Poster) || movie.Poster.Contains("N/A"))
+                if (movie.Poster.Contains("N/A"))
                 {
                     movie.Poster = "/img/NoPosterAvaible.png";
                 }
             }
 
-            return View("index", toplist);
-        }
-
-
-
+            return View("index", toplist);    
+        }     
 
     }
 }

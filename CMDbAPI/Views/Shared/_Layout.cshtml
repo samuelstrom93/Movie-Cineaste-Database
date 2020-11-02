@@ -23,16 +23,14 @@
         <div class="header-flex">
             <a href="home">
                 <figure>
-                    <img src="~/img/CMBb-picture.png" alt="Cineaste Movie Database" id="CMDb-icon">
-                    <figcaption>CMDb</figcaption>
+                    <img src="~/img/CMBb-picture.png" alt="Cineaste Movie Database" class="CMDb-icon">
                 </figure>
             </a>
-            <form asp-controller="Search" asp-action="Index">
-                <p>
-                    <input type="text" name="SearchString" placeholder="Search for a movie">
-                    <input type="submit" value="Search" />
+            <span id="title-header">CMDB</span>
 
-                </p>
+            <form asp-controller="Search" asp-action="Index" class="form-flex">
+                    <input type="text" name="SearchString" placeholder="Search for a movie" class="movie-search">
+                    <input type="submit" value="Search" class="btn-moviesearch" />
             </form>
         </div>
     </header>

@@ -24,6 +24,7 @@ namespace CMDbAPI
         /// Popularity = sort by sum of likes and dislikes. Many reactions equals high popularity 
         /// </summary>
 
+        // TEST
         public string Type { get; set; } = "rating";
 
         public Parameter()

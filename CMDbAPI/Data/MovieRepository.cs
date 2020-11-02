@@ -11,6 +11,7 @@ using CMDbAPI.ViewModel;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
 using Npgsql;
 
 namespace CMDbAPI
@@ -235,7 +236,7 @@ namespace CMDbAPI
       /// </summary>
       /// <param name="imdbId"></param>
       /// <returns></returns>
-        public async Task<OmdbDTO> GetMovieDetails(string imdbId)
+        public async Task<MovieDetailsDTO> GetMovieDetails(string imdbId)
         {
             using (HttpClient client = new HttpClient())
             {           
@@ -245,93 +246,75 @@ namespace CMDbAPI
                 //TODO: Gör det här till en try/catch för att fånga exceptions
                 respons.EnsureSuccessStatusCode();
                 var data = await respons.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<OmdbDTO>(data);
+                var result = JsonConvert.DeserializeObject<MovieDetailsDTO>(data);
                 return result;
             }
         }
 
 
-        //TODO: gör funktionen generisk och skicka till en separat folder? Typ Infrastructure/API - Kolla eriks FL och repo
-        // Kanske seprarera i olika mappar på OMDb-anrop och CMDb-anrop?
-        public async Task<T> GetMovieDetailsGeneric<T>(string imdbId)
+        /// <summary>
+        /// Hämtar information från Imdb.com genom att skicka in ett imdb-id
+        /// </summary>
+        /// <param name="imdbId"></param>
+        /// <returns></returns>
+        public async Task<HomeTopListMovieDTO> GetTopListMovieDetails(string imdbId)
         {
             using (HttpClient client = new HttpClient())
             {
-                //Använd baseUrl m.m på endpoint...
+
                 string endpoint = $"{baseUrl}i={imdbId}{accessKey}";
                 var respons = await client.GetAsync(endpoint, HttpCompletionOption.ResponseHeadersRead);
                 //TODO: Gör det här till en try/catch för att fånga exceptions
                 respons.EnsureSuccessStatusCode();
                 var data = await respons.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<T>(data);
+                var result = JsonConvert.DeserializeObject<HomeTopListMovieDTO>(data);
                 return result;
             }
         }
 
 
+       
+
+
         //TODO: Fixa så att man kan skicka in parametrar för att styra hur du hämtar topplistna. Om T.ex. det ska vara en särskild count, type(rating eller popularity),
         // sort (ascending eller descinding). Om fältet lämnas tomt så hämtar den hela topplistan
         /// <summary>
         /// Kunna skicka in parametrar och styra vilken data som du vill använda 
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedDataDefaultValues()
+        public async Task<HomeViewModel> GetTopListAggregatedData(Parameter parameter)
         {
-
-            parameter = new Parameter();
+            
             var toplist = await GetToplist(parameter);
-
-            List<SummaryViewModel> summaryViewModels = new List<SummaryViewModel>();
-
-                foreach (var movie in toplist)
-            {
-                OmdbDTO omdbDTO = await GetMovieDetails(movie.ImdbID);
-                SummaryViewModel summaryViewModel = new SummaryViewModel(omdbDTO, movie); //movie och moviedetailsDTO som parametrar
-                summaryViewModels.Add(summaryViewModel);
-            }
-            return summaryViewModels;
-        }
-
-
-        //TODO: Fixa så att man kan skicka in parametrar för att styra hur du hämtar topplistna. Om T.ex. det ska vara en särskild count, type(rating eller popularity),
-        // sort (ascending eller descinding). Om fältet lämnas tomt så hämtar den hela topplistan
-        /// <summary>
-        /// Kunna skicka in parametrar och styra vilken data som du vill använda 
-        /// </summary>
-        /// <returns></returns>
-        public async Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedData(Parameter parameter=null)
-        {            
-            var toplist = await GetToplist(parameter);
-
-
-
-            List<SummaryViewModel> summaryViewModels = new List<SummaryViewModel>();
+            HomeViewModel homeViewModel = new HomeViewModel(parameter);
 
             foreach (var movie in toplist)
             {
-                OmdbDTO omdbDTO = await GetMovieDetails(movie.ImdbID);
-                SummaryViewModel summaryViewModel = new SummaryViewModel(omdbDTO, movie); //movie och moviedetailsDTO som parametrar
-                summaryViewModels.Add(summaryViewModel);
-            }
-            return summaryViewModels;
+                HomeTopListMovieDTO topListMovie=  await GetTopListMovieDetails(movie.ImdbID);
+                topListMovie.NumberOfLikes = movie.NumberOfLikes;
+                topListMovie.NumberOfDislikes = movie.NumberOfDislikes;
+                homeViewModel.TopListMovies.Add(topListMovie);
+            }           
+            return homeViewModel;
         }
 
 
-        public async Task<SummaryViewModel> GetSummarySingleMovie(string imdbId)
+        public async Task<MovieDetailsViewModel> GetSummarySingleMovie(string imdbId)
         {
-            var movie = await GetMovieDetails(imdbId);
             var ratings = await GetMovieRatings(imdbId);
-            SummaryViewModel summaryViewModel = new SummaryViewModel(movie, ratings);
+            var movie = await GetMovieDetails(imdbId);
+            
+            MovieDetailsViewModel movieSummaryViewModel = new MovieDetailsViewModel(movie, ratings);
 
-            return summaryViewModel;
+            return movieSummaryViewModel;
         }
 
 
-          public async Task<MovieDetailsDTO> GetAllMoviesContaining(string searchString)
+          public async Task<SearchViewModel> GetAllMoviesContaining(string searchString)
         {           
 
             string urlString = baseUrl+"s=" + searchString + accessKey;             
-            return await apiWebClient.GetAsync<MovieDetailsDTO>(urlString);             
+            return await apiWebClient.GetAsync<SearchViewModel>(urlString);             
 
         }   
         }

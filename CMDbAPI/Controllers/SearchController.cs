@@ -21,24 +21,16 @@ namespace CMDbAPI.Controllers
         public async Task< IActionResult> Index(string searchString)
         {
             var listOfMovies = await movieRepository.GetAllMoviesContaining(searchString);
-            List<SummarySearchViewModel> summarySearchViewModels = new List<SummarySearchViewModel>();
 
 
-            if (listOfMovies.Search != null)
-            {
-                foreach (var movie in listOfMovies.Search)
-                {
-                    SummarySearchViewModel summarySearchViewModel = new SummarySearchViewModel(movie);
-                    summarySearchViewModels.Add(summarySearchViewModel);
-                }
-                return View(summarySearchViewModels);
-            }
-            else
+            if (listOfMovies.Search == null)
             {
                 ViewBag.search = searchString;
-                return View(summarySearchViewModels);
+                return View(listOfMovies);
             }
             
+                return View(listOfMovies);
+
         }
     }
 }

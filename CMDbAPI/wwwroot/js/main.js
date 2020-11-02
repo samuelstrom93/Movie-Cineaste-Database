@@ -1,8 +1,13 @@
-﻿//TODO: Ta bort "submit-knappen på Home-index för att istället använda denna metod
-function onChange(val) {
-    window.location="/home/index"+val
-}
+window.onload = function () {
+    var valueCount = document.getElementById("count").value;
+    document.getElementById(valueCount).selected = true;
 
+    var valueSortOrder = document.getElementById("sortOrder").value;
+    document.getElementById(valueSortOrder).selected = true;
+
+    var valueType = document.getElementById("type").value;
+    document.getElementById(valueType).selected = true;
+}       
 
 
 

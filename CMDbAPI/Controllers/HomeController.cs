@@ -28,32 +28,50 @@ namespace CMDbAPI.Controllers
         public async Task<IActionResult> Index()
         {
 
-            //TODO: ta bort?
-            var listOfMovies = await movieRepository.GetAllMoviesContaining("sunshine");
+            parameter = new Parameter();
+            var toplist = await movieRepository.GetTopListAggregatedData(parameter);
 
 
-            var toplist = await movieRepository.GetTopListAggregatedDataDefaultValues();
+            //TODO: flytta validering till modellen ist
+            //foreach (var item in toplist.TopListMovies)
+            //{
+            //    if (string.IsNullOrEmpty(item.Poster) || item.Poster.Contains("N/A"))
+            //    {
+            //        item.Poster = "/img/NoPosterAvaible.png";
+            //    }
+
+            //    if (string.IsNullOrEmpty(item.Plot) || item.Plot.Contains("N/A"))
+            //    {
+            //        item.Plot = "No plot available";
+            //    }
+            //}
+
+
+
             return View(toplist);
         }
 
 
-        [HttpGet]
-        public async Task<IActionResult> Search(int count, string sortOrder, string type)
 
-        {
-            parameter = new Parameter(count,sortOrder,type);
+        //[HttpGet]
+        //public async Task<IActionResult> Search(int count, string sortOrder, string type)
+        //{
+        //    parameter = new Parameter(count,sortOrder,type);         
+        //    var toplist = await movieRepository.GetTopListAggregatedData(parameter);           
 
 
-            ////TODO: ta bort dessa?
-            //parameter.Count = count;
-            //parameter.SortOrder = sortOrder;
-            //parameter.Type = type;        
+        //    //TODO: fixa
+        //    foreach (var movie in toplist.TopListMovies)
+        //    {
+        //        if (movie.Poster.Contains("N/A"))
+        //        {
+        //            movie.Poster = "/img/NoPosterAvaible.png";
+        //        }
+        //    }
 
-            //TODO: sätt ett defaultvärde som kan behållas i propertyn om värdet är N/A           
-            var toplist = await movieRepository.GetTopListAggregatedData(parameter);
-
-            return View("index", toplist);    
-        }
+        //    // Ändra till att gå till search-controll?
+        //    return View("index", toplist);    
+        //}
 
 
 

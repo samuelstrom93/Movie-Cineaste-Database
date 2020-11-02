@@ -3,8 +3,6 @@ using CMDbAPI.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CMDbAPI.Models.DTO;
-using CMDbAPI.ViewModel;
 using CMDbAPI.Models;
 
 namespace CMDbAPI.Test
@@ -23,12 +21,12 @@ namespace CMDbAPI.Test
             throw new NotImplementedException();
         }
 
-        public Task<MovieDetailsDTO> GetAllMoviesContaining(string searchString)
+        public Task<T> GetMovieDetails<T>(string imdbId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<OmdbDTO> GetMovieDetails(string id)
+        public Task<MovieDetailsDTO> GetMovieDetails(string imdbId)
         {
             throw new NotImplementedException();
         }
@@ -38,17 +36,17 @@ namespace CMDbAPI.Test
             throw new NotImplementedException();
         }
 
-        public Task<SummaryViewModel> GetSummary(string id)
+        public Task<HomeViewModel> GetSummary(string id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<OmdbDTO> GetSummarySingleMovie(string imdbId)
+        public Task<MovieDetailsViewModel> GetSummarySingleMovie(string imdbId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<SummaryViewModel> GetSummaryViewModel(string id)
+        public Task<HomeViewModel> GetSummaryViewModel(string id)
         {
             throw new NotImplementedException();
         }
@@ -63,17 +61,22 @@ namespace CMDbAPI.Test
             throw new NotImplementedException();
         }
 
-        public Task<SummaryViewModel> GetTopListAggregatedData()
+        public Task<HomeViewModel> GetTopListAggregatedData()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedData(Parameter parameter)
+        public Task<IEnumerable<HomeViewModel>> GetTopListAggregatedData(Parameter parameter)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedDataDefaultValues()
+        public Task<IEnumerable<HomeViewModel>> GetTopListAggregatedDataDefaultValues()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<HomeTopListMovieDTO> GetTopListMovieDetails(string imdbId)
         {
             throw new NotImplementedException();
         }
@@ -83,10 +86,24 @@ namespace CMDbAPI.Test
             throw new NotImplementedException();
         }
 
-        Task<SummaryViewModel> IMovieRepository.GetSummarySingleMovie(string imdbId)
+
+        Task<SearchViewModel> IMovieRepository.GetAllMoviesContaining(string searchString)
         {
             throw new NotImplementedException();
         }
+
+       
+
+
+        Task<HomeViewModel> IMovieRepository.GetTopListAggregatedData(Parameter parameter)
+        {
+            throw new NotImplementedException();
+        }
+
+        //Task<SummaryViewModel> IMovieRepository.GetTopListAggregatedDataDefaultValues()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         //Task<IEnumerable<SummaryViewModel>> IMovieRepository.GetTopListAggregatedData()
         //{

@@ -43,20 +43,29 @@ namespace CMDbAPI
         /// </summary>
         /// <param name="imdbId"></param>
         /// <returns></returns>
-        Task<OmdbDTO> GetMovieDetails(string imdbId);
+        Task<MovieDetailsDTO> GetMovieDetails(string imdbId);
+
+        /// <summary>
+        /// Hämtar detaljer om filmen ifrån OMDb till filmer som visas i en topplista  
+        /// </summary>
+        /// <param name="imdbId"></param>
+        /// <returns></returns>
+        Task<HomeTopListMovieDTO> GetTopListMovieDetails(string imdbId);
+
+
 
         /// <summary>
         /// Hämtar information från både OMDb och CMDb till en summaryViewModel
         /// </summary>
         /// <param name="imdbId"></param>
         /// <returns></returns>
-        Task<SummaryViewModel> GetSummarySingleMovie(string imdbId);
-        Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedDataDefaultValues();
-        Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedData(Parameter parameter);
+        Task<MovieDetailsViewModel> GetSummarySingleMovie(string imdbId);
+        //Task<SummaryViewModel> GetTopListAggregatedDataDefaultValues();
+        Task<HomeViewModel> GetTopListAggregatedData(Parameter parameter);
         // Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedData(int count=5, string sortorder="asc", string type="ratings");
 
 
-        Task<MovieDetailsDTO> GetAllMoviesContaining(string searchString);
+        Task<SearchViewModel> GetAllMoviesContaining(string searchString);
 
     }
 }

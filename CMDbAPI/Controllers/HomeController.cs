@@ -27,10 +27,11 @@ namespace CMDbAPI.Controllers
 
         public async Task<IActionResult> Index()
         {
+            parameter = new Parameter();
+            var toplist = await movieRepository.GetTopListAggregatedData(parameter);
 
-            var toplist = await movieRepository.GetTopListAggregatedDataDefaultValues();
 
-            foreach (var movie in toplist)
+            foreach (var movie in toplist.TopListMovies)
             {
                 if (string.IsNullOrEmpty(movie.Poster) || movie.Poster.Contains("N/A"))
                 {
@@ -51,8 +52,9 @@ namespace CMDbAPI.Controllers
 
             //TODO: sätt ett defaultvärde som kan behållas i propertyn om värdet är N/A           
             var toplist = await movieRepository.GetTopListAggregatedData(parameter);
+           
 
-            foreach (var movie in toplist)
+            foreach (var movie in toplist.TopListMovies)
             {
                 if (string.IsNullOrEmpty(movie.Poster) || movie.Poster.Contains("N/A"))
                 {

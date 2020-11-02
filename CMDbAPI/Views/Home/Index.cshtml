@@ -1,49 +1,47 @@
 
 
-@model IEnumerable<CMDbAPI.ViewModel.SummaryViewModel>
+@model CMDbAPI.ViewModel.HomeViewModel
 
 <main>
-    <h1 class="movie-title">@Model.FirstOrDefault().Title</h1>
+    <h1 class="movie-title">@Model.TopListMovies.FirstOrDefault().Title</h1>
 
 
 
 
-    
-    <form asp-action="FilterTopList" asp-controller="Home" method="get">
+    <form asp-action="FilterTopList" asp-controller="Home" method="get" class="form-submit">
         <label for="sortType">Sortera efter:</label>
-        <select name="type" id="sel">
-            <option value="rating">Skillnad Like/Dislike</option>
-            <option value="popularity">Antal betyg</option>
+        <select value="@Model.SelectedType" name="type" id="type">
+            <option value="rating" id="rating">Skillnad Like/Dislike</option>
+            <option value="popularity" id="popularity">Antal betyg</option>
         </select>
         <label for="show">Visa antal:</label>
-        <select name="count">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="0">Alla</option>
+        <select value="@Model.SelectedCount" name="count" id="count">
+            <option value="5" id="5">5</option>
+            <option value="10" id="10">10</option>
+            <option value="0" id="0">Alla</option>
         </select>
-        <select name="sortOrder">
-            <option value="desc">Högst först</option>
-            <option value="asc">Lägst först</option>
+        <select value="@Model.SelectedSortOrder" name="sortOrder" id="sortOrder">
+            <option value="desc" id="desc">Högst först</option>
+            <option value="asc" id="asc">Lägst först</option>
         </select>
         <br><br>
-        <input type="submit" value="Submit" id="btn"/>
+        <input type="submit" value="Submit" />
 
     </form>
-
 
 
     <div class="top-movie-container">
         @for (int i = 0; i < 1; i++)
         {
-            <img src="@Model.FirstOrDefault().Poster" alt="Toppfilm" class="top-movie">
+            <img src="@Model.TopListMovies.FirstOrDefault().Poster" alt="Toppfilm" class="top-movie">
             <h2> Likes - Dislikes </h2>
-            <p> @Model.FirstOrDefault().NumberOfLikes - @Model.FirstOrDefault().NumberOfDislikes </p>
+            <p> @Model.TopListMovies.FirstOrDefault().NumberOfLikes - @Model.TopListMovies.FirstOrDefault().NumberOfDislikes </p>
 
             <h2>Ratings</h2>
 
             <div class="ratings-container">
                 <div class="ratings-flexbox">
-                    @foreach (var ratings in Model.FirstOrDefault().Ratings)
+                    @foreach (var ratings in Model.TopListMovies.FirstOrDefault().Ratings)
                     {
                         <div>
                             <h3>@ratings.Source</h3>
@@ -56,7 +54,7 @@
     </div>
 
     <div class="rankings-flexbox">
-        @foreach (var movie in Model)
+        @foreach (var movie in Model.TopListMovies)
         {
             <figure class="rankings-figure">
                 <a href="@Url.Action("Index", "MovieDetails", new { imdbID = movie.ImdbID })">

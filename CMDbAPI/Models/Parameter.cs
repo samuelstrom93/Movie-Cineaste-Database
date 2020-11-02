@@ -12,7 +12,7 @@ namespace CMDbAPI
         /// Desc = descending
         /// Asc = ascending
         /// </summary>
-        public string SortOrder { get; set; } = "desc";
+        public string SortOrder { get; set; } = "asc";
         /// <summary>
         /// Number of movies  to recevie
         /// </summary>

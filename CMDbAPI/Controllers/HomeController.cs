@@ -19,16 +19,12 @@ namespace CMDbAPI.Controllers
     public class HomeController : Controller
     {
         private IMovieRepository movieRepository;
-        private readonly ILogger<HomeController> logger;
-
         private Parameter parameter;
        
 
-        public HomeController(IMovieRepository movieRepository, ILogger<HomeController> logger)
+        public HomeController(IMovieRepository movieRepository)
         {
-            this.movieRepository = movieRepository;
-            this.logger = logger;
-
+            this.movieRepository = movieRepository;        
         }
 
 
@@ -37,7 +33,7 @@ namespace CMDbAPI.Controllers
             parameter = new Parameter();
             try
             {              
-                var toplist = await movieRepository.GetTopListAggregatedData(parameter); //Har kommmenterat bort movie.add i movierepositorymetoden "GetTopListAggregatedData". Så att det ska bli ett error.
+                var toplist = await movieRepository.GetTopListAggregatedData(parameter);
 
                 //TODO: Om antalet filmer i databasen är 0, så ska en text visas i vyn om att inga filmer finns lagrade i databasen.
                 if (toplist.TopListMovies.Count == 0)
@@ -53,7 +49,6 @@ namespace CMDbAPI.Controllers
         }
 
 
-
         [HttpGet]
         public async Task<IActionResult> FilterTopList(int count, string sortOrder, string type)
         {
@@ -63,23 +58,12 @@ namespace CMDbAPI.Controllers
             {
             var toplist = await movieRepository.GetTopListAggregatedData(parameter);
             return View("index", toplist);
-
             }
             catch (Exception)
             {
-               
-                return View("Error");
+                throw;
             }
         }
-
-
-
-        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        //public IActionResult Error()
-        //{
-
-        //    return View("Error",new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        //}
 
     }
 }

@@ -20,23 +20,30 @@ namespace CMDbAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string searchString)
         {
-            var listOfMovies = await movieRepository.GetAllMoviesContaining(searchString);
-              
-            if (listOfMovies.Search == null)
-            {
-                ViewBag.search = searchString;
-                return View(listOfMovies);
-            }            
 
-            MovieDetailsViewModel movieDetailsViewModel;
-            foreach (var movie in listOfMovies.Search)
+            try
             {
-                movieDetailsViewModel = await movieRepository.GetSummarySingleMovie(movie.ImdbID);
-                movie.Director = movieDetailsViewModel.Director;
-                movie.Genre = movieDetailsViewModel.Genre;
-                movie.Ratings = movieDetailsViewModel.Ratings;
+                var listOfMovies = await movieRepository.GetAllMoviesContaining(searchString);
+                if (listOfMovies.Search == null)
+                {
+                    ViewBag.search = searchString;
+                    return View(listOfMovies);
+                }
+
+                MovieDetailsViewModel movieDetailsViewModel;
+                foreach (var movie in listOfMovies.Search)
+                {
+                    movieDetailsViewModel = await movieRepository.GetSummarySingleMovie(movie.ImdbID);
+                    movie.Director = movieDetailsViewModel.Director;
+                    movie.Genre = movieDetailsViewModel.Genre;
+                    movie.Ratings = movieDetailsViewModel.Ratings;
+                }
+                return View(listOfMovies);
             }
-            return View(listOfMovies);
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

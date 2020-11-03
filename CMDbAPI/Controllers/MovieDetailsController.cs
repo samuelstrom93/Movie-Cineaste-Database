@@ -25,14 +25,19 @@ namespace CMDbAPI.Controllers
         public async Task<IActionResult> Index(string imdbID)
         {
             //TODO: skapa en konstruktor i SummaryViewModel där parametern imdbID förser med all info.
-            // Får just nu problem med async
-            //MovieSummaryDTO movieSummary = await movieRepository.GetSummarySingleMovie(imdbID);
-            //MovieSummaryViewModel movieSummaryViewModel = new MovieSummaryViewModel();
+            //     Får just nu problem med async
+            //    MovieSummaryDTO movieSummary = await movieRepository.GetSummarySingleMovie(imdbID);
+            //    MovieSummaryViewModel movieSummaryViewModel = new MovieSummaryViewModel();
 
-
-            MovieDetailsViewModel movieDetailsViewModel = await movieRepository.GetSummarySingleMovie(imdbID);
-
-            return View(movieDetailsViewModel);
+            try
+            {
+                MovieDetailsViewModel movieDetailsViewModel = await movieRepository.GetSummarySingleMovie(imdbID);
+                return View(movieDetailsViewModel);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

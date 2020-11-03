@@ -347,7 +347,17 @@ figcaption {
     line-height: 0.8em;
 }
 
+/* ----------------Error Page---------------------*/
+.error-container{
+    width:50%;
+    padding-left:25%;
+   
+    text-align:center
+}
 
+#exception-Message{
+    color: red;
+}
 
 /* ----------------FOOTER---------------------*/
 .site-footer {

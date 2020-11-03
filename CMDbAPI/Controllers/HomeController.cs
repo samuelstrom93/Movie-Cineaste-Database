@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using CMDbAPI.Models.DTO;
 using CMDbAPI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,12 +19,15 @@ namespace CMDbAPI.Controllers
     public class HomeController : Controller
     {
         private IMovieRepository movieRepository;
+        private readonly ILogger<HomeController> logger;
+
         private Parameter parameter;
        
 
-        public HomeController(IMovieRepository movieRepository)
+        public HomeController(IMovieRepository movieRepository, ILogger<HomeController> logger)
         {
             this.movieRepository = movieRepository;
+            this.logger = logger;
 
         }
 
@@ -43,12 +47,13 @@ namespace CMDbAPI.Controllers
                 }
                 return View(toplist);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
                 //ErrorViewModel errorViewModel = new ErrorViewModel(ex, "Error", "Index");
                // return View(errorViewModel); //1:a 2:a paramtern. 1:a=vilken vy, 2:a model med inparametrar (new ErrorViewModel (ex, "Error", index)
             }
+           
 
         }
 
@@ -69,19 +74,14 @@ namespace CMDbAPI.Controllers
             return View("index", toplist);
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-                return View("Error", ex);
+               
+                return View("Error");
             }
         }
 
 
-        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        //public IActionResult Error(Exception ex)
-        //{
-        //    return View(new ErrorViewModel(ex, "Error", "index"));
-        //}
 
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         //public IActionResult Error()

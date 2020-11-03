@@ -9,8 +9,6 @@ using CMDbAPI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace CMDbAPI.Controllers
 {
     public class HomeController : Controller

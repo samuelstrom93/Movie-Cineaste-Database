@@ -13,5 +13,11 @@ namespace CMDbAPI.Models.DTO
         public string Type { get; set; }
         public string ImdbID { get; set; }
 
+        
+        public List<Ratings> Ratings { get; set; } = new List<Ratings>();
+        public string Director { get; set; }
+        public string Genre { get; set; }
+
+
     }
 }

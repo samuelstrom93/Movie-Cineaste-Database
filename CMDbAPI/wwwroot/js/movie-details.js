@@ -1,22 +1,57 @@
 ﻿let imdbID = $("#ImdbID").val();
 
-//const moreBtn = document.querySelector('.read-more');
-//moreBtn.addEventListener('click', readMore);
-
 const likeBtn = document.querySelector('.like-btn')
 likeBtn.addEventListener('click', like);
 const dislikeBtn = document.querySelector('.dislike-btn')
 dislikeBtn.addEventListener('click', dislike);
 
 
+// Definieras i main.js istället
+//let pies = document.querySelectorAll('.pie');
+//let ratingsSites = document.querySelectorAll('.rating-source');
+//let ratingElement = document.querySelectorAll('.score-text');
+
+
+
+
+// Färglägger paj-progressbars 
+for (let i = 0; i < pies.length; i++) {
+    let element;
+    let value;
+    switch (ratingsSites[i].textContent) {
+        case "Internet Movie Database":
+            value = ratingElement[i].textContent.substring(0, 1) + ratingElement[i].textContent.substring(2, 3)
+            pies[i].style.background = `conic-gradient(darkgreen ${value}%, red 0%)`;
+            break;
+        case "Rotten Tomatoes":
+            if (ratingElement[i].textContent.substring(0, 3) === '100') {
+                pies[i].style.background = `conic-gradient(darkgreen 100%, red 0%)`;
+            }
+            else {
+                value = ratingElement[i].textContent.substring(0, 2)
+                pies[i].style.background = `conic-gradient(darkgreen ${value}%, red 0%)`;
+            }
+            break;
+        case "Metacritic":
+            if (ratingElement[i].textContent.substring(0, 3) === '100') {
+                pies[i].style.background = `conic-gradient(darkgreen 100%, red 0%)`;
+            }
+            else {
+                value = ratingElement[i].textContent.substring(0, 2)
+                pies[i].style.background = `conic-gradient(darkgreen ${value}%, red 0%)`;
+            }
+            break;
+        default:
+            console.log("Ingen rating alls")
+    }
+}
 
 
 
 
 
-
-function like(){
-    let url = new URL('/api/movie/' + imdbID + '/like', 'https://localhost:5001');
+function like() {
+    let url = new URL('/api/movie/' + imdbID + '/like', window.location.origin);
     $.ajax({
         url: url,
         type: 'GET',
@@ -26,8 +61,8 @@ function like(){
             document.querySelector('#likes').textContent = response.numberOfLikes;
             likeBtn.disabled = true;
             dislikeBtn.disabled = true;
-            likeBtn.style.opacity = "0.7";
-            dislikeBtn.style.opacity = "0.7";
+            likeBtn.style.opacity = "0.3";
+            dislikeBtn.style.opacity = "0.3";
         },
         error: function (response) { console.log(response) }
     })
@@ -35,7 +70,8 @@ function like(){
 
 
 function dislike() {
-    let url = new URL('/api/movie/' + imdbID + '/dislike', 'https://localhost:5001');
+
+    let url = new URL('/api/movie/' + imdbID + '/dislike', window.location.origin);
     $.ajax({
         url: url,
         type: 'GET',
@@ -51,20 +87,3 @@ function dislike() {
         error: function (response) { console.log(response) }
     });
 }
-
-
-//function readMore() {
-//    let dots = document.querySelector("#dots");
-//    let moreText = document.querySelector('#more');
-//    let btnText = document.querySelector('.read-more');
-
-//    if (dots.style.display === "none") {
-//        dots.style.display = "inline";
-//        btnText.innerHTML = "Read more &darr;";
-//        moreText.style.display = "none";
-//    } else {
-//        dots.style.display = "none";
-//        btnText.innerHTML = "Read less &uarr;";
-//        moreText.style.display = "inline";
-//    }
-//}

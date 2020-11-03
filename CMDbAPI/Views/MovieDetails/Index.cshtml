@@ -1,8 +1,8 @@
 ﻿
 @model CMDbAPI.ViewModel.MovieDetailsViewModel
 
-@Html.HiddenFor(x => x.NumberOfDislikes)
 @Html.HiddenFor(x => x.ImdbID)
+
 
 <article>
     <div class="wrapper">
@@ -26,8 +26,6 @@
                     <button class="dislike-btn">Dislike</button>
                 </div>
             </div>
-
-
         </div>
 
         <div class="flexbox-column-movie">
@@ -38,28 +36,15 @@
             </div>
             <br />
             <h3 class="bigger">Ratings</h3><br />
+
             @foreach (var rating in @Model.Ratings)
             {
-                <p><b>@rating.Source</b></p>
-                <span class="score-big">
-                    <br />
-                    <br />
-                    <span class="score">@rating.Value</span>
-                </span>
+                <p class="rating-source">@rating.Source</p>
+                <div class="pie">
+                    <span class="score-text">@rating.Value</span>
+                </div>
 
             }
         </div>
-
     </div>
-
-
-
-
-
-
-
 </article>
-
-
-
-

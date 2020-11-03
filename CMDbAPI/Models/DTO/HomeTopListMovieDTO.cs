@@ -9,7 +9,7 @@ namespace CMDbAPI.Models.DTO
     {
         public string ImdbID { get; set; }
         public string Title { get; set; }
-        public string Year { get; set; }    
+        public string Year { get; set; }
         public string Poster { get; set; }  
         public int NumberOfLikes { get; set; }   
         public int NumberOfDislikes { get; set; }

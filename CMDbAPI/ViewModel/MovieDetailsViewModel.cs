@@ -38,13 +38,6 @@ namespace CMDbAPI.ViewModel
             Type = movieSummary.Type;
             ImdbID = movieSummary.ImdbID;
 
-            //foreach (var ratings in movieSummary.Ratings)
-            //{
-            //    Ratings.Add(ratings);
-            //}
-
-            
-
 
             if (movie != null)
             {

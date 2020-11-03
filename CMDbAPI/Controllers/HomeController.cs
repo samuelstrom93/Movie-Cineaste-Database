@@ -33,38 +33,24 @@ namespace CMDbAPI.Controllers
 
 
         public async Task<IActionResult> Index()
-        {
-            
+        {            
             parameter = new Parameter();
             try
-            {
-                Stopwatch stopwatch = new Stopwatch();
-                stopwatch.Start();
+            {              
                 var toplist = await movieRepository.GetTopListAggregatedData(parameter); //Har kommmenterat bort movie.add i movierepositorymetoden "GetTopListAggregatedData". Så att det ska bli ett error.
 
                 //TODO: Om antalet filmer i databasen är 0, så ska en text visas i vyn om att inga filmer finns lagrade i databasen.
                 if (toplist.TopListMovies.Count == 0)
                 {
                     return View("Error");
-                }
-                stopwatch.Stop();
-                TimeSpan stopwatchElapsed = stopwatch.Elapsed;
+                }               
                 return View(toplist);
             }
             catch (Exception)
             {
-                throw;
-                //RedirectToAction("");
-                //ErrorViewModel errorViewModel = new ErrorViewModel(ex, "Error", "Index");
-               // return View(errorViewModel); //1:a 2:a paramtern. 1:a=vilken vy, 2:a model med inparametrar (new ErrorViewModel (ex, "Error", index)
-            }
-           
-
+                throw;               
+            }        
         }
-
-
-
-
 
 
 

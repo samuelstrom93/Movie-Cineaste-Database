@@ -17,8 +17,8 @@ namespace CMDbAPI.ViewModel
         public string SelectedSortOrder { get; set; }
 
         public IEnumerable<SelectListItem> Counts { get; set; }
-        //public IEnumerable<SelectListItem> Types { get; set; }
-        //public IEnumerable<SelectListItem> SortOrders { get; set; }
+        public IEnumerable<SelectListItem> Types { get; set; }
+        public IEnumerable<SelectListItem> SortOrders { get; set; }
 
 
         //public IEnumerable<SelectListItem> Counts

@@ -38,37 +38,23 @@ namespace CMDbAPI.Controllers
             toplist.Counts = items;
 
             List<SelectListItem> itemsSort = new List<SelectListItem>();
-            items.Add(new SelectListItem { Text = "Descending", Value = "desc" });
-            items.Add(new SelectListItem { Text = "Ascending", Value = "asc" });
+            itemsSort.Add(new SelectListItem { Text = "Descending", Value = "desc" });
+            itemsSort.Add(new SelectListItem { Text = "Ascending", Value = "asc" });
 
             toplist.SortOrders = itemsSort;
 
+            List<SelectListItem> itemsType = new List<SelectListItem>();
+            itemsType.Add(new SelectListItem { Text = "By popularity", Value = "popularity" });
+            itemsType.Add(new SelectListItem { Text = "By rating-quota", Value = "rating" });
 
-
-
-
-
-            //TODO: flytta validering till modellen ist
-            //foreach (var item in toplist.TopListMovies)
-            //{
-            //    if (string.IsNullOrEmpty(item.Poster) || item.Poster.Contains("N/A"))
-            //    {
-            //        item.Poster = "/img/NoPosterAvaible.png";
-            //    }
-
-            //    if (string.IsNullOrEmpty(item.Plot) || item.Plot.Contains("N/A"))
-            //    {
-            //        item.Plot = "No plot available";
-            //    }
-            //}
-
+            toplist.Types = itemsType;
 
 
             return View(toplist);
         }
 
-        [HttpGet("Home/Filter")]
-        public async Task<IActionResult> Filter(string selectedCount)
+        [HttpPost("Home/Filter")]
+        public async Task<IActionResult> Filter(string selectedCount, string selectedSortOrder, string selectedType)
         {
             //var toplist = await movieRepository.GetTopListAggregatedData(parameter);
 
@@ -76,24 +62,39 @@ namespace CMDbAPI.Controllers
             Parameter parameter = new Parameter();
 
             List<SelectListItem> items = new List<SelectListItem>();
-            //items.Add(new SelectListItem { Text = "Värde 1", Value = "1", Selected = true });
             items.Add(new SelectListItem { Text = "Värde 1", Value = "1" });
             items.Add(new SelectListItem { Text = "Värde 5", Value = "5" });
             items.Add(new SelectListItem { Text = "Värde 10", Value = "10" });
             items.Add(new SelectListItem { Text = "Värde 20", Value = "20" });
-            //items.Add(new SelectListItem { Value = "3" });
 
 
-            //List<SelectListItem> itemsSort = new List<SelectListItem>();
-            //items.Add(new SelectListItem { Text = "Descending", Value = "desc" });
-            //items.Add(new SelectListItem { Text = "Ascending", Value = "asc" });
+            List<SelectListItem> itemsSort = new List<SelectListItem>();
+            itemsSort.Add(new SelectListItem { Text = "Descending", Value = "desc" });
+            itemsSort.Add(new SelectListItem { Text = "Ascending", Value = "asc" });
 
+            List<SelectListItem> itemsType = new List<SelectListItem>();
+            itemsType.Add(new SelectListItem { Text = "By popularity", Value = "popularity" });
+            itemsType.Add(new SelectListItem { Text = "By rating-quota", Value = "rating" });
 
-            parameter.Count = int.Parse(selectedCount);
+            if (selectedCount != null)
+            {
+                parameter.Count = int.Parse(selectedCount);
+            }
+
+            if (selectedSortOrder != null)
+            {
+                parameter.SortOrder = selectedSortOrder;
+            }
+
+            if (selectedType != null)
+            {
+                parameter.Type = selectedType;
+            }
 
             toplist = await movieRepository.GetTopListAggregatedData(parameter);
             toplist.Counts = items;
-            //toplist.SortOrders = itemsSort;
+            toplist.SortOrders = itemsSort;
+            toplist.Types = itemsType;
 
 
             //parameter = new Parameter(count, sortOrder, type);

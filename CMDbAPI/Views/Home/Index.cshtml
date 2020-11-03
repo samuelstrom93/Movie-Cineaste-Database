@@ -28,15 +28,27 @@
 
 
     @*// Lägg onChange här istället för att varje gång jag ändrar knappen i listan*@
-    <form asp-action="@Url.Action("Filter", "Home")" class="form-flex">
-            <label for="sortType">Sortera efter:</label>
+    @*<form asp-action="@Url.Action("Filter", "Home")" method="post" class="form-flex">*@
+    <form asp-action="Filter" method="post" class="form-flex">
+        <label for="sortType">Sortera efter:</label>
 
-            @Html.DropDownListFor(x => x.SelectedCount, new SelectList(Model.Counts, "Value", "Text"), new { @onchange = "onChange(this.value)" })
-            @*<p>@Html.DropDownListFor(x => Model.SelectedCountry, new SelectList(Model.Countries, "Value", "Text"), "Välj land", new { @onchange = "onChange(this.value)" }) </ p >*@
-            @*, new { @onchange = "onChange(this.value)" })*@
-            @*Lägg till som sista i listan (med tredje komma) för att använd javascriptmetoden*@
+        @*@Html.DropDownListFor(x => x.SelectedCount, new SelectList(Model.Counts, "Value", "Text"), new { @onchange = "onChange(this.value)" })*@
+        @Html.DropDownListFor(x => x.SelectedCount, new SelectList(Model.Counts, "Value", "Text"))
 
-        </form>
+        <p>hej</p>
+
+        @*@Html.DropDownListFor(x => x.SelectedSortOrder, new SelectList(Model.SortOrders, "Value", "Text"), new { @onchange = "onChangeOrder(this.value)" })*@
+        @Html.DropDownListFor(x => x.SelectedSortOrder, new SelectList(Model.SortOrders, "Value", "Text"))
+
+        @Html.DropDownListFor(x => x.SelectedType, new SelectList(Model.Types, "Value", "Text"))
+
+        <input type="submit" value="Send" />
+
+        @*<p>@Html.DropDownListFor(x => Model.SelectedCountry, new SelectList(Model.Countries, "Value", "Text"), "Välj land", new { @onchange = "onChange(this.value)" }) </ p >*@
+        @*, new { @onchange = "onChange(this.value)" })*@
+        @*Lägg till som sista i listan (med tredje komma) för att använd javascriptmetoden*@
+
+    </form>
 
 
         <h1 class="movie-title">@Model.TopListMovies.FirstOrDefault().Title</h1>

@@ -18,7 +18,7 @@ namespace CMDbAPI.Controllers
         }
 
         [HttpGet]
-        public async Task< IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString)
         {
             var listOfMovies = await movieRepository.GetAllMoviesContaining(searchString);
 
@@ -28,8 +28,16 @@ namespace CMDbAPI.Controllers
                 ViewBag.search = searchString;
                 return View(listOfMovies);
             }
-            
-                return View(listOfMovies);
+
+            MovieDetailsViewModel movieDetailsViewModel;
+            foreach (var movie in listOfMovies.Search)
+            {
+                movieDetailsViewModel = await movieRepository.GetSummarySingleMovie(movie.ImdbID);
+                movie.Director = movieDetailsViewModel.Director;
+                movie.Genre = movieDetailsViewModel.Genre;
+                movie.Ratings = movieDetailsViewModel.Ratings;
+            }
+            return View(listOfMovies);
 
         }
     }

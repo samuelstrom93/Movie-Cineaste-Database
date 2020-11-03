@@ -1,5 +1,3 @@
-
-
 @model CMDbAPI.ViewModel.HomeViewModel
 
 <main>
@@ -34,7 +32,9 @@
 
     <div class="top-movie-container">
 
-        <img src="@Model.TopListMovies.FirstOrDefault().Poster" alt="Toppfilm" class="top-movie">
+        <a href="@Url.Action("Index", "MovieDetails", new { imdbID = Model.TopListMovies.FirstOrDefault().ImdbID })">
+            <img src="@Model.TopListMovies.FirstOrDefault().Poster" alt="Toppfilm" class="top-movie">
+        </a>
         <h2> Likes - Dislikes </h2>
         <p> @Model.TopListMovies.FirstOrDefault().NumberOfLikes - @Model.TopListMovies.FirstOrDefault().NumberOfDislikes </p>
 
@@ -43,14 +43,11 @@
             @foreach (var rating in Model.TopListMovies.FirstOrDefault().Ratings)
             {
                 <div class="ratings-flexbox">
+                    <p class="rating-source">@rating.Source</p>
+                    <div class="pie">
+                        <span class="score-text">@rating.Value</span>
+                    </div>
 
-                    <p><b>@rating.Source</b></p>
-                    <span class="score-big">
-                        Rating
-                        <br />
-                        <br />
-                        <span class="score">@rating.Value</span>
-                    </span>
                 </div>
             }
         </div>
@@ -61,7 +58,7 @@
         {
             <div class="movie-container">
                 <figure class="rankings-figure">
-                    
+
                     <a href="@Url.Action("Index", "MovieDetails", new { imdbID = movie.ImdbID })">
                         @if (movie.Poster == "N/A")
                         {

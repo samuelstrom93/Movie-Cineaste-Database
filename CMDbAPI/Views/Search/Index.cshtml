@@ -15,12 +15,37 @@
             <div class="search-movies-flexbox">
 
                 <a href="@Url.Action("Index", "MovieDetails", new { imdbID = movie.ImdbID })">
-                    <img id="searchedMovieImg" src="@movie.Poster" alt="">
+                    @if (movie.Poster == "N/A")
+                    {
+                        <img src="~/img/NoPosterAvailable.png" alt="toppfilmer" class="top-movie">
+                    }
+                    else
+                    {
+                        <img src="@movie.Poster" alt="toppfilmer" id="searchedMovieImg">
+                    }
                 </a>
                 <p>
                     <b>Title:</b> @movie.Title<br /><br />
                     <b>Year:</b> @movie.Year<br /><br />
+                    <b>Genre:</b> @movie.Genre<br /><br />
+                    <b>Director:</b> @movie.Director<br /><br />
                     <b>Type:</b> @movie.Type<br /><br />
+
+                    @if (movie.Ratings.Count == 0)
+                    {
+                        <i>No rating available.</i>
+                    }
+                    else
+                    {
+                        <span><b>Ratings:</b></span><br />
+                        @foreach (var rating in movie.Ratings)
+                        {
+                            <span>@rating.Source: <b>@rating.Value</b></span>
+
+                            <br />
+                        }
+                    }
+                </p>
             </div>
         }
 

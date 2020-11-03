@@ -10,10 +10,10 @@ header {
     background: linear-gradient(to bottom right, #C70D0D, rgb(148, 15, 15));
 }
 
-header a {
-    color: #eee;
-    text-decoration: none;
-}
+    header a {
+        color: #eee;
+        text-decoration: none;
+    }
 
 #title-header {
     font: bold xx-large Georgia;
@@ -31,7 +31,7 @@ a:hover {
     justify-content: space-between;
     align-items: center;
     margin: auto;
-    text-align:center;
+    text-align: center;
 }
 
 .form-flex {
@@ -47,7 +47,7 @@ a:hover {
 input[type="text"] {
     padding-left: 3%;
     font-size: 20px;
-    width: 500px;
+    width: 550px;
 }
 
 .btn-moviesearch {
@@ -100,10 +100,8 @@ h1 {
 }
 
 .top-movie {
-    display: block;
     margin: auto;
     height: 450px;
-    width: 300px;
 }
 
 .movie-container {
@@ -164,8 +162,6 @@ figcaption {
 
 /* ----------------Search---------------------*/
 .search-container {
-    border: 1px solid black;
-    width: 85%;
     margin: 1% auto;
 }
 
@@ -173,16 +169,19 @@ figcaption {
     display: flex;
     border: 1px solid black;
     align-items: center;
-    font: large Times;
+    font: large Georgia;
+    width: 80%;
+    margin: auto;
 }
 
 .search-movies-flexbox p {
-    margin-left: 10%;
+    margin-left: 5%;
 }
 
 .search-movies-flexbox img {
-    width: 180px;
-    height: 250px;
+    width: 240px;
+    height: 320px;
+    margin-left: 0px;
 }
 
 #center {
@@ -191,7 +190,6 @@ figcaption {
 
 
 /* ----------------MovieDetails---------------------*/
-
 .wrapper {
     display: flex;
     justify-content: center;
@@ -227,7 +225,7 @@ figcaption {
     justify-content: center;
 }
 
-.flexbox-row p{
+.flexbox-row p {
     margin: 5% 5%;
 }
 
@@ -238,13 +236,14 @@ figcaption {
 }
 
 #center {
-    text-align:center;
+    text-align: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #plot {
     font: italic medium Georgia;
 }
+
 #subplot {
     font: bold medium Georgia;
 }
@@ -260,7 +259,7 @@ figcaption {
 
 .bigger {
     font: bold x-large Georgia;
-    margin-bottom: 0%;
+    margin: 0% auto;
 }
 
 .read-more {
@@ -273,6 +272,7 @@ figcaption {
     cursor: pointer;
     text-decoration: underline;
 }
+
 #more {
     display: none;
 }
@@ -304,7 +304,6 @@ figcaption {
 .like-btn:hover {
     background-color: darkgrey;
     cursor: pointer;
-    /*    background-image: url("https://www.freeiconspng.com/uploads/dislike-button-png-1.png");*/
 }
 
 .dislike-btn {
@@ -328,25 +327,49 @@ figcaption {
     pointer-events: none;
 }
 
-.score-big {
-    width: 125px;
-    height: 110px;
-    color: #fff;
-    font-size: 0.7em;
-    background: #333;
-    padding: 5px 0 0 0;
+
+
+.low-score {
+    background: red;
+}
+
+.medium-score {
+    background: orange;
+}
+
+.high-score {
+    background: green;
+}
+
+#myBar {
+    width: 10%;
+    height: 30px;
+    background-color: #4CAF50;
+    text-align: center; /* To center it horizontally (if you want) */
+    line-height: 30px; /* To center it vertically */
+    color: white;
+}
+
+.pie {
+    width: 130px;
+    height: 130px;
+    background: conic-gradient(green 80%, red 20%);
     border-radius: 50%;
-    text-align: center;
-    line-height: 1.2em;
-    font: bold medium Georgia;
+    line-height: 130px;
 }
 
-.score-big .score {
-    font-size: 1.8em;
+.rating-source {
     font-weight: bold;
-    line-height: 0.8em;
+    font-size: 20px;
 }
 
+.score-text {
+    font-weight: bold;
+    font-size: 22px;
+    color:white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: auto;
+}
 
 
 /* ----------------FOOTER---------------------*/
@@ -365,3 +388,4 @@ figcaption {
     font-size: 20px;
     font-weight: bold;
 }
+

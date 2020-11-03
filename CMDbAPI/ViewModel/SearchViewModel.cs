@@ -8,6 +8,6 @@ namespace CMDbAPI.ViewModel
 {
     public class SearchViewModel
     {
-      public List<SearchMovieDTO> Search { get; set; }
+        public List<SearchMovieDTO> Search { get; set; }
     }
 }

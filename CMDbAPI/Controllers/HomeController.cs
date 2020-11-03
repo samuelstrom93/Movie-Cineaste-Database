@@ -28,9 +28,11 @@ namespace CMDbAPI.Controllers
         public async Task<IActionResult> Index()
         {
 
+
+            
+
             parameter = new Parameter();
             var toplist = await movieRepository.GetTopListAggregatedData(parameter);
-
 
             //TODO: flytta validering till modellen ist
             //foreach (var item in toplist.TopListMovies)

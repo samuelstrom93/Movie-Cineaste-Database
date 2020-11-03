@@ -35,3 +35,42 @@ for (let j = 0; j < moreButtons.length; j++) {
 }
 
 
+
+let pies = document.querySelectorAll('.pie');
+let ratingsSites = document.querySelectorAll('.rating-source');
+let ratingElement = document.querySelectorAll('.score-text');
+
+
+
+
+// Färglägger paj-progressbars
+for (let i = 0; i < pies.length; i++) {
+    let element;
+    let value;
+    switch (ratingsSites[i].textContent) {
+        case "Internet Movie Database":
+            value = ratingElement[i].textContent.substring(0, 1) + ratingElement[i].textContent.substring(2, 3)
+            pies[i].style.background = `conic-gradient(darkgreen ${value}%, red 0%)`;
+            break;
+        case "Rotten Tomatoes":
+            if (ratingElement[i].textContent.substring(0, 3) === '100') {
+                pies[i].style.background = `conic-gradient(darkgreen 100%, red 0%)`;
+            }
+            else {
+                value = ratingElement[i].textContent.substring(0, 2)
+                pies[i].style.background = `conic-gradient(darkgreen ${value}%, red 0%)`;
+            }
+            break;
+        case "Metacritic":
+            if (ratingElement[i].textContent.substring(0, 3) === '100') {
+                pies[i].style.background = `conic-gradient(darkgreen 100%, red 0%)`;
+            }
+            else {
+                value = ratingElement[i].textContent.substring(0, 2)
+                pies[i].style.background = `conic-gradient(darkgreen ${value}%, red 0%)`;
+            }
+            break;
+        default:
+            console.log("Ingen rating alls")
+    }
+}

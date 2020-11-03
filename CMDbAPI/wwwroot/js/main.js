@@ -9,9 +9,7 @@
 //    document.getElementById(valueType).selected = true;
 //}       
 
-function onChange(val) {
-    window.location = "/home/FilterToplist?" + val;
-}
+
 
 
 const moreButtons = document.querySelectorAll('.read-more');

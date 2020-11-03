@@ -27,22 +27,23 @@ namespace CMDbAPI.Controllers
 
         public async Task<IActionResult> Index()
         {
-
-            
-            
-
             parameter = new Parameter();
             var toplist = await movieRepository.GetTopListAggregatedData(parameter);
 
-
-
             List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem { Text = "Värde 1", Value = "1", Selected = true });
+            items.Add(new SelectListItem { Text = "Värde 1", Value = "1" });
             items.Add(new SelectListItem { Text = "Värde 5", Value = "5" });
-            items.Add(new SelectListItem { Text = "Värde 10", Value = "10" });
-            //items.Add(new SelectListItem { Value = "3" });
+            items.Add(new SelectListItem { Text = "Värde 20", Value = "20" });
 
             toplist.Counts = items;
+
+            List<SelectListItem> itemsSort = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "Descending", Value = "desc" });
+            items.Add(new SelectListItem { Text = "Ascending", Value = "asc" });
+
+            toplist.SortOrders = itemsSort;
+
+
 
 
 
@@ -64,6 +65,40 @@ namespace CMDbAPI.Controllers
 
 
             return View(toplist);
+        }
+
+        [HttpGet("Home/Filter")]
+        public async Task<IActionResult> Filter(string selectedCount)
+        {
+            //var toplist = await movieRepository.GetTopListAggregatedData(parameter);
+
+            HomeViewModel toplist = new HomeViewModel();
+            Parameter parameter = new Parameter();
+
+            List<SelectListItem> items = new List<SelectListItem>();
+            //items.Add(new SelectListItem { Text = "Värde 1", Value = "1", Selected = true });
+            items.Add(new SelectListItem { Text = "Värde 1", Value = "1" });
+            items.Add(new SelectListItem { Text = "Värde 5", Value = "5" });
+            items.Add(new SelectListItem { Text = "Värde 10", Value = "10" });
+            items.Add(new SelectListItem { Text = "Värde 20", Value = "20" });
+            //items.Add(new SelectListItem { Value = "3" });
+
+
+            //List<SelectListItem> itemsSort = new List<SelectListItem>();
+            //items.Add(new SelectListItem { Text = "Descending", Value = "desc" });
+            //items.Add(new SelectListItem { Text = "Ascending", Value = "asc" });
+
+
+            parameter.Count = int.Parse(selectedCount);
+
+            toplist = await movieRepository.GetTopListAggregatedData(parameter);
+            toplist.Counts = items;
+            //toplist.SortOrders = itemsSort;
+
+
+            //parameter = new Parameter(count, sortOrder, type);
+
+            return View("index", toplist);
         }
 
 

@@ -24,7 +24,6 @@ namespace CMDbAPI.Controllers
 
         }
 
-
         public async Task<IActionResult> Index()
         {
 
@@ -52,29 +51,6 @@ namespace CMDbAPI.Controllers
 
             return View(toplist);
         }
-
-
-
-        //[HttpGet]
-        //public async Task<IActionResult> Search(int count, string sortOrder, string type)
-        //{
-        //    parameter = new Parameter(count,sortOrder,type);         
-        //    var toplist = await movieRepository.GetTopListAggregatedData(parameter);           
-
-
-        //    //TODO: fixa
-        //    foreach (var movie in toplist.TopListMovies)
-        //    {
-        //        if (movie.Poster.Contains("N/A"))
-        //        {
-        //            movie.Poster = "/img/NoPosterAvaible.png";
-        //        }
-        //    }
-
-        //    // Ändra till att gå till search-controll?
-        //    return View("index", toplist);    
-        //}
-
 
 
         [HttpGet]

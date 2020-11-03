@@ -21,21 +21,21 @@ namespace CMDbAPI.Controllers
 
         [HttpGet]
         // GET: api/
-        public async Task<IEnumerable<Movie>> Get()
+        public async Task<IEnumerable<IMovie>> Get()
         {
             return await context.GetAllMovieRatings();
         }
 
         [HttpGet("{imdbId}")]
         // GET: api/Movie/
-        public async Task<ActionResult<Movie>> MovieRating(string imdbId)
+        public async Task<ActionResult<IMovie>> MovieRating(string imdbId)
         {
             return await context.GetMovieRatings(imdbId);
         }
 
         [HttpGet("{imdbId}/like")]
         // GET: api/Movie/3/Like
-        public async Task<ActionResult<Movie>> LikeMovie(string imdbId)
+        public async Task<ActionResult<IMovie>> LikeMovie(string imdbId)
         {
             if (!imdbId.IsValidImdbId())
                 return BadRequest();
@@ -45,7 +45,7 @@ namespace CMDbAPI.Controllers
 
         [HttpGet("{imdbId}/dislike")]
         // GET: api/Movie/3/Dislike
-        public async Task<ActionResult<Movie>> DislikeMovie(string imdbId)
+        public async Task<ActionResult<IMovie>> DislikeMovie(string imdbId)
         {
             if (!imdbId.IsValidImdbId())
                 return BadRequest();

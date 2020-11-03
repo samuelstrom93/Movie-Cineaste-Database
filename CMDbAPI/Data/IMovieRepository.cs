@@ -24,7 +24,6 @@ namespace CMDbAPI
 
         /// <summary>
         /// Generates a list of movies sorted by input parameter. 
-        /// 
         /// </summary>
         /// <param name="parameter">Object of type <see cref="Parameter"/></param>
         /// <remarks>Default is null</remarks>

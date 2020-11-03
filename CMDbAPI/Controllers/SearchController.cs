@@ -22,7 +22,6 @@ namespace CMDbAPI.Controllers
         {
             var listOfMovies = await movieRepository.GetAllMoviesContaining(searchString);
 
-
             if (listOfMovies.Search == null)
             {
                 ViewBag.search = searchString;
@@ -37,6 +36,7 @@ namespace CMDbAPI.Controllers
                 movie.Genre = movieDetailsViewModel.Genre;
                 movie.Ratings = movieDetailsViewModel.Ratings;
             }
+            ViewBag.search = searchString;
             return View(listOfMovies);
 
         }

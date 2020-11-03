@@ -32,7 +32,7 @@ namespace CMDbAPI.Controllers
         /// </example>
         [HttpGet]
         // GET: api/Toplist/
-        public async Task<IEnumerable<Movie>> Toplist([FromQuery]string sort, [Range(1, int.MaxValue, ErrorMessage = "Only positive number allowed")][FromQuery] int? count, [FromQuery] string type)
+        public async Task<IEnumerable<IMovie>> Toplist([FromQuery]string sort, [Range(1, int.MaxValue, ErrorMessage = "Only positive number allowed")][FromQuery] int? count, [FromQuery] string type)
         {
             Parameter parameter = new Parameter
             {

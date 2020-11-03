@@ -231,15 +231,15 @@ namespace CMDbAPI
 
         #region Movie Details   
 
-      /// <summary>
-      /// Hämtar information från Imdb.com genom att skicka in ett imdb-id
-      /// </summary>
-      /// <param name="imdbId"></param>
-      /// <returns></returns>
+        /// <summary>
+        /// Hämtar information från Imdb.com genom att skicka in ett imdb-id
+        /// </summary>
+        /// <param name="imdbId"></param>
+        /// <returns></returns>
         public async Task<MovieDetailsDTO> GetMovieDetails(string imdbId)
         {
             using (HttpClient client = new HttpClient())
-            {           
+            {
 
                 string endpoint = $"{baseUrl}i={imdbId}{accessKey}";
                 var respons = await client.GetAsync(endpoint, HttpCompletionOption.ResponseHeadersRead);
@@ -273,9 +273,6 @@ namespace CMDbAPI
         }
 
 
-       
-
-
         //TODO: Fixa så att man kan skicka in parametrar för att styra hur du hämtar topplistna. Om T.ex. det ska vara en särskild count, type(rating eller popularity),
         // sort (ascending eller descinding). Om fältet lämnas tomt så hämtar den hela topplistan
         /// <summary>
@@ -284,44 +281,43 @@ namespace CMDbAPI
         /// <returns></returns>
         public async Task<HomeViewModel> GetTopListAggregatedData(Parameter parameter)
         {
-            
             var toplist = await GetToplist(parameter);
             HomeViewModel homeViewModel = new HomeViewModel(parameter);
 
             foreach (var movie in toplist)
             {
-                HomeTopListMovieDTO topListMovie=  await GetTopListMovieDetails(movie.ImdbID);
+                HomeTopListMovieDTO topListMovie = await GetTopListMovieDetails(movie.ImdbID);
                 topListMovie.NumberOfLikes = movie.NumberOfLikes;
                 topListMovie.NumberOfDislikes = movie.NumberOfDislikes;
                 homeViewModel.TopListMovies.Add(topListMovie);
-            }           
+            }
             return homeViewModel;
         }
+
 
 
         public async Task<MovieDetailsViewModel> GetSummarySingleMovie(string imdbId)
         {
             var ratings = await GetMovieRatings(imdbId);
             var movie = await GetMovieDetails(imdbId);
-            
+
             MovieDetailsViewModel movieSummaryViewModel = new MovieDetailsViewModel(movie, ratings);
 
             return movieSummaryViewModel;
         }
 
 
-          public async Task<SearchViewModel> GetAllMoviesContaining(string searchString)
-        {           
+        public async Task<SearchViewModel> GetAllMoviesContaining(string searchString)
+        {
+            string urlString = baseUrl + "s=" + searchString + accessKey;
+            return await apiWebClient.GetAsync<SearchViewModel>(urlString);
 
-            string urlString = baseUrl+"s=" + searchString + accessKey;             
-            return await apiWebClient.GetAsync<SearchViewModel>(urlString);             
-
-        }   
         }
-
-        #endregion
-
     }
+
+    #endregion
+
+}
     #endregion
 
 

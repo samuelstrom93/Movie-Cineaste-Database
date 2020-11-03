@@ -370,7 +370,18 @@ figcaption {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: auto;
 }
+  
 
+/* ----------------Error Page---------------------*/
+.error-container{
+    width:50%;
+    padding-left:25%;   
+    text-align:center
+}
+
+#exception-Message{
+    color: red;
+}
 
 /* ----------------FOOTER---------------------*/
 .site-footer {

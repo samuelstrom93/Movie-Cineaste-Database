@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Diagnostics;
 using System.Dynamic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using CMDbAPI.Models.DTO;
 using CMDbAPI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,65 +19,38 @@ namespace CMDbAPI.Controllers
     public class HomeController : Controller
     {
         private IMovieRepository movieRepository;
+        private readonly ILogger<HomeController> logger;
+
         private Parameter parameter;
        
 
-        public HomeController(IMovieRepository movieRepository)
+        public HomeController(IMovieRepository movieRepository, ILogger<HomeController> logger)
         {
             this.movieRepository = movieRepository;
+            this.logger = logger;
 
         }
 
 
         public async Task<IActionResult> Index()
-        {
-
-
-            
-
+        {            
             parameter = new Parameter();
-            var toplist = await movieRepository.GetTopListAggregatedData(parameter);
+            try
+            {              
+                var toplist = await movieRepository.GetTopListAggregatedData(parameter); //Har kommmenterat bort movie.add i movierepositorymetoden "GetTopListAggregatedData". Så att det ska bli ett error.
 
-            //TODO: flytta validering till modellen ist
-            //foreach (var item in toplist.TopListMovies)
-            //{
-            //    if (string.IsNullOrEmpty(item.Poster) || item.Poster.Contains("N/A"))
-            //    {
-            //        item.Poster = "/img/NoPosterAvaible.png";
-            //    }
-
-            //    if (string.IsNullOrEmpty(item.Plot) || item.Plot.Contains("N/A"))
-            //    {
-            //        item.Plot = "No plot available";
-            //    }
-            //}
-
-
-
-            return View(toplist);
+                //TODO: Om antalet filmer i databasen är 0, så ska en text visas i vyn om att inga filmer finns lagrade i databasen.
+                if (toplist.TopListMovies.Count == 0)
+                {
+                    return View("Error");
+                }               
+                return View(toplist);
+            }
+            catch (Exception)
+            {
+                throw;               
+            }        
         }
-
-
-
-        //[HttpGet]
-        //public async Task<IActionResult> Search(int count, string sortOrder, string type)
-        //{
-        //    parameter = new Parameter(count,sortOrder,type);         
-        //    var toplist = await movieRepository.GetTopListAggregatedData(parameter);           
-
-
-        //    //TODO: fixa
-        //    foreach (var movie in toplist.TopListMovies)
-        //    {
-        //        if (movie.Poster.Contains("N/A"))
-        //        {
-        //            movie.Poster = "/img/NoPosterAvaible.png";
-        //        }
-        //    }
-
-        //    // Ändra till att gå till search-controll?
-        //    return View("index", toplist);    
-        //}
 
 
 
@@ -81,9 +58,28 @@ namespace CMDbAPI.Controllers
         public async Task<IActionResult> FilterTopList(int count, string sortOrder, string type)
         {
             parameter = new Parameter(count, sortOrder, type);
+
+            try
+            {
             var toplist = await movieRepository.GetTopListAggregatedData(parameter);
             return View("index", toplist);
+
+            }
+            catch (Exception)
+            {
+               
+                return View("Error");
+            }
         }
+
+
+
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //public IActionResult Error()
+        //{
+
+        //    return View("Error",new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        //}
 
     }
 }

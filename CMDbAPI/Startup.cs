@@ -47,8 +47,9 @@ namespace CMDbAPI
             }
             else
             {
-                app.UseExceptionHandler("/Error");
-                app.UseStatusCodePagesWithReExecute("Error/{0}");
+                app.UseExceptionHandler("/Error"); //Använd som exempel, använd EJ i skarpt läge! Kan visa känslig information!
+                app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
+                //app.UseStatusCodePagesWithReExecute("Error/{0}");
             }
 
             app.UseHttpsRedirection();

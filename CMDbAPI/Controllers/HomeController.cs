@@ -4,6 +4,7 @@ using System.Data.Common;
 using System.Diagnostics;
 using System.Dynamic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using CMDbAPI.Models.DTO;
@@ -42,9 +43,9 @@ namespace CMDbAPI.Controllers
                 }
                 return View(toplist);
             }
-            catch (Exception ex )
+            catch (Exception ex)
             {
-                throw ex;
+                throw;
                 //ErrorViewModel errorViewModel = new ErrorViewModel(ex, "Error", "Index");
                // return View(errorViewModel); //1:a 2:a paramtern. 1:a=vilken vy, 2:a model med inparametrar (new ErrorViewModel (ex, "Error", index)
             }
@@ -76,11 +77,11 @@ namespace CMDbAPI.Controllers
         }
 
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error(Exception ex)
-        {
-            return View(new ErrorViewModel(ex, "Error", "index"));
-        }
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //public IActionResult Error(Exception ex)
+        //{
+        //    return View(new ErrorViewModel(ex, "Error", "index"));
+        //}
 
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         //public IActionResult Error()

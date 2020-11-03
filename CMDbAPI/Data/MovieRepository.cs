@@ -232,44 +232,26 @@ namespace CMDbAPI
         #region Movie Details   
 
       /// <summary>
-      /// Hämtar information från Imdb.com genom att skicka in ett imdb-id
+      /// Hämtar information från OmdbApi genom att skicka in ett imdb-id
       /// </summary>
       /// <param name="imdbId"></param>
       /// <returns></returns>
         public async Task<MovieDetailsDTO> GetMovieDetails(string imdbId)
         {
-            using (HttpClient client = new HttpClient())
-            {           
-
-                string endpoint = $"{baseUrl}i={imdbId}{accessKey}";
-                var respons = await client.GetAsync(endpoint, HttpCompletionOption.ResponseHeadersRead);
-                //TODO: Gör det här till en try/catch för att fånga exceptions
-                respons.EnsureSuccessStatusCode();
-                var data = await respons.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<MovieDetailsDTO>(data);
-                return result;
-            }
+            string urlString = baseUrl + "i=" + imdbId+ "&plot=full" + accessKey;
+            return await apiWebClient.GetAsync<MovieDetailsDTO>(urlString);
         }
 
 
         /// <summary>
-        /// Hämtar information från Imdb.com genom att skicka in ett imdb-id
+        /// Hämtar information från OmdbApi genom att skicka in ett imdb-id
         /// </summary>
         /// <param name="imdbId"></param>
         /// <returns></returns>
         public async Task<HomeTopListMovieDTO> GetTopListMovieDetails(string imdbId)
         {
-            using (HttpClient client = new HttpClient())
-            {
-
-                string endpoint = $"{baseUrl}i={imdbId}{accessKey}";
-                var respons = await client.GetAsync(endpoint, HttpCompletionOption.ResponseHeadersRead);
-                //TODO: Gör det här till en try/catch för att fånga exceptions
-                respons.EnsureSuccessStatusCode();
-                var data = await respons.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<HomeTopListMovieDTO>(data);
-                return result;
-            }
+            string urlString = baseUrl + "i=" + imdbId + accessKey;
+            return await apiWebClient.GetAsync<HomeTopListMovieDTO>(urlString);            
         }
 
 
@@ -284,7 +266,24 @@ namespace CMDbAPI
         /// <returns></returns>
         public async Task<HomeViewModel> GetTopListAggregatedData(Parameter parameter)
         {
-            
+            //var tasks = new List<Task>();
+
+            //var toplist = GetToplist(parameter);
+            //HomeViewModel homeViewModel = new HomeViewModel(parameter);
+
+            //foreach (var movie in toplist.Result)
+            //{
+            //    HomeTopListMovieDTO topListMovie = await GetTopListMovieDetails(movie.ImdbID);
+            //    topListMovie.NumberOfLikes = movie.NumberOfLikes;
+            //    topListMovie.NumberOfDislikes = movie.NumberOfDislikes;
+            //    homeViewModel.TopListMovies.Add(topListMovie);
+            //}
+
+            //tasks.Add(toplist);
+
+            //await Task.WhenAll(tasks);
+            //return homeViewModel;
+
             var toplist = await GetToplist(parameter);
             HomeViewModel homeViewModel = new HomeViewModel(parameter);
 

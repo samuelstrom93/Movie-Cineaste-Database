@@ -2,7 +2,7 @@
 
 <main>
     @*<form asp-action="FilterTopList" asp-controller="Home" method="get">*@
-    <form action="@Url.Action("FilterTopList", "Home")" class="form-flex">
+    <!--<form action="@Url.Action("FilterTopList", "Home")" class="form-flex">
         <label for="sortType">Sortera efter:</label>
         <select value="@Model.SelectedType" name="type" id="type">
             <option value="rating" id="rating">Skillnad Like/Dislike</option>
@@ -20,10 +20,16 @@
         </select>
         <br><br>
         <input type="submit" value="Submit" id="btn" />
+    </form>-->
 
+    <form asp-action="@Url.Action("Index", "Home")" class="form-flex">
+        <label for="sortType">Sortera efter:</label>
+
+        @Html.DropDownListFor(x => x.SelectedTestCount, Model.Counts)
+        @*, new { @onchange = "onChange(this.value)" })*@
+        @*Lägg till som sista i listan (med tredje komma) för att använd javascriptmetoden*@
 
     </form>
-
 
 
     <h1 class="movie-title">@Model.TopListMovies.FirstOrDefault().Title</h1>

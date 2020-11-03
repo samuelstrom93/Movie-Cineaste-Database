@@ -240,8 +240,7 @@ namespace CMDbAPI
         {
             using (HttpClient client = new HttpClient())
             {
-
-                string endpoint = $"{baseUrl}i={imdbId}{accessKey}";
+                string endpoint = $"{baseUrl}i={imdbId}&type=movie{accessKey}";
                 var respons = await client.GetAsync(endpoint, HttpCompletionOption.ResponseHeadersRead);
                 //TODO: Gör det här till en try/catch för att fånga exceptions
                 respons.EnsureSuccessStatusCode();
@@ -309,7 +308,7 @@ namespace CMDbAPI
 
         public async Task<SearchViewModel> GetAllMoviesContaining(string searchString)
         {
-            string urlString = baseUrl + "s=" + searchString + accessKey;
+            string urlString = $"{baseUrl}s={searchString}&type=movie{accessKey}";
             return await apiWebClient.GetAsync<SearchViewModel>(urlString);
 
         }

@@ -1,5 +1,6 @@
 ﻿using CMDbAPI.Models;
 using CMDbAPI.Models.DTO;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,13 +12,18 @@ namespace CMDbAPI.ViewModel
     public class HomeViewModel
     {
         public List<HomeTopListMovieDTO> TopListMovies { get; set; } = new List<HomeTopListMovieDTO>();
-        public int SelectedCount { get; set; }        
+        public int SelectedCount { get; set; }
         public string SelectedType { get; set; }
         public string SelectedSortOrder { get; set; }
 
+        public string SelectedTestCount { get; set; }
+        public IEnumerable<SelectListItem> Counts { get; set; }
+        public IEnumerable<SelectListItem> Types { get; set; }
+        public IEnumerable<SelectListItem> SortOrders { get; set; }
+
         public HomeViewModel(IParameter parameter)
         {
-            SelectedCount =(int)parameter.Count;
+            SelectedCount = (int)parameter.Count;
             SelectedSortOrder = parameter.SortOrder;
             SelectedType = parameter.Type;
         }

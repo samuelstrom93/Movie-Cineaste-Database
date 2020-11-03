@@ -54,7 +54,7 @@ namespace CMDbAPI.Controllers
             catch (Exception)
             {
                 throw;
-                RedirectToAction("");
+                //RedirectToAction("");
                 //ErrorViewModel errorViewModel = new ErrorViewModel(ex, "Error", "Index");
                // return View(errorViewModel); //1:a 2:a paramtern. 1:a=vilken vy, 2:a model med inparametrar (new ErrorViewModel (ex, "Error", index)
             }

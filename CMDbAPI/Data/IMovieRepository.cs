@@ -1,6 +1,7 @@
 ﻿using CMDbAPI.Models;
 using CMDbAPI.Models.DTO;
 using CMDbAPI.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -62,7 +63,7 @@ namespace CMDbAPI
         Task<List<HomeTopListMovieDTO>> GetTopListAggregatedData(Parameter parameter);
 
 
-        Task<SearchViewModel> GetAllMoviesContaining(string searchString);
+        Task<SearchViewModel> GetAllMoviesContaining(string searchString, int pageNumber=1, string type=null);
 
     }
 }

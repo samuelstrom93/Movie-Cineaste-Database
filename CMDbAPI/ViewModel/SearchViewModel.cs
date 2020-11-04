@@ -9,5 +9,10 @@ namespace CMDbAPI.ViewModel
     public class SearchViewModel
     {
         public List<SearchMovieDTO> Search { get; set; }
+
+        public int totalResults { get; set; }     
+
+        
+
     }
 }

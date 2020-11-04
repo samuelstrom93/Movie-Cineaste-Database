@@ -20,7 +20,17 @@ namespace CMDbAPI.Test
             throw new NotImplementedException();
         }
 
-        public Task<SearchViewModel> GetAllMoviesContaining(string searchString)
+        public Task<SearchViewModel> GetAllMoviesContaining(string searchString, int pageNumber)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<SearchViewModel> GetAllMoviesContaining(string searchString, int pageNumber, string type = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<T> GetMovieDetails<T>(string imdbId)
         {
             throw new NotImplementedException();
         }
@@ -59,10 +69,10 @@ namespace CMDbAPI.Test
         {
             throw new NotImplementedException();
         }
-
         Task<List<HomeTopListMovieDTO>> IMovieRepository.GetTopListAggregatedData(Parameter parameter)
         {
             throw new NotImplementedException();
         }
+
     }
 }

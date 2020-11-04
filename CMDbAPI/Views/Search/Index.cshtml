@@ -4,51 +4,66 @@
         <div class="search-container">
 
 
-            @if (Model.Search == null)
-            {
-                <p id="center">No results found for <b>"@ViewBag.search"</b> </p>
-            }
-            else
-            {
-                <p id="center">Results for <b>"@ViewBag.search"</b> </p>
-                @foreach (var movie in Model.Search)
-                {
-                    <div class="search-movies-flexbox">
 
-                        <a href="@Url.Action("Index", "MovieDetails", new { imdbID = movie.ImdbID })">
-                            @if (movie.Poster == "N/A")
-                            {
-                                <img src="~/img/NoPosterAvailable.png" alt="toppfilmer" class="top-movie">
-                            }
-                            else
-                            {
-                                <img src="@movie.Poster" alt="toppfilmer" id="searchedMovieImg">
-                            }
-                        </a>
-                        <p>
-                            <b>Title:</b> @movie.Title<br /><br />
-                            <b>Year:</b> @movie.Year<br /><br />
-                            <b>Genre:</b> @movie.Genre<br /><br />
-                            <b>Director:</b> @movie.Director<br /><br />
+    @if (Model.Search == null)
+    {
+        <p id="center">No results found for <b>"@ViewBag.searchString"</b> </p>
+    }
+    else
+    {
+        <p id="center">Results for: <b>"@ViewBag.searchString"</b> </p>
+        <p id="center">Total hits: <b>@ViewBag.totalSearchHits</b> Divided into: <b>@ViewBag.totalPages</b> pages </p>
+        @foreach (var movie in Model.Search)
+        {
+            <div class="search-movies-flexbox">
 
-                            @if (movie.Ratings.Count == 0)
-                            {
-                                <i>No rating available.</i>
-                            }
-                            else
-                            {
-                                <span><b>Ratings:</b></span><br />
-                                @foreach (var rating in movie.Ratings)
-                                {
-                                    <span>@rating.Source: <b>@rating.Value</b></span>
+                <a href="@Url.Action("Index", "MovieDetails", new { imdbID = movie.ImdbID })">
+                    @if (movie.Poster == "N/A")
+                    {
+                        <img src="~/img/NoPosterAvailable.png" alt="toppfilmer" class="top-movie">
+                    }
+                    else
+                    {
+                        <img src="@movie.Poster" alt="toppfilmer" id="searchedMovieImg">
+                    }
+                </a>
+                <p>
+                    <b>Title:</b> @movie.Title<br /><br />
+                    <b>Year:</b> @movie.Year<br /><br />
+                    <b>Genre:</b> @movie.Genre<br /><br />
+                    <b>Director:</b> @movie.Director<br /><br />
+                    <b>Type:</b> @movie.Type<br /><br />
 
-                                    <br />
-                                }
-                            }
-                        </p>
-                    </div>
-                }
+                    @if (movie.Ratings.Count == 0)
+                    {
+                        <i>No rating available.</i>
+                    }
+                    else
+                    {
+                        <span><b>Ratings:</b></span><br />
+                        @foreach (var rating in movie.Ratings)
+                        {
+                            <span>@rating.Source: <b>@rating.Value</b></span>
 
-            }
-        </div>
-    </main>
+                            <br />
+                        }
+                    }
+                </p>
+            </div>
+
+        }
+        <p>Page: @ViewBag.currentPage of @ViewBag.totalPages</p>
+        <form class="nextPage-submit" action="@Url.Action("NextPage", "Search")" method="get">
+            <input id="totalPages" value="@ViewBag.totalPages" />
+            <input id="firstPage" value="@ViewBag.firstPage" />
+            <input id="searchString" name="searchString" value="@ViewBag.searchString" />
+            <input id="currentPage" name="currentPage" value="@ViewBag.currentPage" />
+            <input class="btnPrevious" type="submit" value="Previous" />
+            <input class="btnNext" type="submit" value="Next" />
+
+        </form>
+
+    }
+</div>
+<script src="~/js/search.js"></script>
+

@@ -272,9 +272,9 @@ namespace CMDbAPI
         }
         
 
-        public async Task<List<HomeTopListMovieDTO>> GetTopListAggregatedData(Parameter parameter, HomeViewModel homeViewModel)
+        public async Task<List<HomeTopListMovieDTO>> GetTopListAggregatedData(HomeViewModel homeViewModel)
         {
-            var toplist = await GetToplist(parameter);
+            var toplist = await GetToplist(homeViewModel.Parameter);
             List<HomeTopListMovieDTO> toplistMovies = new List<HomeTopListMovieDTO>();
             HomeTopListMovieDTO topListMovie;
 

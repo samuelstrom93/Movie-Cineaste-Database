@@ -50,7 +50,7 @@ namespace CMDbAPI.Test
             throw new NotImplementedException();
         }
 
-        public Task<List<HomeTopListMovieDTO>> GetTopListAggregatedData(Parameter parameter, HomeViewModel homeViewModel)
+        public Task<List<HomeTopListMovieDTO>> GetTopListAggregatedData(HomeViewModel homeViewModel)
         {
             throw new NotImplementedException();
         }

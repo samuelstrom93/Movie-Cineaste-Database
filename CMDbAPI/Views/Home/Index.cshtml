@@ -7,14 +7,18 @@
     <form asp-action="Filter" method="get" class="form-flex">
 
         <label>Amount of movies to display:</label>
-        @Html.DropDownListFor(x => x.SelectedCount, new SelectList(Model.Counts, "Value", "Text"))
+        @*@Html.DropDownListFor(x => x.Parameter.Count, new SelectList(Model.Counts, "Value", "Text"))*@
+        @*@Html.DropDownListFor("selectedCount", new SelectList(Model.Counts, "Value", "Text"))*@
+        @Html.DropDownList("Count", new SelectList(Model.Counts, "Value", "Text"))
 
-        
+
         <label>Sorting order:</label>
-        @Html.DropDownListFor(x => x.SelectedSortOrder, new SelectList(Model.SortOrders, "Value", "Text"))
+        @*@Html.DropDownListFor(x => x.Parameter.SortOrder, new SelectList(Model.SortOrders, "Value", "Text"))*@
+        @Html.DropDownList("SortOrder", new SelectList(Model.SortOrders, "Value", "Text"))
 
         <label>Sorting type:</label>
-        @Html.DropDownListFor(x => x.SelectedType, new SelectList(Model.Types, "Value", "Text"))
+        @*@Html.DropDownListFor(x => x.Parameter.Type, new SelectList(Model.Types, "Value", "Text"))*@
+        @Html.DropDownList("SortType", new SelectList(Model.Types, "Value", "Text"))
 
         <input type="submit" value="Send" />
 

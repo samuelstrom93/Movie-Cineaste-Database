@@ -12,10 +12,7 @@ namespace CMDbAPI.ViewModel
     public class HomeViewModel
     {
         public List<HomeTopListMovieDTO> TopListMovies { get; set; } = new List<HomeTopListMovieDTO>();
-        public int SelectedCount { get; set; }
-        public string SelectedType { get; set; }
-        public string SelectedSortOrder { get; set; }
-
+        public Parameter Parameter { get; set; } = new Parameter();
 
         public IEnumerable<SelectListItem> Counts { get; set; }
         public IEnumerable<SelectListItem> Types { get; set; }
@@ -48,9 +45,9 @@ namespace CMDbAPI.ViewModel
             };
             Types = itemsType;
 
-            SelectedCount = (int)parameter.Count;
-            SelectedSortOrder = parameter.SortOrder;
-            SelectedType = parameter.Type;
+            Parameter.Count = (int)parameter.Count;
+            Parameter.SortOrder = parameter.SortOrder;
+            Parameter.Type = parameter.Type;
         }
     }
 }

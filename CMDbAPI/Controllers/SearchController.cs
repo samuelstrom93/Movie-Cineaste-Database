@@ -29,6 +29,7 @@ namespace CMDbAPI.Controllers
                 //Creating an instance of SearchViewModel and get the results from search
                 var searchViewModel = await movieRepository.GetAllMoviesContaining(searchString);
 
+
                 //How many pages is needed for the search results                
                 int pageSize = 10;
                 var totalPages = (int)Math.Ceiling(searchViewModel.totalResults / (double)pageSize);

@@ -12,6 +12,7 @@ namespace CMDbAPI.ViewModel
     public class HomeViewModel
     {
         public List<HomeTopListMovieDTO> TopListMovies { get; set; } = new List<HomeTopListMovieDTO>();
+
         public Parameter Parameter { get; set; } = new Parameter();
 
         public IEnumerable<SelectListItem> Counts { get; set; }

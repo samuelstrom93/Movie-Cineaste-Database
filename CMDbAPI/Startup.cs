@@ -45,14 +45,31 @@ namespace CMDbAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Error"); //Använd som exempel, använd EJ i skarpt läge! Kan visa känslig information!
+                app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");               
+            }
 
+            app.UseStatusCodePages();
             app.UseHttpsRedirection();
-
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthorization();
+
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
+            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            //    app.UseHsts();
+            //}
+
+            //app.UseHttpsRedirection();
+            //app.UseStaticFiles();
+            //app.UseRouting();
+            //app.UseAuthorization();
+
+
 
             app.UseEndpoints(endpoints =>
             {
@@ -62,12 +79,12 @@ namespace CMDbAPI
                     );
             });
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //});
 
-            app.UseCors(MyAllowSpecificOrigins);
+            //app.UseCors(MyAllowSpecificOrigins);
         }
 
     }

@@ -255,6 +255,9 @@ namespace CMDbAPI
         }
 
 
+       
+
+
         //TODO: Fixa så att man kan skicka in parametrar för att styra hur du hämtar topplistna. Om T.ex. det ska vara en särskild count, type(rating eller popularity),
         // sort (ascending eller descinding). Om fältet lämnas tomt så hämtar den hela topplistan
         /// <summary>
@@ -263,6 +266,24 @@ namespace CMDbAPI
         /// <returns></returns>
         public async Task<HomeViewModel> GetTopListAggregatedData(Parameter parameter)
         {
+            //var tasks = new List<Task>();
+
+            //var toplist = GetToplist(parameter);
+            //HomeViewModel homeViewModel = new HomeViewModel(parameter);
+
+            //foreach (var movie in toplist.Result)
+            //{
+            //    HomeTopListMovieDTO topListMovie = await GetTopListMovieDetails(movie.ImdbID);
+            //    topListMovie.NumberOfLikes = movie.NumberOfLikes;
+            //    topListMovie.NumberOfDislikes = movie.NumberOfDislikes;
+            //    homeViewModel.TopListMovies.Add(topListMovie);
+            //}
+
+            //tasks.Add(toplist);
+
+            //await Task.WhenAll(tasks);
+            //return homeViewModel;
+
             var toplist = await GetToplist(parameter);
             HomeViewModel homeViewModel = new HomeViewModel(parameter);
 
@@ -277,25 +298,33 @@ namespace CMDbAPI
         }
 
 
-
         public async Task<MovieDetailsViewModel> GetSummarySingleMovie(string imdbId)
         {
             var ratings = await GetMovieRatings(imdbId);
             var movie = await GetMovieDetails(imdbId);
-
+            
             MovieDetailsViewModel movieSummaryViewModel = new MovieDetailsViewModel(movie, ratings);
 
             return movieSummaryViewModel;
         }
 
 
-        public async Task<SearchViewModel> GetAllMoviesContaining(string searchString)
+          public async Task<SearchViewModel> GetAllMoviesContaining(string searchString, int pageNumber=1, string type=null)
         {
-            string urlString = baseUrl + "s=" + searchString + accessKey;
+            string urlString;
+
+            if (type !=null)
+            {
+                urlString = $"{baseUrl}s={searchString}&type={type}&page={pageNumber}{accessKey}";
+                return await apiWebClient.GetAsync<SearchViewModel>(urlString);
+            }
+            urlString = baseUrl + "s=" + searchString + "&page=" + pageNumber + accessKey;
             return await apiWebClient.GetAsync<SearchViewModel>(urlString);
 
+
+
+        }   
         }
-    }
 
     #endregion
 

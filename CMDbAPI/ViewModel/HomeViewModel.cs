@@ -16,31 +16,21 @@ namespace CMDbAPI.ViewModel
         public string SelectedType { get; set; }
         public string SelectedSortOrder { get; set; }
 
+
         public IEnumerable<SelectListItem> Counts { get; set; }
         public IEnumerable<SelectListItem> Types { get; set; }
         public IEnumerable<SelectListItem> SortOrders { get; set; }
-
-
-        //public IEnumerable<SelectListItem> Counts
-        //{
-        //    get
-        //    {
-        //        if (countries != null)
-        //        {
-        //            return countries.Select(x =>
-        //            new SelectListItem()
-        //            {
-        //                Text = x.Name,
-        //                Value = x.Name
-        //            });
-        //        }
-        //        return null;
-        //    }
-        //}
-
+        
         public HomeViewModel()
         {
+            //List<SelectListItem> items = new List<SelectListItem>();
+            //items.Add(new SelectListItem { Text = "Värde 5", Value = "5" });
+            //items.Add(new SelectListItem { Text = "Värde 10", Value = "10" });
+            //items.Add(new SelectListItem { Text = "Värde 20", Value = "20" });
+            //items.Add(new SelectListItem { Text = "Värde 50", Value = "50" });
+            //items.Add(new SelectListItem { Text = "Alla", Value = "0" });
 
+            //Counts = items;
         }
 
 

@@ -33,13 +33,15 @@
         <label for="sortType">Sortera efter:</label>
 
         @*@Html.DropDownListFor(x => x.SelectedCount, new SelectList(Model.Counts, "Value", "Text"), new { @onchange = "onChange(this.value)" })*@
+        <label>Amount of movies to display:</label>
         @Html.DropDownListFor(x => x.SelectedCount, new SelectList(Model.Counts, "Value", "Text"))
 
-        <p>hej</p>
-
+        
+        <label>Sorting order:</label>
         @*@Html.DropDownListFor(x => x.SelectedSortOrder, new SelectList(Model.SortOrders, "Value", "Text"), new { @onchange = "onChangeOrder(this.value)" })*@
         @Html.DropDownListFor(x => x.SelectedSortOrder, new SelectList(Model.SortOrders, "Value", "Text"))
 
+        <label>Sorting type:</label>
         @Html.DropDownListFor(x => x.SelectedType, new SelectList(Model.Types, "Value", "Text"))
 
         <input type="submit" value="Send" />
@@ -47,13 +49,10 @@
         @*<p>@Html.DropDownListFor(x => Model.SelectedCountry, new SelectList(Model.Countries, "Value", "Text"), "Välj land", new { @onchange = "onChange(this.value)" }) </ p >*@
         @*, new { @onchange = "onChange(this.value)" })*@
         @*Lägg till som sista i listan (med tredje komma) för att använd javascriptmetoden*@
-
     </form>
 
 
         <h1 class="movie-title">@Model.TopListMovies.FirstOrDefault().Title</h1>
-
-
         <div class="top-movie-container">
 
             <a href="@Url.Action("Index", "MovieDetails", new { imdbID = Model.TopListMovies.FirstOrDefault().ImdbID })">

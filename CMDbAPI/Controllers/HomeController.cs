@@ -26,14 +26,30 @@ namespace CMDbAPI.Controllers
         public async Task<IActionResult> Index()
         {
             parameter = new Parameter();
-            var toplist = await movieRepository.GetTopListAggregatedData(parameter);
 
             List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem { Text = "Värde 1", Value = "1" });
             items.Add(new SelectListItem { Text = "Värde 5", Value = "5" });
+            items.Add(new SelectListItem { Text = "Värde 10", Value = "10" });
             items.Add(new SelectListItem { Text = "Värde 20", Value = "20" });
+            items.Add(new SelectListItem { Text = "Värde 50", Value = "50" });
+            items.Add(new SelectListItem { Text = "Alla", Value = "0" });
 
+
+
+            //toplist = await movieRepository.GetTopListAggregatedData(parameter);
+            var toplist = await movieRepository.GetTopListAggregatedData(parameter);
             toplist.Counts = items;
+
+            //List<SelectListItem> items = new List<SelectListItem>();
+            //items.Add(new SelectListItem { Text = "Värde 5", Value = "5" });
+            //items.Add(new SelectListItem { Text = "Värde 10", Value = "10" });
+            //items.Add(new SelectListItem { Text = "Värde 20", Value = "20" });
+            //items.Add(new SelectListItem { Text = "Värde 50", Value = "50" });
+            //items.Add(new SelectListItem { Text = "Alla", Value = "0" });
+
+
+            //toplist.Counts = items;
+
 
             List<SelectListItem> itemsSort = new List<SelectListItem>();
             itemsSort.Add(new SelectListItem { Text = "Descending", Value = "desc" });
@@ -54,17 +70,12 @@ namespace CMDbAPI.Controllers
         [HttpPost("Home/Filter")]
         public async Task<IActionResult> Filter(string selectedCount, string selectedSortOrder, string selectedType)
         {
-            //var toplist = await movieRepository.GetTopListAggregatedData(parameter);
-
-            HomeViewModel toplist = new HomeViewModel();
-            Parameter parameter = new Parameter();
-
             List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem { Text = "Värde 1", Value = "1" });
             items.Add(new SelectListItem { Text = "Värde 5", Value = "5" });
             items.Add(new SelectListItem { Text = "Värde 10", Value = "10" });
             items.Add(new SelectListItem { Text = "Värde 20", Value = "20" });
-
+            items.Add(new SelectListItem { Text = "Värde 50", Value = "50" });
+            items.Add(new SelectListItem { Text = "Alla", Value = "0" });
 
             List<SelectListItem> itemsSort = new List<SelectListItem>();
             itemsSort.Add(new SelectListItem { Text = "Descending", Value = "desc" });
@@ -74,28 +85,14 @@ namespace CMDbAPI.Controllers
             itemsType.Add(new SelectListItem { Text = "By popularity", Value = "popularity" });
             itemsType.Add(new SelectListItem { Text = "By rating-quota", Value = "rating" });
 
-            if (selectedCount != null)
-            {
-                parameter.Count = int.Parse(selectedCount);
-            }
 
-            if (selectedSortOrder != null)
-            {
-                parameter.SortOrder = selectedSortOrder;
-            }
 
-            if (selectedType != null)
-            {
-                parameter.Type = selectedType;
-            }
-
-            toplist = await movieRepository.GetTopListAggregatedData(parameter);
+            parameter = new Parameter(int.Parse(selectedCount), selectedSortOrder, selectedType);
+            var toplist = await movieRepository.GetTopListAggregatedData(parameter);
             toplist.Counts = items;
             toplist.SortOrders = itemsSort;
             toplist.Types = itemsType;
 
-
-            //parameter = new Parameter(count, sortOrder, type);
 
             return View("index", toplist);
         }

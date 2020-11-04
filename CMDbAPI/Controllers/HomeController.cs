@@ -27,7 +27,6 @@ namespace CMDbAPI.Controllers
             this.movieRepository = movieRepository;        
         }
 
-
         public async Task<IActionResult> Index()
         {            
             parameter = new Parameter();

@@ -21,13 +21,14 @@
 <body>
     <header>
         <div class="header-flex">
-            <figure>
-                <a href="home">
-                    <img src="~/img/CMBb-picture.png" alt="Cineaste Movie Database" class="CMDb-icon">
+            <figure id="home">
+                <a href="Home" >
+                    <img src="~/img/popcorn-time.png" alt="Cineaste Movie Database" class="CMDb-icon">
+                    <p id="title-header">CMDB</p>
                 </a>
             </figure>
 
-            <span id="title-header">CMDB</span>
+
 
             <form action="@Url.Action("Index", "Search")" class="form-flex">
                 <input type="text" name="SearchString" placeholder="Search for a movie" class="movie-search">

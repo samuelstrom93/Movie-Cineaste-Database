@@ -15,13 +15,12 @@ namespace CMDbAPI.Test
         {
         }
 
-
         public Task<IEnumerable<Movie>> GetAllMovieRatings()
         {
             throw new NotImplementedException();
         }
 
-        public Task<T> GetMovieDetails<T>(string imdbId)
+        public Task<SearchViewModel> GetAllMoviesContaining(string searchString)
         {
             throw new NotImplementedException();
         }
@@ -36,17 +35,7 @@ namespace CMDbAPI.Test
             throw new NotImplementedException();
         }
 
-        public Task<HomeViewModel> GetSummary(string id)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<MovieDetailsViewModel> GetSummarySingleMovie(string imdbId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<HomeViewModel> GetSummaryViewModel(string id)
         {
             throw new NotImplementedException();
         }
@@ -56,22 +45,7 @@ namespace CMDbAPI.Test
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Movie>> GetToplist()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<HomeViewModel> GetTopListAggregatedData()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<HomeViewModel>> GetTopListAggregatedData(Parameter parameter)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<HomeViewModel>> GetTopListAggregatedDataDefaultValues()
+        public Task<HomeViewModel> GetTopListAggregatedData(Parameter parameter)
         {
             throw new NotImplementedException();
         }
@@ -85,29 +59,5 @@ namespace CMDbAPI.Test
         {
             throw new NotImplementedException();
         }
-
-
-        Task<SearchViewModel> IMovieRepository.GetAllMoviesContaining(string searchString)
-        {
-            throw new NotImplementedException();
-        }
-
-       
-
-
-        Task<HomeViewModel> IMovieRepository.GetTopListAggregatedData(Parameter parameter)
-        {
-            throw new NotImplementedException();
-        }
-
-        //Task<SummaryViewModel> IMovieRepository.GetTopListAggregatedDataDefaultValues()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //Task<IEnumerable<SummaryViewModel>> IMovieRepository.GetTopListAggregatedData()
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

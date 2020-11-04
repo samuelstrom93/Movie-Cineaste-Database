@@ -270,27 +270,22 @@ namespace CMDbAPI
                 return result;
             }
         }
+        
 
-
-        //TODO: Fixa så att man kan skicka in parametrar för att styra hur du hämtar topplistna. Om T.ex. det ska vara en särskild count, type(rating eller popularity),
-        // sort (ascending eller descinding). Om fältet lämnas tomt så hämtar den hela topplistan
-        /// <summary>
-        /// Kunna skicka in parametrar och styra vilken data som du vill använda 
-        /// </summary>
-        /// <returns></returns>
-        public async Task<HomeViewModel> GetTopListAggregatedData(Parameter parameter)
+        public async Task<List<HomeTopListMovieDTO>> GetTopListAggregatedData(Parameter parameter, HomeViewModel homeViewModel)
         {
             var toplist = await GetToplist(parameter);
-            HomeViewModel homeViewModel = new HomeViewModel(parameter);
+            List<HomeTopListMovieDTO> toplistMovies = new List<HomeTopListMovieDTO>();
+            HomeTopListMovieDTO topListMovie;
 
             foreach (var movie in toplist)
             {
-                HomeTopListMovieDTO topListMovie = await GetTopListMovieDetails(movie.ImdbID);
-                topListMovie.NumberOfLikes = movie.NumberOfLikes;
+                topListMovie = await GetTopListMovieDetails(movie.ImdbID);
                 topListMovie.NumberOfDislikes = movie.NumberOfDislikes;
-                homeViewModel.TopListMovies.Add(topListMovie);
+                topListMovie.NumberOfLikes = movie.NumberOfLikes;
+                toplistMovies.Add(topListMovie);
             }
-            return homeViewModel;
+            return toplistMovies;
         }
 
 
@@ -311,6 +306,11 @@ namespace CMDbAPI
             string urlString = $"{baseUrl}s={searchString}&type=movie{accessKey}";
             return await apiWebClient.GetAsync<SearchViewModel>(urlString);
 
+        }
+
+        public Task<HomeViewModel> GetTopListAggregatedData(Parameter parameter)
+        {
+            throw new NotImplementedException();
         }
     }
 

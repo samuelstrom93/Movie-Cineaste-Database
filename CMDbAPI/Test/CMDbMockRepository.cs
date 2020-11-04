@@ -50,6 +50,11 @@ namespace CMDbAPI.Test
             throw new NotImplementedException();
         }
 
+        public Task<List<HomeTopListMovieDTO>> GetTopListAggregatedData(Parameter parameter, HomeViewModel homeViewModel)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<HomeTopListMovieDTO> GetTopListMovieDetails(string imdbId)
         {
             throw new NotImplementedException();

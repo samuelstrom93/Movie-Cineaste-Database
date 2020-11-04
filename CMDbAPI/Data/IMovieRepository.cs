@@ -60,7 +60,7 @@ namespace CMDbAPI
         /// <returns></returns>
         Task<MovieDetailsViewModel> GetSummarySingleMovie(string imdbId);
         //Task<SummaryViewModel> GetTopListAggregatedDataDefaultValues();
-        Task<HomeViewModel> GetTopListAggregatedData(Parameter parameter);
+        Task<List<HomeTopListMovieDTO>> GetTopListAggregatedData(Parameter parameter, HomeViewModel homeViewModel);
         // Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedData(int count=5, string sortorder="asc", string type="ratings");
 
 

@@ -26,8 +26,7 @@ namespace CMDbAPI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            homeViewModel.TopListMovies = await movieRepository.GetTopListAggregatedData(homeViewModel);
-
+            homeViewModel.TopListMovies = await movieRepository.GetTopListAggregatedData(homeViewModel.Parameter);
             return View(homeViewModel);
         }
 
@@ -37,7 +36,7 @@ namespace CMDbAPI.Controllers
             homeViewModel.Parameter.Count = int.Parse(count);
             homeViewModel.Parameter.SortOrder = sortOrder;
             homeViewModel.Parameter.Type = sortType;
-            homeViewModel.TopListMovies = await movieRepository.GetTopListAggregatedData(homeViewModel);
+            homeViewModel.TopListMovies = await movieRepository.GetTopListAggregatedData(homeViewModel.Parameter);
             return View("index", homeViewModel);
         }
     }

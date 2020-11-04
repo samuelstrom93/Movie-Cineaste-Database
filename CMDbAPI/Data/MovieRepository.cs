@@ -272,9 +272,9 @@ namespace CMDbAPI
         }
         
 
-        public async Task<List<HomeTopListMovieDTO>> GetTopListAggregatedData(HomeViewModel homeViewModel)
+        public async Task<List<HomeTopListMovieDTO>> GetTopListAggregatedData(Parameter parameter)
         {
-            var toplist = await GetToplist(homeViewModel.Parameter);
+            var toplist = await GetToplist(parameter);
             List<HomeTopListMovieDTO> toplistMovies = new List<HomeTopListMovieDTO>();
             HomeTopListMovieDTO topListMovie;
 
@@ -306,11 +306,6 @@ namespace CMDbAPI
             string urlString = $"{baseUrl}s={searchString}&type=movie{accessKey}";
             return await apiWebClient.GetAsync<SearchViewModel>(urlString);
 
-        }
-
-        public Task<HomeViewModel> GetTopListAggregatedData(Parameter parameter)
-        {
-            throw new NotImplementedException();
         }
     }
 

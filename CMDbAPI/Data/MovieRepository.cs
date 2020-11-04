@@ -309,11 +309,19 @@ namespace CMDbAPI
         }
 
 
-          public async Task<SearchViewModel> GetAllMoviesContaining(string searchString)
-        {           
+          public async Task<SearchViewModel> GetAllMoviesContaining(string searchString, int pageNumber=1, string type=null)
+        {
+            string urlString;
 
-            string urlString = baseUrl+"s=" + searchString + accessKey;             
-            return await apiWebClient.GetAsync<SearchViewModel>(urlString);             
+            if (type !=null)
+            {
+                urlString = $"{baseUrl}s={searchString}&type={type}&page={pageNumber}{accessKey}";
+                return await apiWebClient.GetAsync<SearchViewModel>(urlString);
+            }
+            urlString = baseUrl + "s=" + searchString + "&page=" + pageNumber + accessKey;
+            return await apiWebClient.GetAsync<SearchViewModel>(urlString);
+
+
 
         }   
         }

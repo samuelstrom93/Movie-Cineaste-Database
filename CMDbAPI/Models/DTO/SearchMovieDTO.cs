@@ -19,5 +19,6 @@ namespace CMDbAPI.Models.DTO
         public string Genre { get; set; }
 
 
+
     }
 }

@@ -6,10 +6,12 @@
 
     @if (Model.Search == null)
     {
-        <p id="center">No results found for <b>"@ViewBag.search"</b> </p>
+        <p id="center">No results found for <b>"@ViewBag.searchString"</b> </p>
     }
     else
     {
+        <p id="center">Results for: <b>"@ViewBag.searchString"</b> </p>
+        <p id="center">Total hits: <b>@ViewBag.totalSearchHits</b> Divided into: <b>@ViewBag.totalPages</b> pages </p>
         @foreach (var movie in Model.Search)
         {
             <div class="search-movies-flexbox">
@@ -47,7 +49,66 @@
                     }
                 </p>
             </div>
+
         }
+        <p>Page: @ViewBag.currentPage of @ViewBag.totalPages</p>
+<form  class="nextPage-submit" action="@Url.Action("NextPage", "Search")" method="get">
+    <input id="searchString" name="searchString" value="@ViewBag.searchString"/>
+    <input id="nextPage" name="nextPage" value="@ViewBag.CurrentPage"/>
+    <input type="submit" value="Next" />
+   
+</form>
 
     }
 </div>
+
+@*<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-action="Index">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.Search)</a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Search)
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.Search)</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Search)
+        {
+            <tr>
+                <td>
+                    <img class="table-img" src="@Html.DisplayFor(modelItem => item.Poster)" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Director">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Genre">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ImdbID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>*@
+
+   

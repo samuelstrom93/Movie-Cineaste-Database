@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using CMDbAPI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
@@ -11,39 +12,115 @@ namespace CMDbAPI.Controllers
     {
 
         private IMovieRepository movieRepository;
+        
+        
 
+           
         public SearchController(IMovieRepository movieRepository)
         {
             this.movieRepository = movieRepository;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Index(string searchString)
-        {
 
+        [HttpGet]
+        public async Task<IActionResult> NextPage(string searchString, int currentPage)
+        {
             try
             {
-                var listOfMovies = await movieRepository.GetAllMoviesContaining(searchString);
-                if (listOfMovies.Search == null)
+                //Variables to pass into method GetAllContaining + inparameter "searchString"
+                int page = currentPage++;
+                string type = null; //TODO: lägg till en inparameter för "type"
+
+                //Creating an instance of SearchViewModel and get the results from search
+                var searchViewModel = await movieRepository.GetAllMoviesContaining(searchString, page, type);
+
+                //How many pages is needed for the search results  
+                int pageSize = 10;
+                var totalPages = (int)Math.Ceiling(searchViewModel.totalResults / (double)pageSize);
+
+                //ViewBags for view         
+                ViewBag.searchString = searchString;
+                ViewBag.totalSearchHits = searchViewModel.totalResults;
+                ViewBag.totalPages = totalPages;
+                ViewBag.currentPage = currentPage;
+                ViewBag.nextPage = page;
+
+
+                if (searchViewModel.Search == null)
                 {
                     ViewBag.search = searchString;
-                    return View(listOfMovies);
+                    return View(searchViewModel);
                 }
 
                 MovieDetailsViewModel movieDetailsViewModel;
-                foreach (var movie in listOfMovies.Search)
+                foreach (var movie in searchViewModel.Search)
                 {
                     movieDetailsViewModel = await movieRepository.GetSummarySingleMovie(movie.ImdbID);
                     movie.Director = movieDetailsViewModel.Director;
                     movie.Genre = movieDetailsViewModel.Genre;
                     movie.Ratings = movieDetailsViewModel.Ratings;
                 }
-                return View(listOfMovies);
+                return View("index", searchViewModel);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
+        }
+
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> Index(string searchString)
+        {
+            try
+            {
+                //Variables to pass into method GetAllContaining + inparameter "searchString"
+                string type = null;
+                int firstPage = 1;
+
+                //Creating an instance of SearchViewModel and get the results from search
+                var searchViewModel = await movieRepository.GetAllMoviesContaining(searchString, firstPage, type);
+
+                //How many pages is needed for the search results                
+                int pageSize = 10;
+                var totalPages = (int)Math.Ceiling(searchViewModel.totalResults / (double)pageSize);
+                
+               
+                //ViewBags for the view
+                ViewBag.searchString = searchString;
+                ViewBag.totalSearchHits = searchViewModel.totalResults;
+                ViewBag.totalPages = totalPages;
+                ViewBag.currentPage = firstPage;
+                ViewBag.nextPage = firstPage++;
+
+
+                if (searchViewModel.Search == null)
+                {
+
+                    return View(searchViewModel);
+                }
+
+                MovieDetailsViewModel movieDetailsViewModel;
+                foreach (var movie in searchViewModel.Search)
+                {
+                    movieDetailsViewModel = await movieRepository.GetSummarySingleMovie(movie.ImdbID);
+                    movie.Director = movieDetailsViewModel.Director;
+                    movie.Genre = movieDetailsViewModel.Genre;
+                    movie.Ratings = movieDetailsViewModel.Ratings;
+                }
+                return View(searchViewModel);
             }
             catch (Exception)
             {
                 throw;
             }
         }
+
+
+
     }
 }

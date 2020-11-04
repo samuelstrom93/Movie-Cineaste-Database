@@ -1,16 +1,3 @@
-//window.onload = function () {
-//    var valueCount = document.getElementById("count").value;
-//    document.getElementById(valueCount).selected = true;
-
-//    var valueSortOrder = document.getElementById("sortOrder").value;
-//    document.getElementById(valueSortOrder).selected = true;
-
-//    var valueType = document.getElementById("type").value;
-//    document.getElementById(valueType).selected = true;
-//}       
-
-
-
 const moreButtons = document.querySelectorAll('.read-more');
 
 
@@ -44,6 +31,7 @@ let ratingElement = document.querySelectorAll('.score-text');
 
 
 // Färglägger paj-progressbars
+
 for (let i = 0; i < pies.length; i++) {
     let element;
     let value;

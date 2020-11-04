@@ -69,21 +69,10 @@ namespace CMDbAPI.Test
         {
             throw new NotImplementedException();
         }
-
-
-        Task<HomeViewModel> IMovieRepository.GetTopListAggregatedData(Parameter parameter)
+        Task<List<HomeTopListMovieDTO>> IMovieRepository.GetTopListAggregatedData(Parameter parameter)
         {
             throw new NotImplementedException();
         }
 
-        //Task<SummaryViewModel> IMovieRepository.GetTopListAggregatedDataDefaultValues()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //Task<IEnumerable<SummaryViewModel>> IMovieRepository.GetTopListAggregatedData()
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

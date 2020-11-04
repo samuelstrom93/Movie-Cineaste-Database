@@ -35,7 +35,6 @@ namespace CMDbAPI.ViewModel
             Plot = movieDetails.Plot;
             Director = movieDetails.Director;
             Ratings = movieDetails.Ratings;
-            Type = movieDetails.Type;
             ImdbID = movieDetails.ImdbID;
 
 

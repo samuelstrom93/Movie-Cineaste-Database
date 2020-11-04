@@ -10,9 +10,10 @@ using System.Threading.Tasks;
 using CMDbAPI.Models.DTO;
 using CMDbAPI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 using Microsoft.Extensions.Logging;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CMDbAPI.Controllers
 {
@@ -20,49 +21,46 @@ namespace CMDbAPI.Controllers
     {
         private IMovieRepository movieRepository;
         private Parameter parameter;
-       
+        private HomeViewModel homeViewModel;
 
         public HomeController(IMovieRepository movieRepository)
         {
-            this.movieRepository = movieRepository;        
+            this.movieRepository = movieRepository;
+            parameter = new Parameter();
+            homeViewModel = new HomeViewModel(parameter);
         }
 
         public async Task<IActionResult> Index()
-        {            
-            parameter = new Parameter();
-            try
-            {              
-                var toplist = await movieRepository.GetTopListAggregatedData(parameter);
-
-                //TODO: Om antalet filmer i databasen är 0, så ska en text visas i vyn om att inga filmer finns lagrade i databasen.
-                if (toplist.TopListMovies.Count == 0)
-                {
-                    return View("Error");
-                }               
-                return View(toplist);
+        {
+        try
+            { 
+            homeViewModel.TopListMovies = await movieRepository.GetTopListAggregatedData(homeViewModel.Parameter);
+            return View(homeViewModel);
             }
-            catch (Exception)
+        catch (Exception)
             {
                 throw;               
-            }        
+            }     
         }
 
-
         [HttpGet]
-        public async Task<IActionResult> FilterTopList(int count, string sortOrder, string type)
+        public async Task<IActionResult> Filter(string count, string sortOrder, string sortType)
         {
-            parameter = new Parameter(count, sortOrder, type);
 
-            try
+        try
             {
-            var toplist = await movieRepository.GetTopListAggregatedData(parameter);
-            return View("index", toplist);
+            homeViewModel.Parameter.Count = int.Parse(count);
+            homeViewModel.Parameter.SortOrder = sortOrder;
+            homeViewModel.Parameter.Type = sortType;
+            homeViewModel.TopListMovies = await movieRepository.GetTopListAggregatedData(homeViewModel.Parameter);
+            return View("index", homeViewModel);
             }
+            
             catch (Exception)
             {
                 throw;
             }
-        }
 
+        }
     }
 }

@@ -13,6 +13,5 @@
   <ItemGroup>
     <Folder Include="Test\" />
     <Folder Include="Test\Mockdata\" />
-    <Folder Include="Models\Interfaces\" />
   </ItemGroup>
   </Project>

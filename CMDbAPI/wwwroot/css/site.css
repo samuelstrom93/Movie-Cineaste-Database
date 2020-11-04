@@ -296,8 +296,8 @@ figcaption {
 .like-btn {
     background-color: green;
     border-radius: 5px;
-    width: 12.5vh;
-    height: 3vh;
+    width: 15vh;
+    height: 5vh;
     border: thin solid black;
     font: bold large Georgia;
     margin-right: 5%;
@@ -314,9 +314,9 @@ figcaption {
 
 .dislike-btn {
     background-color: red;
-    width: 13vh;
+    width: 15vh;
     border-radius: 5px;
-    height: 3vh;
+    height: 5vh;
     border: thin solid black;
     font: bold large Georgia;
     margin-left: 5%;

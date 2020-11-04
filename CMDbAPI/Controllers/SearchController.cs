@@ -20,6 +20,7 @@ namespace CMDbAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string searchString)
         {
+            var listOfMovies = await movieRepository.GetAllMoviesContaining(searchString);
 
             try
             {

@@ -13,15 +13,11 @@ namespace CMDbAPI.Controllers
     {
 
         private IMovieRepository movieRepository;
-        
-        
 
-           
         public SearchController(IMovieRepository movieRepository)
         {
             this.movieRepository = movieRepository;
         }
-
 
         [HttpGet]
         public async Task<IActionResult> Index(string searchString)
@@ -112,13 +108,8 @@ namespace CMDbAPI.Controllers
             }
             catch (Exception)
             {
-
                 throw;
             }
-
         }
-
-
-
     }
 }

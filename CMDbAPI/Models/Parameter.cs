@@ -5,7 +5,7 @@ namespace CMDbAPI
     /// <summary>
     /// DTO object for passing parameters to repository
     /// </summary>
-    public class Parameter
+    public class Parameter : IParameter
     {
         /// <summary>
         /// Sorting order 
@@ -41,5 +41,5 @@ namespace CMDbAPI
 
     }
 
-   
+
 }

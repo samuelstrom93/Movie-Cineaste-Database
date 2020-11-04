@@ -3,7 +3,6 @@
 <main>
     @*<form asp-action="FilterTopList" asp-controller="Home" method="get">*@
     <form action="@Url.Action("FilterTopList", "Home")" class="form-flex">
-
         <label for="sortType">Sortera efter:</label>
         <select value="@Model.SelectedType" name="type" id="type">
             <option value="rating" id="rating">Skillnad Like/Dislike</option>
@@ -47,7 +46,6 @@
                     <div class="pie">
                         <span class="score-text">@rating.Value</span>
                     </div>
-
                 </div>
             }
         </div>
@@ -81,7 +79,6 @@
                             No plot available
                         </p>
                     }
-
                     else
                     {
                         <p id="plot">

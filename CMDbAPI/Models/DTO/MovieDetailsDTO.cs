@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace CMDbAPI.Models.DTO
 {
-    public class MovieDetailsDTO
-    {        
+    public class MovieDetailsDTO : IMovieDetailsDTO
+    {
         public string ImdbID { get; set; }
         public string Title { get; set; }
         public string Year { get; set; }
@@ -18,10 +18,6 @@ namespace CMDbAPI.Models.DTO
         public string Poster { get; set; }
         public string Plot { get; set; }
         public string Director { get; set; }
-        public List<Ratings> Ratings { get; set; } = new List<Ratings>();     
+        public List<Ratings> Ratings { get; set; } = new List<Ratings>();
     }
-
-
-
-
 }

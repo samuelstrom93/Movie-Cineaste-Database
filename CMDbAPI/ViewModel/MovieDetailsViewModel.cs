@@ -24,19 +24,19 @@ namespace CMDbAPI.ViewModel
         public int NumberOfDislikes { get; set; }
 
 
-        public MovieDetailsViewModel(MovieDetailsDTO movieSummary, Movie movie)
+        public MovieDetailsViewModel(IMovieDetailsDTO movieDetails, IMovie movie)
         {
-            Title = movieSummary.Title;
-            Year = movieSummary.Year;
-            Runtime = movieSummary.Runtime;
-            Genre = movieSummary.Genre;
-            Actors = movieSummary.Actors;
-            Poster = movieSummary.Poster;
-            Plot = movieSummary.Plot;
-            Director = movieSummary.Director;
-            Ratings = movieSummary.Ratings;
-            Type = movieSummary.Type;
-            ImdbID = movieSummary.ImdbID;
+            Title = movieDetails.Title;
+            Year = movieDetails.Year;
+            Runtime = movieDetails.Runtime;
+            Genre = movieDetails.Genre;
+            Actors = movieDetails.Actors;
+            Poster = movieDetails.Poster;
+            Plot = movieDetails.Plot;
+            Director = movieDetails.Director;
+            Ratings = movieDetails.Ratings;
+            Type = movieDetails.Type;
+            ImdbID = movieDetails.ImdbID;
 
 
             if (movie != null)

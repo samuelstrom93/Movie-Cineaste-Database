@@ -289,11 +289,11 @@ namespace CMDbAPI
 
             foreach (var movie in toplist)
             {
-                HomeTopListMovieDTO topListMovie=  await GetTopListMovieDetails(movie.ImdbID);
+                HomeTopListMovieDTO topListMovie = await GetTopListMovieDetails(movie.ImdbID);
                 topListMovie.NumberOfLikes = movie.NumberOfLikes;
                 topListMovie.NumberOfDislikes = movie.NumberOfDislikes;
                 homeViewModel.TopListMovies.Add(topListMovie);
-            }           
+            }
             return homeViewModel;
         }
 
@@ -326,9 +326,9 @@ namespace CMDbAPI
         }   
         }
 
-        #endregion
+    #endregion
 
-    }
+}
     #endregion
 
 

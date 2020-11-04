@@ -1,5 +1,4 @@
-﻿
-@model CMDbAPI.ViewModel.MovieDetailsViewModel
+﻿@model CMDbAPI.ViewModel.MovieDetailsViewModel
 
 @Html.HiddenFor(x => x.ImdbID)
 
@@ -29,7 +28,14 @@
         </div>
 
         <div class="flexbox-column-movie">
-            <img src="@Model.Poster" alt="Poster" class="top-movie-details">
+            @if (@Model.Poster == "N/A")
+            {
+                <img src="~/img/NoPosterAvailable.png" alt="toppfilmer" class="top-movie-details">
+            }
+            else
+            {
+                <img src="@Model.Poster" alt="toppfilmer" id="top-movie-details">
+            }
             <div class="flexbox-row">
                 <p id="normal-label"><label class="bigger">Likes</label><br /> <span id="likes">@Model.NumberOfLikes</span></p>
                 <p id="normal-label"><label class="bigger">Dislikes</label><br /><span id="dislikes">@Model.NumberOfDislikes</span></p>

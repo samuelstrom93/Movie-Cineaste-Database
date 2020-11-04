@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using CMDbAPI.ViewModel;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CMDbAPI.Controllers
@@ -28,11 +29,11 @@ namespace CMDbAPI.Controllers
             try
             {
                 //Variables to pass into method GetAllContaining + inparameter "searchString"
-                int page = currentPage++;
-                string type = null; //TODO: lägg till en inparameter för "type"
+                int nextPage = currentPage+1;
+                //string type = null; //TODO: lägg till en inparameter för "type"
 
                 //Creating an instance of SearchViewModel and get the results from search
-                var searchViewModel = await movieRepository.GetAllMoviesContaining(searchString, page, type);
+                var searchViewModel = await movieRepository.GetAllMoviesContaining(searchString, nextPage);
 
                 //How many pages is needed for the search results  
                 int pageSize = 10;
@@ -42,8 +43,7 @@ namespace CMDbAPI.Controllers
                 ViewBag.searchString = searchString;
                 ViewBag.totalSearchHits = searchViewModel.totalResults;
                 ViewBag.totalPages = totalPages;
-                ViewBag.currentPage = currentPage;
-                ViewBag.nextPage = page;
+                ViewBag.currentPage = nextPage;
 
 
                 if (searchViewModel.Search == null)
@@ -77,13 +77,11 @@ namespace CMDbAPI.Controllers
         public async Task<IActionResult> Index(string searchString)
         {
             try
-            {
-                //Variables to pass into method GetAllContaining + inparameter "searchString"
-                string type = null;
-                int firstPage = 1;
+            {                               
+                int currentPage = 1;                
 
                 //Creating an instance of SearchViewModel and get the results from search
-                var searchViewModel = await movieRepository.GetAllMoviesContaining(searchString, firstPage, type);
+                var searchViewModel = await movieRepository.GetAllMoviesContaining(searchString);
 
                 //How many pages is needed for the search results                
                 int pageSize = 10;
@@ -94,8 +92,7 @@ namespace CMDbAPI.Controllers
                 ViewBag.searchString = searchString;
                 ViewBag.totalSearchHits = searchViewModel.totalResults;
                 ViewBag.totalPages = totalPages;
-                ViewBag.currentPage = firstPage;
-                ViewBag.nextPage = firstPage++;
+                ViewBag.currentPage = currentPage;
 
 
                 if (searchViewModel.Search == null)

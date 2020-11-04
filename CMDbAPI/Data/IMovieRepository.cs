@@ -66,7 +66,7 @@ namespace CMDbAPI
         // Task<IEnumerable<SummaryViewModel>> GetTopListAggregatedData(int count=5, string sortorder="asc", string type="ratings");
 
 
-        Task<SearchViewModel> GetAllMoviesContaining(string searchString, int pageNumber, string type);
+        Task<SearchViewModel> GetAllMoviesContaining(string searchString, int pageNumber=1, string type=null);
 
     }
 }

@@ -54,7 +54,7 @@
         <p>Page: @ViewBag.currentPage of @ViewBag.totalPages</p>
 <form  class="nextPage-submit" action="@Url.Action("NextPage", "Search")" method="get">
     <input id="searchString" name="searchString" value="@ViewBag.searchString"/>
-    <input id="nextPage" name="nextPage" value="@ViewBag.CurrentPage"/>
+    <input id="nextPage" name="currentPage" value="@ViewBag.currentPage"/>
     <input type="submit" value="Next" />
    
 </form>

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using CMDbAPI.DataTypes;
 using CMDbAPI.ViewModel;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,12 +13,10 @@ namespace CMDbAPI.Controllers
     {
 
         private IMovieRepository movieRepository;
-        private CinematicType cinematicType;
 
         public SearchController(IMovieRepository movieRepository)
         {
             this.movieRepository = movieRepository;
-            this.cinematicType = new CinematicType();
         }
 
         [HttpGet]

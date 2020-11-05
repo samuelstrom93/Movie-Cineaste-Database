@@ -32,30 +32,30 @@ namespace CMDbAPI.Controllers
 
         public async Task<IActionResult> Index()
         {
-        try
-            { 
-            homeViewModel.TopListMovies = await movieRepository.GetTopListAggregatedData(homeViewModel.Parameter);
-            return View(homeViewModel);
-            }
-        catch (Exception)
+            try
             {
-                throw;               
-            }     
+                homeViewModel.TopListMovies = await movieRepository.GetTopListAggregatedData(homeViewModel.Parameter);
+                return View(homeViewModel);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Filter(string count, string sortOrder, string sortType)
         {
 
-        try
+            try
             {
-            homeViewModel.Parameter.Count = int.Parse(count);
-            homeViewModel.Parameter.SortOrder = sortOrder;
-            homeViewModel.Parameter.Type = sortType;
-            homeViewModel.TopListMovies = await movieRepository.GetTopListAggregatedData(homeViewModel.Parameter);
-            return View("index", homeViewModel);
+                homeViewModel.Parameter.Count = int.Parse(count);
+                homeViewModel.Parameter.SortOrder = sortOrder;
+                homeViewModel.Parameter.Type = sortType;
+                homeViewModel.TopListMovies = await movieRepository.GetTopListAggregatedData(homeViewModel.Parameter);
+                return View("index", homeViewModel);
             }
-            
+
             catch (Exception)
             {
                 throw;

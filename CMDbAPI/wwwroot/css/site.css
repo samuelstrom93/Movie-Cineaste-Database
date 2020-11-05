@@ -198,9 +198,12 @@ fieldset p {
 
 #filter-btn {
     width: 6vh;
-    height: 1.5vh;
+    height: 1.8vh;
     background-color: darkgrey;
     margin-top: 20px;
+    border: thin solid black;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 

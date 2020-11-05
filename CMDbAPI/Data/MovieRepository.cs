@@ -231,29 +231,21 @@ namespace CMDbAPI
 
         #region Movie Details   
 
-      /// <summary>
-      /// Hämtar information från OmdbApi genom att skicka in ett imdb-id
-      /// </summary>
-      /// <param name="imdbId"></param>
-      /// <returns></returns>
+
+        // Summary finns för nedanstående metoder i IMovieRepository. Håll över metodnamnet för mer en beskrivning.
+
         public async Task<MovieDetailsDTO> GetMovieDetails(string imdbId)
         {
-            string urlString = baseUrl + "i=" + imdbId+ "&plot=full" + accessKey;
+            string urlString = baseUrl + "i=" + imdbId + "&plot=full" + accessKey;
             return await apiWebClient.GetAsync<MovieDetailsDTO>(urlString);
         }
 
-
-        /// <summary>
-        /// Hämtar information från OmdbApi genom att skicka in ett imdb-id
-        /// </summary>
-        /// <param name="imdbId"></param>
-        /// <returns></returns>
         public async Task<HomeTopListMovieDTO> GetTopListMovieDetails(string imdbId)
         {
             string urlString = baseUrl + "i=" + imdbId + accessKey;
-            return await apiWebClient.GetAsync<HomeTopListMovieDTO>(urlString);            
+            return await apiWebClient.GetAsync<HomeTopListMovieDTO>(urlString);
         }
-        
+
         public async Task<List<HomeTopListMovieDTO>> GetTopListAggregatedData(Parameter parameter)
         {
             var toplist = await GetToplist(parameter);
@@ -275,33 +267,31 @@ namespace CMDbAPI
         {
             var ratings = await GetMovieRatings(imdbId);
             var movie = await GetMovieDetails(imdbId);
-            
             MovieDetailsViewModel movieSummaryViewModel = new MovieDetailsViewModel(movie, ratings);
 
             return movieSummaryViewModel;
         }
 
 
-          public async Task<SearchViewModel> GetAllMoviesContaining(string searchString, int pageNumber=1, string type=null)
+        public async Task<SearchViewModel> GetAllCinematicTypesContaining(string searchString, int pageNumber = 1, string type = null)
         {
-
             string urlString;
 
-            if (type !=null)
+            if (type != null)
             {
                 urlString = $"{baseUrl}s={searchString}&type={type}&page={pageNumber}{accessKey}";
                 return await apiWebClient.GetAsync<SearchViewModel>(urlString);
             }
-            urlString = baseUrl + "s=" + searchString + "&page=" + pageNumber + accessKey;
+            urlString = $"{baseUrl}s={searchString}&page={pageNumber}{accessKey}";
             return await apiWebClient.GetAsync<SearchViewModel>(urlString);
 
-        }   
         }
+    }
 
     #endregion
 
 }
-    #endregion
+#endregion
 
 
 
@@ -309,6 +299,6 @@ namespace CMDbAPI
 
 
 
-    #endregion
+#endregion
 
 

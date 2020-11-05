@@ -1,5 +1,6 @@
-const moreButtons = document.querySelectorAll('.read-more');
+// Kod för "read more"- och "read less"-knapp
 
+const moreButtons = document.querySelectorAll('.read-more');
 
 for (let j = 0; j < moreButtons.length; j++) {
     let button = moreButtons[j];
@@ -23,14 +24,12 @@ for (let j = 0; j < moreButtons.length; j++) {
 
 
 
+// Färglägger paj-progressbars
+
 let pies = document.querySelectorAll('.pie');
 let ratingsSites = document.querySelectorAll('.rating-source');
 let ratingElement = document.querySelectorAll('.score-text');
 
-
-
-
-// Färglägger paj-progressbars
 
 for (let i = 0; i < pies.length; i++) {
     let element;

@@ -10,9 +10,15 @@ namespace CMDbAPI.Infrastructure
 {
     public class ApiWebClient:IApiWebClient
     {
+
+        /// <summary>
+        /// Generisk metod för att hämta JSON-data via HTTP
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="urlString"></param>
+        /// <returns></returns>
         public async Task<T> GetAsync<T>(string urlString)
         {
-            //TODO: Fixa så att koden inte upprepas
             using (HttpClient client = new HttpClient())
             {
                 var response = await client.GetAsync(urlString, HttpCompletionOption.ResponseHeadersRead);

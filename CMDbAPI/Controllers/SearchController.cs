@@ -19,16 +19,23 @@ namespace CMDbAPI.Controllers
             this.movieRepository = movieRepository;
         }
 
+        /// <summary>
+        /// Vi hämtar resultat ifrån OMDB utifrån inparameter 'searchString'.
+        /// Vi använder sedan en pagination-lösning för att navigera till föregående och nästa sida.
+        /// </summary>
+        /// <param name="searchString"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> Index(string searchString)
         {
             try
-            {                               
-                //Creating an instance of SearchViewModel and get the results from search
-                var searchViewModel = await movieRepository.GetAllMoviesContaining(searchString);
+            {
+
+                // Instansierar en vymodell och hämtar resultatet ifrån sökningen
+                var searchViewModel = await movieRepository.GetAllCinematicTypesContaining(searchString);
 
 
-                //How many pages is needed for the search results                
+                // Hur många sidor som behövs för kunna navigera mellan alla sökningsträffar
                 int pageSize = 10;
                 int totalPages = (int)Math.Ceiling(searchViewModel.totalResults / (double)pageSize);
                 searchViewModel.TotalPages = totalPages;
@@ -40,6 +47,7 @@ namespace CMDbAPI.Controllers
                     return View(searchViewModel);
                 }
 
+                // Hämtar mer detaljer till varje respektive film ifrån OMDB.
                 MovieDetailsViewModel movieDetailsViewModel;
                 foreach (var movie in searchViewModel.Search)
                 {
@@ -56,7 +64,13 @@ namespace CMDbAPI.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Används för att navigera framåt.
+        /// </summary>
+        /// <param name="searchString"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="cinematicType">Film/serie/spel</param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> NextPage(string searchString, int currentPage, string cinematicType)
         {
@@ -64,7 +78,7 @@ namespace CMDbAPI.Controllers
             {
                 int nextPage = currentPage+1;
                 SearchViewModel searchViewModel = new SearchViewModel();
-                searchViewModel = await movieRepository.GetAllMoviesContaining(searchString, nextPage, cinematicType );
+                searchViewModel = await movieRepository.GetAllCinematicTypesContaining(searchString, nextPage, cinematicType );
                 searchViewModel.SearchString = searchString;
                 searchViewModel.CurrentPage = nextPage;
                 searchViewModel.SelectedType = cinematicType;
@@ -91,6 +105,13 @@ namespace CMDbAPI.Controllers
             }         
         }
 
+        /// <summary>
+        /// Används för att navigera bakåt
+        /// </summary>
+        /// <param name="searchString"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="cinematicType">Film/serie/spel</param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> PreviousPage(string searchString, int currentPage, string cinematicType)
         {
@@ -98,7 +119,7 @@ namespace CMDbAPI.Controllers
             {
                 int previousPage = currentPage - 1;
                 SearchViewModel searchViewModel = new SearchViewModel();
-                searchViewModel = await movieRepository.GetAllMoviesContaining(searchString, previousPage, cinematicType);
+                searchViewModel = await movieRepository.GetAllCinematicTypesContaining(searchString, previousPage, cinematicType);
                 searchViewModel.SearchString = searchString;
                 searchViewModel.CurrentPage = previousPage;
                 searchViewModel.SelectedType = cinematicType;
@@ -125,6 +146,11 @@ namespace CMDbAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Metod för att välja typ av medium som användaren vill visa i sökningen - Film, serie eller spel.
+        /// </summary>
+        /// <param name="oldSearchViewModel"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> CinematicSelection(SearchViewModel oldSearchViewModel)
         {
@@ -133,7 +159,7 @@ namespace CMDbAPI.Controllers
                 int page = 1;
                 var searchString = oldSearchViewModel.SearchString;
                 var cinematicType = oldSearchViewModel.SelectedType;
-                var searchViewModel = await movieRepository.GetAllMoviesContaining(searchString, page, cinematicType);
+                var searchViewModel = await movieRepository.GetAllCinematicTypesContaining(searchString, page, cinematicType);
 
                 if (searchViewModel.Search == null)
                 {
@@ -141,8 +167,6 @@ namespace CMDbAPI.Controllers
                     return View("index",searchViewModel);
                 }
               
-
-                //Number of pages needed for the search results  
                 int pageSize = 10;
                 var totalPages = (int)Math.Ceiling(searchViewModel.totalResults / (double)pageSize);
 

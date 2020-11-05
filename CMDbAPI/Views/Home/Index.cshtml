@@ -7,23 +7,38 @@
     <div class="top-movie-container">
 
         <a href="@Url.Action("Index", "MovieDetails", new { imdbID = Model.TopListMovies.FirstOrDefault().ImdbID })">
-            <img src="@Model.TopListMovies.FirstOrDefault().Poster" alt="Toppfilm" class="top-movie">
+            @if (Model.TopListMovies.FirstOrDefault().Poster == "N/A")
+            {
+                <img src="~/img/NoPosterAvailable.png" alt="toppfilmer" class="top-movie">
+            }
+            else
+            {
+                <img src="@Model.TopListMovies.FirstOrDefault().Poster" alt="Toppfilm" class="top-movie">
+            }
+
         </a>
         <h2> Likes - Dislikes </h2>
         <p> @Model.TopListMovies.FirstOrDefault().NumberOfLikes - @Model.TopListMovies.FirstOrDefault().NumberOfDislikes </p>
 
-        <h2 id="ratings-title">Ratings</h2>
-        <div class="rating-container-home">
-            @foreach (var rating in Model.TopListMovies.FirstOrDefault().Ratings)
-            {
-                <div class="ratings-flexbox">
-                    <p class="rating-source">@rating.Source</p>
-                    <div class="pie">
-                        <span class="score-text">@rating.Value</span>
+        @if (Model.TopListMovies.FirstOrDefault().Ratings.Count == 0)
+        {
+            <h3><i>No rating available</i></h3>
+        }
+        else
+        {
+            <h2 id="ratings-title">Ratings</h2>
+            <div class="rating-container-home">
+                @foreach (var rating in Model.TopListMovies.FirstOrDefault().Ratings)
+                {
+                    <div class="ratings-flexbox">
+                        <p class="rating-source">@rating.Source</p>
+                        <div class="pie">
+                            <span class="score-text">@rating.Value</span>
+                        </div>
                     </div>
-                </div>
-            }
-        </div>
+                }
+            </div>
+        }
     </div>
 
     <form asp-action="Filter" method="get" class="form-filter">
@@ -41,12 +56,9 @@
                 <b>Type:</b><br />
                 @Html.DropDownList("SortType", new SelectList(Model.Types, "Value", "Text"))
             </p>
-                <input type="submit" value="Filter" id="filter-btn" />
+            <input type="submit" value="Filter" id="filter-btn" />
         </fieldset>
     </form>
-
-
-
 
 
     <div class="rankings-flexbox">

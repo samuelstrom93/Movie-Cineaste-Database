@@ -12,11 +12,11 @@ namespace CMDbAPI
         /// Desc = descending
         /// Asc = ascending
         /// </summary>
-        public string SortOrder { get; set; } = "desc";
+        public string SortOrder { get; set; } 
         /// <summary>
         /// Number of movies  to recevie
         /// </summary>
-        public int? Count { get; set; } = 5;
+        public int? Count { get; set; } 
 
         /// <summary>
         /// Type of movielist
@@ -24,21 +24,14 @@ namespace CMDbAPI
         /// Popularity = sort by sum of likes and dislikes. Many reactions equals high popularity 
         /// </summary>
 
-        // TEST
-        public string Type { get; set; } = "rating";
+        public string Type { get; set; } 
 
         public Parameter()
         {
-
+            Type = "rating";
+            Count = 5;
+            SortOrder = "desc";
         }
-
-        public Parameter(int count, string sortorder, string type)
-        {
-            this.Count = count;
-            this.SortOrder = sortorder;
-            this.Type = type;
-        }
-
     }
 
 

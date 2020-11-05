@@ -10,16 +10,20 @@ namespace CMDbAPI.ViewModel
     public class SearchViewModel
     {
         public List<SearchMovieDTO> Search { get; set; }
-        public int totalResults { get; set; }
+
         public string SelectedType { get; set; }
+        public string SearchString { get; set; }
+
+        public int totalResults { get; set; }
         public int FirstPage { get; set; } = 1;
         public int CurrentPage { get; set; } = 1;
         public int PreviousPage { get; set; }
         public int TotalPages { get; set; }
-        public string SearchString { get; set; }
+
         private List<SelectListItem> types;
 
-        public IEnumerable<SelectListItem> Types {
+        public IEnumerable<SelectListItem> Types
+        {
             get
             {
                 if (types != null)
@@ -33,29 +37,28 @@ namespace CMDbAPI.ViewModel
                 }
                 return null;
             }
-
         }
 
 
         public SearchViewModel()
         {
-            types=new List<SelectListItem>
-            {                
-                new SelectListItem { Value=null, Text = "All"},
+            types = new List<SelectListItem>
+            {
+                new SelectListItem { Value = null, Text = "All"},
                 new SelectListItem { Value = "movie", Text = "Movie" },
                 new SelectListItem { Value = "series", Text = "Series" },
                 new SelectListItem { Value = "game", Text = "Game" },
             };
-           
+
 
             this.types = types
                .Select(t => new SelectListItem
                {
-                  Text = t.Text,
-                  Value =t.Value
+                   Text = t.Text,
+                   Value = t.Value
                }).ToList();
         }
-      
+
 
     }
 }

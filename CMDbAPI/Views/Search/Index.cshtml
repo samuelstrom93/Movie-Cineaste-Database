@@ -1,13 +1,16 @@
 ﻿@model CMDbAPI.ViewModel.SearchViewModel
 
+@Html.HiddenFor(x => x.FirstPage)
+@Html.HiddenFor(x => x.TotalPages)
+
 <main>
 
-    <form asp-action="CinematicSelection" asp-controller="Search" method="get">
+    <form asp-action="CinematicSelection" asp-controller="Search" class="form-selectType" method="get">
         <input hidden="hidden" id="searchString" name="searchString" value="@Model.SearchString" />
         <input hidden="hidden" id="currentPage" name="currentPage" value="@Model.CurrentPage" />
         <label><b>Select Type:</b></label>
         @Html.DropDownListFor(x => Model.SelectedType, new SelectList(Model.Types, "Value", "Text"), new { @onchange = "@onChange(this.value)" })
-        <button type="submit">OK</button>
+        <button type="submit" id="form-submit">OK</button>
     </form>
 
     <div class="search-container">
@@ -17,15 +20,11 @@
         }
         else
         {
-            <p id="center">Results for: <b>"@Model.SearchString"</b> </p>
-            <p id="center">Total hits: <b>@Model.totalResults</b> Divided into: <b>@Model.TotalPages</b> pages </p>
-            <p hidden="hidden" id="firstPage">@Model.FirstPage</p>
-            @*<p id="center">Results for: <b>"@Model.SearchString"</b> </p>
-            <p id="center">Total hits: <b>@Model.totalResults</b></p>
-            <p id="center">You are currently at page: </p>
-            <p id="center"><b>@Model.CurrentPage</b></p>
-            <p id="center">of </p>
-            <p id="center"><b>@Model.TotalPages</b></p>*@
+            <p id="center">
+                Results for: <b>"@Model.SearchString"</b><br />
+                Total hits: <b>@Model.totalResults</b> Divided into: <b>@Model.TotalPages</b> pages
+            </p>
+
             @foreach (var movie in Model.Search)
             {
                 <div class="search-movies-flexbox">
@@ -65,23 +64,24 @@
                 </div>
 
             }
-            <div>
-                <p>Page:<b>@Model.CurrentPage</b> of <b>@Model.TotalPages</b> </p>
-                <p hidden="hidden" id="totalPages">@Model.TotalPages</p>
-            </div>
-            <form class="nextPage-submit" action="@Url.Action("NextPage", "Search")" method="get">
-                <input hidden="hidden" id="currentPage" name="currentPage" value="@Model.CurrentPage" />
-                <input hidden="hidden" id="searchString" name="searchString" value="@Model.SearchString" />
-                <input hidden="hidden" id="cinematicType" name="cinematicType" value="@Model.SelectedType" />
-                <input class="btnNext" type="submit" value="Next" />
-            </form>
-            <form class="nextPage-submit" action="@Url.Action("PreviousPage", "Search")" method="get">
-                <input hidden="hidden" id="currentPage" name="currentPage" value="@Model.CurrentPage" />
-                <input hidden="hidden" id="searchString" name="searchString" value="@Model.SearchString" />
-                <input hidden="hidden" id="cinematicType" name="cinematicType" value="@Model.SelectedType" />
-                <input class="btnPrevious" type="submit" value="Previous" />
-            </form>
 
+    <div class="navigation-container">
+        <p>Page: <b>@Model.CurrentPage</b> of <b>@Model.TotalPages</b> </p>
+        <div class="navigation-flex">
+            <form action="@Url.Action("PreviousPage", "Search")" method="get">
+                <input hidden="hidden" id="currentPage" name="currentPage" value="@Model.CurrentPage" />
+                <input hidden="hidden" id="searchString" name="searchString" value="@Model.SearchString" />
+                <input hidden="hidden" id="cinematicType" name="cinematicType" value="@Model.SelectedType" />
+                <input class="btnPrevious" type="submit" value="Previous" id="navigationBtn-previous" />
+            </form>
+            <form action="@Url.Action("NextPage", "Search")" method="get">
+                <input hidden="hidden" id="currentPage" name="currentPage" value="@Model.CurrentPage" />
+                <input hidden="hidden" id="searchString" name="searchString" value="@Model.SearchString" />
+                <input hidden="hidden" id="cinematicType" name="cinematicType" value="@Model.SelectedType" />
+                <input class="btnNext" type="submit" value="Next" id="navigationBtn-next" />
+            </form>
+        </div>
+    </div>
         }
     </div>
 </main>

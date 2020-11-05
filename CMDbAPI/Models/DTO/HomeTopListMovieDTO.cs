@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace CMDbAPI.Models.DTO
 {
+    /// <summary>
+    /// Innehåller data ifrån CMDB- och OMDB-api
+    /// </summary>
     public class HomeTopListMovieDTO : IMovie, IHomeTopListMovieDTO
     {
         public string ImdbID { get; set; }

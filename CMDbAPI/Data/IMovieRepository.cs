@@ -53,17 +53,31 @@ namespace CMDbAPI
         Task<HomeTopListMovieDTO> GetTopListMovieDetails(string imdbId);
 
 
-
         /// <summary>
-        /// Hämtar information från både OMDb och CMDb till en summaryViewModel
+        /// Hämtar information från både OMDb och CMDb till en movieDetailsViewModel
         /// </summary>
         /// <param name="imdbId"></param>
         /// <returns></returns>
         Task<MovieDetailsViewModel> GetSummarySingleMovie(string imdbId);
+
+        /// <summary>
+        /// Hämtar data ifrån både CMDB (likes, dislikes, imdbID) och använder sedan imdbID för att hämta mer information i OMDB.
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
         Task<List<HomeTopListMovieDTO>> GetTopListAggregatedData(Parameter parameter);
 
 
-        Task<SearchViewModel> GetAllMoviesContaining(string searchString, int pageNumber=1, string type=null);
+        /// <summary>
+        /// Hämtar sökningar som matchar 'searchString'-parametern.
+        /// OMDB-api returnerar endast 10 filmer i taget även fast sökträffen har fler filmer än så. Därför kan 'pageNumber' användas för att hämta kommande tio filmer.
+        /// Går att filtrera sökträffarna att endast söka efter en 'type' som kan vara filmer, serier eller spel. Är 'type' null så hämtas alla typer.
+        /// </summary>
+        /// <param name="searchString"></param>
+        /// <param name="pageNumber"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        Task<SearchViewModel> GetAllCinematicTypesContaining(string searchString, int pageNumber=1, string type=null);
 
     }
 }

@@ -7,17 +7,6 @@ dislikeBtn.addEventListener('click', dislike);
 
 
 
-
-
-
-// Definieras i main.js istället
-//let pies = document.querySelectorAll('.pie');
-//let ratingsSites = document.querySelectorAll('.rating-source');
-//let ratingElement = document.querySelectorAll('.score-text');
-
-
-
-
 // Färglägger paj-progressbars 
 for (let i = 0; i < pies.length; i++) {
     let element;
@@ -51,14 +40,11 @@ for (let i = 0; i < pies.length; i++) {
 }
 
 
+// Like och dislike-knappar
+
 const movieTitle = document.querySelector('.center').textContent;
 const column = document.querySelector('.ratings-container')
 const newText = document.createElement('h4')
-
-
-//const textContent = document.createTextNode("You liked " + movieTitle + "!");
-//newText.appendChild(textContent)
-//column.appendChild(newText)
 
 
 function like() {

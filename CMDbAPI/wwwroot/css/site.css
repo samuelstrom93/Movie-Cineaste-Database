@@ -175,8 +175,6 @@ legend {
     text-align: center;
 }
 
-
-
 input {
     margin: .4rem;
 }
@@ -204,6 +202,11 @@ fieldset p {
     border: thin solid black;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
+}
+
+#filter-btn:hover {
+    background-color: lightgrey;
 }
 
 
@@ -234,7 +237,70 @@ fieldset p {
 #center {
     text-align: center;
     font-size: 20px;
+    clear: both;
 }
+
+.form-selectType {
+    float: left;
+}
+
+#form-submit {
+    background-color: darkgrey;
+    border: thin solid black;
+    cursor: pointer;
+}
+
+
+.navigation-container {
+    text-align: center;
+}
+
+.navigation-container p {
+    font: larger Times;
+}
+
+.navigation-flex {
+    display: flex;
+    justify-content: center;
+}
+
+#navigationBtn-previous {
+    margin-right: 25%;
+    width: 8.5vh;
+    height: 2.5vh;
+    background-color: darkgrey;
+    cursor: pointer;
+    border: thin solid black;
+    font-weight: bold;
+    font: bold large Times;
+}
+
+#navigationBtn-previous:disabled {
+    pointer-events: none;
+}
+
+#navigationBtn-previous:hover {
+    background-color: lightgrey;
+}
+
+#navigationBtn-next {
+    margin-left: 25%;
+    width: 8.5vh;
+    height: 2.5vh;
+    background-color: darkgrey;
+    cursor: pointer;
+    border: thin solid black;
+    font-weight: bold;
+    font: bold large Times;
+}
+
+#navigationBtn-next:disabled {
+    pointer-events: none;
+}
+
+    #navigationBtn-next:hover {
+        background-color: lightgrey;
+    }
 
 
 /* ----------------MovieDetails---------------------*/
@@ -304,7 +370,6 @@ fieldset p {
     font: larger Georgia;
 }
 
-
 .bigger {
     font: bold x-large Georgia;
     margin: 0% auto;
@@ -368,7 +433,6 @@ fieldset p {
 .dislike-btn:hover {
     background-color: darkgrey;
     cursor: pointer;
-    /*    background-image: url("https://www.freeiconspng.com/uploads/dislike-button-png-1.png");*/
 }
 
 .dislike-btn:disabled {
@@ -389,14 +453,6 @@ fieldset p {
     background: green;
 }
 
-#myBar {
-    width: 10%;
-    height: 30px;
-    background-color: #4CAF50;
-    text-align: center; /* To center it horizontally (if you want) */
-    line-height: 30px; /* To center it vertically */
-    color: white;
-}
 
 .pie {
     width: 130px;

@@ -15,13 +15,14 @@ namespace CMDbAPI.ViewModel
 
         public Parameter Parameter { get; set; } = new Parameter();
 
+        // Listor för att filtera topplistan
         public IEnumerable<SelectListItem> Counts { get; set; }
         public IEnumerable<SelectListItem> Types { get; set; }
         public IEnumerable<SelectListItem> SortOrders { get; set; }
 
         public HomeViewModel(IParameter parameter)
         {
-            List<SelectListItem> items = new List<SelectListItem>
+            List<SelectListItem> itemsCount = new List<SelectListItem>
             {
                 new SelectListItem { Text = "5", Value = "5" },
                 new SelectListItem { Text = "10", Value = "10" },
@@ -29,7 +30,7 @@ namespace CMDbAPI.ViewModel
                 new SelectListItem { Text = "50", Value = "50" },
                 new SelectListItem { Text = "All", Value = "0" },
             };
-            Counts = items;
+            Counts = itemsCount;
 
             List<SelectListItem> itemsSort = new List<SelectListItem>
             {

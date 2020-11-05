@@ -1,15 +1,11 @@
-﻿document.getElementById("searchString").style.visibility = "hidden";
-document.getElementById("currentPage").style.visibility = "hidden";
-document.getElementById("firstPage").style.visibility = "hidden";
-document.getElementById("totalPages").style.visibility = "hidden";
-
-const btnPrevious = document.querySelector('.btnPrevious');
+﻿const btnPrevious = document.querySelector('.btnPrevious');
 const btnNext = document.querySelector('.btnNext');
 
-
-var firstPage = document.getElementById("firstPage").value;
+var searchString = document.getElementById("searchString").value;
+var firstPage = document.getElementById("firstPage").innerHTML;
 var currentPage = document.getElementById("currentPage").value;
-var totalPages = document.getElementById("totalPages").value;
+var totalPages = document.getElementById("totalPages").innerHTML;
+
 if (currentPage==totalPages) {
     btnNext.disabled = true;
 }

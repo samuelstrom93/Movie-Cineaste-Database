@@ -1,4 +1,5 @@
 ﻿using CMDbAPI.Models.DTO;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,49 @@ namespace CMDbAPI.ViewModel
     {
         public List<SearchMovieDTO> Search { get; set; }
 
-        public int totalResults { get; set; }     
+        public int totalResults { get; set; }
 
-        
+        public string SelectedType { get; set; }     
 
+        private List<SelectListItem> types;
+
+        public IEnumerable<SelectListItem> Types {
+            get
+            {
+                if (types != null)
+                {
+                    return types.Select(x =>
+                    new SelectListItem()
+                    {
+                        Text = x.Text,
+                        Value = x.Value
+                    });
+                }
+                return null;
+            }
+
+        }
+
+
+        public SearchViewModel()
+        {
+            types=new List<SelectListItem>
+            {
+                new SelectListItem { Value=null, Text = "--Select Type--"},
+                new SelectListItem { Value=null, Text = "All"},
+                new SelectListItem { Value = "movie", Text = "Movie" },
+                new SelectListItem { Value = "series", Text = "Series" },
+                new SelectListItem { Value = "game", Text = "Game" },
+            };
+           
+
+            this.types = types
+               .Select(t => new SelectListItem
+               {
+                  Text = t.Text,
+                  Value =t.Value
+               }).ToList();
+        }
+      
     }
 }

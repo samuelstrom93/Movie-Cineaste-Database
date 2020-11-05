@@ -23,11 +23,11 @@ namespace CMDbAPI.ViewModel
         {
             List<SelectListItem> items = new List<SelectListItem>
             {
-                new SelectListItem { Text = "Värde 5", Value = "5" },
-                new SelectListItem { Text = "Värde 10", Value = "10" },
-                new SelectListItem { Text = "Värde 20", Value = "20" },
-                new SelectListItem { Text = "Värde 50", Value = "50" },
-                new SelectListItem { Text = "Alla", Value = "0" },
+                new SelectListItem { Text = "5", Value = "5" },
+                new SelectListItem { Text = "10", Value = "10" },
+                new SelectListItem { Text = "20", Value = "20" },
+                new SelectListItem { Text = "50", Value = "50" },
+                new SelectListItem { Text = "All", Value = "0" },
             };
             Counts = items;
 
@@ -42,7 +42,7 @@ namespace CMDbAPI.ViewModel
             List<SelectListItem> itemsType = new List<SelectListItem>
             {
                 new SelectListItem { Text = "By popularity", Value = "popularity" },
-                new SelectListItem { Text = "By rating-quota", Value = "rating" },
+                new SelectListItem { Text = "By rating", Value = "rating" },
             };
             Types = itemsType;
 

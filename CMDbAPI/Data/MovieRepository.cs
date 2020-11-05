@@ -254,7 +254,6 @@ namespace CMDbAPI
             return await apiWebClient.GetAsync<HomeTopListMovieDTO>(urlString);            
         }
         
-
         public async Task<List<HomeTopListMovieDTO>> GetTopListAggregatedData(Parameter parameter)
         {
             var toplist = await GetToplist(parameter);

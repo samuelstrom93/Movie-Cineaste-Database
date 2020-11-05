@@ -6,6 +6,10 @@ const dislikeBtn = document.querySelector('.dislike-btn')
 dislikeBtn.addEventListener('click', dislike);
 
 
+
+
+
+
 // Definieras i main.js istället
 //let pies = document.querySelectorAll('.pie');
 //let ratingsSites = document.querySelectorAll('.rating-source');
@@ -47,7 +51,14 @@ for (let i = 0; i < pies.length; i++) {
 }
 
 
+const movieTitle = document.querySelector('.center').textContent;
+const column = document.querySelector('.ratings-container')
+const newText = document.createElement('h4')
 
+
+//const textContent = document.createTextNode("You liked " + movieTitle + "!");
+//newText.appendChild(textContent)
+//column.appendChild(newText)
 
 
 function like() {
@@ -63,6 +74,10 @@ function like() {
             dislikeBtn.disabled = true;
             likeBtn.style.opacity = "0.3";
             dislikeBtn.style.opacity = "0.3";
+            let likeText = document.createTextNode(`You liked "${movieTitle}"!`);
+            newText.appendChild(likeText)
+            newText.style.color = "green";
+            column.appendChild(newText)
         },
         error: function (response) { console.log(response) }
     })
@@ -83,6 +98,10 @@ function dislike() {
             dislikeBtn.disabled = true;
             likeBtn.style.opacity = "0.3";
             dislikeBtn.style.opacity = "0.3";
+            let likeText = document.createTextNode(`You disliked "${movieTitle}"!`);
+            newText.appendChild(likeText)
+            newText.style.color = "red";
+            column.appendChild(newText)
         },
         error: function (response) { console.log(response) }
     });

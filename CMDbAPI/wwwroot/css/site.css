@@ -87,7 +87,7 @@ header figcaption {
 }
 
 
-/*-----------------TOPPFILMER------------  */
+/*-----------------HOME------------  */
 h1 {
     text-align: center;
     font-size: 3em;
@@ -96,11 +96,15 @@ h1 {
 .top-movie-container {
     text-align: center;
     border-bottom: medium solid black;
-    margin: 2% 0%;
+    margin: 1% 0%;
 }
 
 .top-movie-container p {
     font: bold large Georgia;
+}
+
+#Count {
+    width: 4vh;
 }
 
 .top-movie {
@@ -162,6 +166,41 @@ figcaption {
 .likes-flexbox {
     display: flex;
     justify-content: space-evenly;
+}
+
+legend {
+    background-color: #000;
+    color: #fff;
+    padding: 3px 6px;
+    text-align: center;
+}
+
+
+
+input {
+    margin: .4rem;
+}
+
+fieldset {
+    margin-top: 0px;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 60px;
+    margin: auto;
+}
+
+fieldset p {
+    margin: 2%;
+}
+
+#filter-btn {
+    width: 6vh;
+    height: 1.5vh;
+    background-color: darkgrey;
+    margin-top: 20px;
 }
 
 
@@ -297,7 +336,7 @@ figcaption {
     background-color: green;
     border-radius: 5px;
     width: 15vh;
-    height: 5vh;
+    height: 3.5vh;
     border: thin solid black;
     font: bold large Georgia;
     margin-right: 5%;
@@ -316,7 +355,7 @@ figcaption {
     background-color: red;
     width: 15vh;
     border-radius: 5px;
-    height: 5vh;
+    height: 3.5vh;
     border: thin solid black;
     font: bold large Georgia;
     margin-left: 5%;

@@ -3,91 +3,92 @@
 
 <main>
 
-    
-    <form asp-action="Filter" method="get" class="form-flex">
+    <h1 class="movie-title">@Model.TopListMovies.FirstOrDefault().Title</h1>
+    <div class="top-movie-container">
 
-        <label>Amount of movies to display:</label>
-        @*@Html.DropDownListFor(x => x.Parameter.Count, new SelectList(Model.Counts, "Value", "Text"))*@
-        @*@Html.DropDownListFor("selectedCount", new SelectList(Model.Counts, "Value", "Text"))*@
-        @Html.DropDownList("Count", new SelectList(Model.Counts, "Value", "Text"))
+        <a href="@Url.Action("Index", "MovieDetails", new { imdbID = Model.TopListMovies.FirstOrDefault().ImdbID })">
+            <img src="@Model.TopListMovies.FirstOrDefault().Poster" alt="Toppfilm" class="top-movie">
+        </a>
+        <h2> Likes - Dislikes </h2>
+        <p> @Model.TopListMovies.FirstOrDefault().NumberOfLikes - @Model.TopListMovies.FirstOrDefault().NumberOfDislikes </p>
 
+        <h2 id="ratings-title">Ratings</h2>
+        <div class="rating-container-home">
+            @foreach (var rating in Model.TopListMovies.FirstOrDefault().Ratings)
+            {
+                <div class="ratings-flexbox">
+                    <p class="rating-source">@rating.Source</p>
+                    <div class="pie">
+                        <span class="score-text">@rating.Value</span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 
-        <label>Sorting order:</label>
-        @*@Html.DropDownListFor(x => x.Parameter.SortOrder, new SelectList(Model.SortOrders, "Value", "Text"))*@
-        @Html.DropDownList("SortOrder", new SelectList(Model.SortOrders, "Value", "Text"))
-
-        <label>Sorting type:</label>
-        @*@Html.DropDownListFor(x => x.Parameter.Type, new SelectList(Model.Types, "Value", "Text"))*@
-        @Html.DropDownList("SortType", new SelectList(Model.Types, "Value", "Text"))
-
-        <input type="submit" value="Send" />
-
+    <form asp-action="Filter" method="get" class="form-filter">
+        <fieldset>
+            <legend>Filter the toplist</legend>
+            <p>
+                <b>Amount:</b><br />
+                @Html.DropDownList("Count", new SelectList(Model.Counts, "Value", "Text"))
+            </p>
+            <p>
+                <b>Order:</b><br />
+                @Html.DropDownList("SortOrder", new SelectList(Model.SortOrders, "Value", "Text"))
+            </p>
+            <p>
+                <b>Type:</b><br />
+                @Html.DropDownList("SortType", new SelectList(Model.Types, "Value", "Text"))
+            </p>
+                <input type="submit" value="Filter" id="filter-btn" />
+        </fieldset>
     </form>
 
 
-        <h1 class="movie-title">@Model.TopListMovies.FirstOrDefault().Title</h1>
-        <div class="top-movie-container">
 
-            <a href="@Url.Action("Index", "MovieDetails", new { imdbID = Model.TopListMovies.FirstOrDefault().ImdbID })">
-                <img src="@Model.TopListMovies.FirstOrDefault().Poster" alt="Toppfilm" class="top-movie">
-            </a>
-            <h2> Likes - Dislikes </h2>
-            <p> @Model.TopListMovies.FirstOrDefault().NumberOfLikes - @Model.TopListMovies.FirstOrDefault().NumberOfDislikes </p>
 
-            <h2 id="ratings-title">Ratings</h2>
-            <div class="rating-container-home">
-                @foreach (var rating in Model.TopListMovies.FirstOrDefault().Ratings)
-                {
-                    <div class="ratings-flexbox">
-                        <p class="rating-source">@rating.Source</p>
-                        <div class="pie">
-                            <span class="score-text">@rating.Value</span>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
 
-        <div class="rankings-flexbox">
-            @foreach (var movie in Model.TopListMovies)
-            {
-                <div class="movie-container">
-                    <figure class="rankings-figure">
+    <div class="rankings-flexbox">
+        @foreach (var movie in Model.TopListMovies)
+        {
+            <div class="movie-container">
+                <figure class="rankings-figure">
 
-                        <a href="@Url.Action("Index", "MovieDetails", new { imdbID = movie.ImdbID })">
-                            @if (movie.Poster == "N/A")
-                            {
-                                <img src="~/img/NoPosterAvailable.png" alt="toppfilmer" class="top-movie">
-                            }
-                            else
-                            {
-                                <img src="@movie.Poster" alt="toppfilmer" class="top-movie">
-                            }
-                        </a>
-                        <figcaption>@movie.Title</figcaption>
-                        <div class="likes-flexbox">
-                            <p id="normal-label"><label class="bigger">Likes</label><br /> <span id="likes">@movie.NumberOfLikes</span></p>
-                            <p id="normal-label"><label class="bigger">Dislikes</label><br /><span id="dislikes">@movie.NumberOfDislikes</span></p>
-                        </div>
-                        @if (movie.Plot == "No plot available" || movie.Plot == "N/A")
+                    <a href="@Url.Action("Index", "MovieDetails", new { imdbID = movie.ImdbID })">
+                        @if (movie.Poster == "N/A")
                         {
-                            <p id="plot">
-                                <label id="subplot">Plot:</label><br />
-                                No plot available
-                            </p>
+                            <img src="~/img/NoPosterAvailable.png" alt="toppfilmer" class="top-movie">
                         }
                         else
                         {
-                            <p id="plot">
-                                <label id="subplot">Plot:</label><br />
-                                @movie.Plot.Substring(0, 20)<span id="dots">...</span><span id="more">@movie.Plot.Substring(20)</span>
-                            </p>
-                            <p class="read-more">Read More &darr;</p>
+                            <img src="@movie.Poster" alt="toppfilmer" class="top-movie">
                         }
-                    </figure>
-                </div>
+                    </a>
+                    <figcaption>@movie.Title</figcaption>
+                    <div class="likes-flexbox">
+                        <p id="normal-label"><label class="bigger">Likes</label><br /> <span id="likes">@movie.NumberOfLikes</span></p>
+                        <p id="normal-label"><label class="bigger">Dislikes</label><br /><span id="dislikes">@movie.NumberOfDislikes</span></p>
+                    </div>
+                    @if (movie.Plot == "No plot available" || movie.Plot == "N/A")
+                    {
+                        <p id="plot">
+                            <label id="subplot">Plot:</label><br />
+                            No plot available
+                        </p>
+                    }
+                    else
+                    {
+                        <p id="plot">
+                            <label id="subplot">Plot:</label><br />
+                            @movie.Plot.Substring(0, 20)<span id="dots">...</span><span id="more">@movie.Plot.Substring(20)</span>
+                        </p>
+                        <p class="read-more">Read More &darr;</p>
+                    }
+                </figure>
+            </div>
 
-            }
-        </div>
+        }
+    </div>
 
 </main>

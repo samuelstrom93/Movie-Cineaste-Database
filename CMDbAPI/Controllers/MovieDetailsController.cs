@@ -2,18 +2,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CMDbAPI.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CMDbAPI.Controllers
 {
     public class MovieDetailsController : Controller
     {
-        // GET: /<controller>/
-        public IActionResult Index()
+        private IMovieRepository movieRepository;
+
+        public MovieDetailsController(IMovieRepository movieRepository)
         {
-            return View();
+            this.movieRepository = movieRepository;
+        }
+
+        /// <summary>
+        /// Hämtar relevenat information som vi vill visa i gränssnittet. Identiferar filmen i OMDB mha. av ImdbID
+        /// </summary>
+        /// <param name="imdbID"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> Index(string imdbID)
+        {
+            try
+            {
+                MovieDetailsViewModel movieDetailsViewModel = await movieRepository.GetSummarySingleMovie(imdbID);
+                return View(movieDetailsViewModel);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

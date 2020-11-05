@@ -1,10 +1,10 @@
 ﻿namespace CMDbAPI
 {
-    public class Movie
+    public class Movie : IMovie
     {
-       /// <summary>
-       /// Internet Movie Database Id
-       /// </summary>
+        /// <summary>
+        /// Internet Movie Database Id
+        /// </summary>
         public string ImdbID { get; set; }
         /// <summary>
         /// Number of likes from CMDb Community
@@ -14,5 +14,6 @@
         /// Number of dislikes from CMDb Community
         /// </summary>
         public int NumberOfDislikes { get; set; }
+
     }
 }

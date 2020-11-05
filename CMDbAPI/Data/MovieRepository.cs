@@ -4,10 +4,14 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using CMDbAPI.Controllers;
+using CMDbAPI.Infrastructure;
+using CMDbAPI.Models;
 using CMDbAPI.Models.DTO;
 using CMDbAPI.ViewModel;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
 using Npgsql;
 
 namespace CMDbAPI
@@ -17,13 +21,19 @@ namespace CMDbAPI
         #region private fields
         private readonly IConfiguration dbSettings;
         private readonly string connectionString;
+        private readonly string baseUrl, accessKey;
+        IApiWebClient apiWebClient;
+
         #endregion
 
         #region Constructor
-        public MovieRepository(IConfiguration settings)
+        public MovieRepository(IConfiguration settings, IApiWebClient apiWebClient)
         {
             dbSettings = settings;
             connectionString = dbSettings.GetValue<string>("ConnectionString");
+            baseUrl = settings.GetValue<string>("OMDbApi:BaseUrl");
+            accessKey = settings.GetValue<string>("OMDbApi:AccessKey");
+            this.apiWebClient = apiWebClient;
         }
         #endregion
 
@@ -220,61 +230,74 @@ namespace CMDbAPI
 
         #region Movie Details   
 
-        // Egen metod som hämtar en film från OMDbApi - Körs EJ automatiskt för tillfället
+
+        // Summary finns för nedanstående metoder i IMovieRepository. Håll över metodnamnet för mer en beskrivning.
+
         public async Task<MovieDetailsDTO> GetMovieDetails(string imdbId)
         {
-            using (HttpClient client = new HttpClient())
+            string urlString = baseUrl + "i=" + imdbId + "&plot=full" + accessKey;
+            return await apiWebClient.GetAsync<MovieDetailsDTO>(urlString);
+        }
+
+        public async Task<HomeTopListMovieDTO> GetTopListMovieDetails(string imdbId)
+        {
+            string urlString = baseUrl + "i=" + imdbId + accessKey;
+            return await apiWebClient.GetAsync<HomeTopListMovieDTO>(urlString);
+        }
+
+        public async Task<List<HomeTopListMovieDTO>> GetTopListAggregatedData(Parameter parameter)
+        {
+            var toplist = await GetToplist(parameter);
+            List<HomeTopListMovieDTO> toplistMovies = new List<HomeTopListMovieDTO>();
+            HomeTopListMovieDTO topListMovie;
+
+            foreach (var movie in toplist)
             {
-                //Använd baseUrl m.m på endpoint...
-                string endpoint = "http://www.omdbapi.com/?i=tt3659388&apikey=698a3567";
-                var respons = await client.GetAsync(endpoint, HttpCompletionOption.ResponseHeadersRead);
-                //TODO: Gör det här till en try/catch för att fånga exceptions
-                respons.EnsureSuccessStatusCode();
-                var data = await respons.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<MovieDetailsDTO>(data);
-                return result;
+                topListMovie = await GetTopListMovieDetails(movie.ImdbID);
+                topListMovie.NumberOfDislikes = movie.NumberOfDislikes;
+                topListMovie.NumberOfLikes = movie.NumberOfLikes;
+                toplistMovies.Add(topListMovie);
             }
+            return toplistMovies;
         }
 
 
-        //private MovieDetailsDTO movieDetailsDTO;
-        //private Movie movie;
-
-
-
-
-        //public Task<SummaryViewModel> GetSummary(string imdbId)
-        public async Task<SummaryViewModel> GetSummary(string imdbId)
+        public async Task<MovieDetailsViewModel> GetSummarySingleMovie(string imdbId)
         {
-            var movie = await GetMovieDetails(imdbId);
             var ratings = await GetMovieRatings(imdbId);
+            var movie = await GetMovieDetails(imdbId);
+            MovieDetailsViewModel movieSummaryViewModel = new MovieDetailsViewModel(movie, ratings);
 
-            SummaryViewModel summaryViewModel = new SummaryViewModel(movie, ratings);
-            return summaryViewModel;
+            return movieSummaryViewModel;
         }
 
 
-
-
-        // TODO: Förstår inte riktigt hur Erik använder sig av en liknande i HomeController för att komma åt datan
-        public Task<SummaryViewModel> GetSummaryViewModel(string imdb = null)
+        public async Task<SearchViewModel> GetAllCinematicTypesContaining(string searchString, int pageNumber = 1, string type = null)
         {
-            throw new NotImplementedException();
+            string urlString;
+
+            if (type != null)
+            {
+                urlString = $"{baseUrl}s={searchString}&type={type}&page={pageNumber}{accessKey}";
+                return await apiWebClient.GetAsync<SearchViewModel>(urlString);
+            }
+            urlString = $"{baseUrl}s={searchString}&page={pageNumber}{accessKey}";
+            return await apiWebClient.GetAsync<SearchViewModel>(urlString);
+
         }
-
-
-
-
-        #endregion
-
     }
-    #endregion
-
-
-
-
-
-
 
     #endregion
+
 }
+#endregion
+
+
+
+
+
+
+
+#endregion
+
+

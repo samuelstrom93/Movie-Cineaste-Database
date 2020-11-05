@@ -1,3 +1,4 @@
+using CMDbAPI.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +9,7 @@ namespace CMDbAPI
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -18,10 +20,22 @@ namespace CMDbAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddControllersWithViews();
             services.AddControllers();
             services.AddMvc().AddRazorRuntimeCompilation();
+            services.AddScoped<IMovieRepository, MovieRepository>();
+            //services.AddScoped<IMovieRepository, MovieMockRepository>();
+            services.AddScoped<IApiWebClient, ApiWebClient>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("https://localhost:5001");
+                                  });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -31,14 +45,31 @@ namespace CMDbAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Error"); //Använd som exempel, använd EJ i skarpt läge! Kan visa känslig information!
+                app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");               
+            }
 
+            app.UseStatusCodePages();
             app.UseHttpsRedirection();
-
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthorization();
+
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
+            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            //    app.UseHsts();
+            //}
+
+            //app.UseHttpsRedirection();
+            //app.UseStaticFiles();
+            //app.UseRouting();
+            //app.UseAuthorization();
+
+
 
             app.UseEndpoints(endpoints =>
             {
@@ -48,11 +79,12 @@ namespace CMDbAPI
                     );
             });
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-            
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //});
+
+            //app.UseCors(MyAllowSpecificOrigins);
         }
 
     }

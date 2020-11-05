@@ -1,51 +1,56 @@
-﻿<!-- Specificierar var allt inom denna del ska förhålla sig till resten av sidan. -->
-<div class="page-container">
+﻿@model CMDbAPI.ViewModel.MovieDetailsViewModel
 
-    <!-- Första raden på detaljsidan innehållande fakta och en bild på filmen -->
-
-    <section id="detailPage-column_facts">
-        <h1>The Deer Hunter</h1>
-        <p>{Genre}:</p>
-        <p>{Längd}:</p>
-        <p>{Producerad år}:</p>
-        <p>{Inkomst}:</p>
-    </section>
-    <section id="detailPage-column_image">
-        <img src="Images/The Deer Hunter.jpg" />
-    </section>
+@Html.HiddenFor(x => x.ImdbID)
 
 
-    <div class="clear"></div>
+<article>
+    <div class="wrapper">
+        <div class="flexbox-column">
+            <h2 class="center">@Model.Title</h2>
+            <p><strong>Year:</strong><br />@Model.Year</p>
+            <p><strong>Runtime:</strong><br />@Model.Runtime</p>
+            <p><strong>Genre:</strong><br />@Model.Genre</p>
+            <p><strong>Director:</strong><br />@Model.Director</p>
+            <p><strong>Actors:</strong><br />@Model.Actors</p>
 
-    <!-- Andra raden på detaljsidan innehållande en summering och en sammanställning för hur populär filmen är -->
-    <section id="detailPage-column_facts">
-        <h3>Summary:</h3>
-        <p>Här kommer det stå en väldigt bra sammanfattning på engelska som vi har hämtat från "OMDb".</p>
-    </section>
+            <p id="plot">
+                <label id="subplot">Plot:</label><br />
+                @Model.Plot
+            </p>
 
-    <section id="detailPage-column_image">
-        <img id="img-detail" src="Images/progressionBar.jpg" />
-    </section>
+            <div class="ratings-container">
+                <h2>Do you like the movie?<br /> Contribute below</h2>
+                <div class="wrapper-like">
+                    <button class="like-btn">Like</button>
+                    <button class="dislike-btn">Dislike</button>
+                </div>
+            </div>
+        </div>
 
-    <div class="clear"></div>
+        <div class="flexbox-column-movie">
+            @if (@Model.Poster == "N/A")
+            {
+                <img src="~/img/NoPosterAvailable.png" alt="toppfilmer" class="top-movie-details">
+            }
+            else
+            {
+                <img src="@Model.Poster" alt="toppfilmer" id="top-movie-details">
+            }
+            <div class="flexbox-row">
+                <p id="normal-label"><label class="bigger">Likes</label><br /> <span id="likes">@Model.NumberOfLikes</span></p>
+                <p id="normal-label"><label class="bigger">Dislikes</label><br /><span id="dislikes">@Model.NumberOfDislikes</span></p>
+            </div>
+            <br />
+            <h3 class="bigger">Ratings</h3><br />
 
-    <!-- Tredje raden på detaljsidan innehållande alla skådelspelare och en bild på skådespelaren -->
-    <!--Visa en lista med properties i olika celler https://www.youtube.com/watch?v=nHAMDUtiV6w-->
-    <h3>Här nedanför presenteras en tabell/lista med skådelspelare i filmen:</h3>
-    <br>
-    <br>
+            @foreach (var rating in @Model.Ratings)
+            {
+                <p class="rating-source">@rating.Source</p>
+                <div class="pie">
+                    <span class="score-text">@rating.Value</span>
+                </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Image</th>
-                <th>Actor</th>
-                <th>NameInMovie</th>
-            </tr>
-        </thead>
-    </table>
-
-
-    <div class="clear"></div>
-
-</div>
+            }
+        </div>
+    </div>
+</article>

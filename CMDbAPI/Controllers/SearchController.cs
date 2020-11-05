@@ -20,32 +20,22 @@ namespace CMDbAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(string searchString, string type=null)
+        public async Task<IActionResult> Index(string searchString)
         {
             try
             {                               
-                int firstPage = 1;                
-
                 //Creating an instance of SearchViewModel and get the results from search
                 var searchViewModel = await movieRepository.GetAllMoviesContaining(searchString);
-                //searchViewModel.SearchString = searchString;
 
                 //How many pages is needed for the search results                
                 int pageSize = 10;
-                var totalPages = (int)Math.Ceiling(searchViewModel.totalResults / (double)pageSize);
+                int totalPages = (int)Math.Ceiling(searchViewModel.totalResults / (double)pageSize);
+                searchViewModel.TotalPages = totalPages;
+                searchViewModel.SearchString = searchString;
                 
                
-                //ViewBags for the view
-                ViewBag.searchString = searchString;
-                ViewBag.totalSearchHits = searchViewModel.totalResults;
-                ViewBag.totalPages = totalPages;
-                ViewBag.currentPage = firstPage;
-                ViewBag.firstPage = firstPage;
-
-
                 if (searchViewModel.Search == null)
                 {
-
                     return View(searchViewModel);
                 }
 
@@ -70,31 +60,17 @@ namespace CMDbAPI.Controllers
         public async Task<IActionResult> NextPage(string searchString, int currentPage, string cinematicType)
         {
             try
-            {               
-                //Variables to pass into method GetAllContaining + inparameter "searchString"
-                int nextPage = currentPage + 1;                
-
-                //Creating an instance of SearchViewModel and get the results from search
-                var searchViewModel = await movieRepository.GetAllMoviesContaining(searchString, nextPage, cinematicType);
+            {
+                int nextPage = currentPage+1;
+                SearchViewModel searchViewModel = new SearchViewModel();
+                searchViewModel = await movieRepository.GetAllMoviesContaining(searchString, nextPage, cinematicType );
+                searchViewModel.SearchString = searchString;
+                searchViewModel.CurrentPage = nextPage;
                 searchViewModel.SelectedType = cinematicType;
-              
 
-                //Number of pages needed for the search results  
                 int pageSize = 10;
                 var totalPages = (int)Math.Ceiling(searchViewModel.totalResults / (double)pageSize);
-
-                //ViewBags for view         
-                ViewBag.searchString = searchString;
-                ViewBag.totalSearchHits = searchViewModel.totalResults;
-                ViewBag.totalPages = totalPages;
-                ViewBag.currentPage = nextPage;
-                ViewBag.cinematicType = cinematicType;
-
-                if (searchViewModel.Search == null)
-                {
-                    ViewBag.search = searchString;
-                    return View("index",searchViewModel);
-                }
+                searchViewModel.TotalPages = totalPages;
 
                 MovieDetailsViewModel movieDetailsViewModel;
                 foreach (var movie in searchViewModel.Search)
@@ -103,13 +79,15 @@ namespace CMDbAPI.Controllers
                     movie.Director = movieDetailsViewModel.Director;
                     movie.Genre = movieDetailsViewModel.Genre;
                     movie.Ratings = movieDetailsViewModel.Ratings;
-                }
+                }    
+                
                 return View("index", searchViewModel);
             }
             catch (Exception)
             {
+
                 throw;
-            }
+            }         
         }
 
         [HttpGet]
@@ -117,32 +95,16 @@ namespace CMDbAPI.Controllers
         {
             try
             {
-                int firstPage = 1;
-                //Variables to pass into method GetAllContaining + inparameter "searchString"
-                int nextPage = currentPage-1;
-
-                //Creating an instance of SearchViewModel and get the results from search
-                var searchViewModel = await movieRepository.GetAllMoviesContaining(searchString, nextPage, cinematicType);
+                int previousPage = currentPage - 1;
+                SearchViewModel searchViewModel = new SearchViewModel();
+                searchViewModel = await movieRepository.GetAllMoviesContaining(searchString, previousPage, cinematicType);
+                searchViewModel.SearchString = searchString;
+                searchViewModel.CurrentPage = previousPage;
                 searchViewModel.SelectedType = cinematicType;
 
-
-                //Number of pages needed for the search results  
                 int pageSize = 10;
                 var totalPages = (int)Math.Ceiling(searchViewModel.totalResults / (double)pageSize);
-
-                //ViewBags for view         
-                ViewBag.searchString = searchString;
-                ViewBag.totalSearchHits = searchViewModel.totalResults;
-                ViewBag.totalPages = totalPages;
-                ViewBag.currentPage = nextPage;
-                ViewBag.cinematicType = cinematicType;
-                ViewBag.firstPage = firstPage;
-
-                if (searchViewModel.Search == null)
-                {
-                    ViewBag.search = searchString;
-                    return View("index", searchViewModel);
-                }
+                searchViewModel.TotalPages = totalPages;
 
                 MovieDetailsViewModel movieDetailsViewModel;
                 foreach (var movie in searchViewModel.Search)
@@ -152,35 +114,59 @@ namespace CMDbAPI.Controllers
                     movie.Genre = movieDetailsViewModel.Genre;
                     movie.Ratings = movieDetailsViewModel.Ratings;
                 }
+
+                return View("index", searchViewModel);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CinematicSelection(SearchViewModel oldSearchViewModel)
+        {
+            try
+            {
+                int page = 1;
+                var searchString = oldSearchViewModel.SearchString;
+                var cinematicType = oldSearchViewModel.SelectedType;
+                var searchViewModel = await movieRepository.GetAllMoviesContaining(searchString, page, cinematicType);
+
+                if (searchViewModel.Search == null)
+                {
+                    searchViewModel.SearchString = searchString;
+                    return View("index",searchViewModel);
+                }
+              
+
+                //Number of pages needed for the search results  
+                int pageSize = 10;
+                var totalPages = (int)Math.Ceiling(searchViewModel.totalResults / (double)pageSize);
+
+                searchViewModel.SearchString = searchString;
+                searchViewModel.SelectedType = cinematicType;
+                searchViewModel.TotalPages = totalPages;
+
+                MovieDetailsViewModel movieDetailsViewModel;
+                foreach (var movie in searchViewModel.Search)
+                {
+                    movieDetailsViewModel = await movieRepository.GetSummarySingleMovie(movie.ImdbID);
+                    movie.Director = movieDetailsViewModel.Director;
+                    movie.Genre = movieDetailsViewModel.Genre;
+                    movie.Ratings = movieDetailsViewModel.Ratings;
+                }
+
                 return View("index", searchViewModel);
             }
             catch (Exception)
             {
                 throw;
             }
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> CinematicSelection(SearchViewModel oldSearchViewModel, string searchString)
-        {
-
-            int page = 1;
-            var cinematicType = oldSearchViewModel.SelectedType;
-            var searchViewModel=await movieRepository.GetAllMoviesContaining(searchString, page, cinematicType);
            
-
-            //Number of pages needed for the search results  
-            int pageSize = 10;
-            var totalPages = (int)Math.Ceiling(searchViewModel.totalResults / (double)pageSize);
-
-            //ViewBags for view         
-            ViewBag.searchString = searchString;
-            ViewBag.totalSearchHits = searchViewModel.totalResults;
-            ViewBag.totalPages = totalPages;
-            ViewBag.currentPage = page;
-            ViewBag.firstPage = page;
-            ViewBag.cinematicType = cinematicType;
-            return View("index",searchViewModel);          
+         
         }
     }
 }
+

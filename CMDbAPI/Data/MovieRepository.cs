@@ -22,7 +22,6 @@ namespace CMDbAPI
         private readonly IConfiguration dbSettings;
         private readonly string connectionString;
         private readonly string baseUrl, accessKey;
-        private Parameter parameter;
         IApiWebClient apiWebClient;
 
         #endregion

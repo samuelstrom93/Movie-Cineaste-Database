@@ -3,88 +3,111 @@
 @Html.HiddenFor(x => x.FirstPage)
 @Html.HiddenFor(x => x.TotalPages)
 
-<main>
+    <main>
 
-    <form asp-action="CinematicSelection" asp-controller="Search" class="form-selectType" method="get">
-        <input hidden="hidden" id="searchString" name="searchString" value="@Model.SearchString" />
-        <input hidden="hidden" id="currentPage" name="currentPage" value="@Model.CurrentPage" />
-        <label><b>Select Type:</b></label>
-        @Html.DropDownListFor(x => Model.SelectedType, new SelectList(Model.Types, "Value", "Text"), new { @onchange = "@onChange(this.value)" })
-        <button type="submit" id="form-submit">OK</button>
-    </form>
+        <form asp-action="CinematicSelection" asp-controller="Search" class="form-selectType" method="get">
+            <input hidden="hidden" id="searchString" name="searchString" value="@Model.SearchString" />
+            <input hidden="hidden" id="currentPage" name="currentPage" value="@Model.CurrentPage" />
+            <label><b>Select Type:</b></label>
+            @Html.DropDownListFor(x => Model.SelectedType, new SelectList(Model.Types, "Value", "Text"), new { @onchange = "@onChange(this.value)" })
+            <button type="submit" id="form-submit">OK</button>
+        </form>
 
-    <div class="search-container">
-        @if (Model.Search == null)
-        {
-            <p id="center">No results found for <b>"@Model.SearchString"</b> </p>
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
         }
-        else
-        {
-            <p id="center">
-                Results for: <b>"@Model.SearchString"</b><br />
-                Total hits: <b>@Model.totalResults</b> Divided into: <b>@Model.TotalPages</b> pages
-            </p>
 
-            @foreach (var movie in Model.Search)
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-default @prevDisabled">
+            Previous
+        </a>
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn btn-default @nextDisabled">
+            Next
+        </a>
+
+        <div class="search-container">
+            @if (Model.Search == null)
             {
-                <div class="search-movies-flexbox">
-
-                    <a href="@Url.Action("Index", "MovieDetails", new { imdbID = movie.ImdbID })">
-                        @if (movie.Poster == "N/A")
-                        {
-                            <img src="~/img/NoPosterAvailable.png" alt="toppfilmer" class="top-movie">
-                        }
-                        else
-                        {
-                            <img src="@movie.Poster" alt="toppfilmer" id="searchedMovieImg">
-                        }
-                    </a>
-                    <p>
-                        <b>Title:</b> @movie.Title<br /><br />
-                        <b>Year:</b> @movie.Year<br /><br />
-                        <b>Genre:</b> @movie.Genre<br /><br />
-                        <b>Director:</b> @movie.Director<br /><br />
-                        <b>Type:</b> @movie.Type<br /><br />
-
-                        @if (movie.Ratings.Count == 0)
-                        {
-                            <i>No rating available.</i>
-                        }
-                        else
-                        {
-                            <span><b>Ratings:</b></span><br />
-                            @foreach (var rating in movie.Ratings)
-                            {
-                                <span>@rating.Source: <b>@rating.Value</b></span>
-
-                                <br />
-                            }
-                        }
-                    </p>
-                </div>
-
+                <p id="center">No results found for <b>"@Model.SearchString"</b> </p>
             }
+            else
+            {
+                <p id="center">
+                    Results for: <b>"@Model.SearchString"</b><br />
+                    Total hits: <b>@Model.totalResults</b> Divided into: <b>@Model.TotalPages</b> pages
+                </p>
 
-    <div class="navigation-container">
-        <p>Page: <b>@Model.CurrentPage</b> of <b>@Model.TotalPages</b> </p>
-        <div class="navigation-flex">
-            <form action="@Url.Action("PreviousPage", "Search")" method="get">
-                <input hidden="hidden" id="currentPage" name="currentPage" value="@Model.CurrentPage" />
-                <input hidden="hidden" id="searchString" name="searchString" value="@Model.SearchString" />
-                <input hidden="hidden" id="cinematicType" name="cinematicType" value="@Model.SelectedType" />
-                <input class="btnPrevious" type="submit" value="Previous" id="navigationBtn-previous" />
-            </form>
-            <form action="@Url.Action("NextPage", "Search")" method="get">
-                <input hidden="hidden" id="currentPage" name="currentPage" value="@Model.CurrentPage" />
-                <input hidden="hidden" id="searchString" name="searchString" value="@Model.SearchString" />
-                <input hidden="hidden" id="cinematicType" name="cinematicType" value="@Model.SelectedType" />
-                <input class="btnNext" type="submit" value="Next" id="navigationBtn-next" />
-            </form>
+                @foreach (var movie in Model.Search)
+                {
+                    <div class="search-movies-flexbox">
+
+                        <a href="@Url.Action("Index", "MovieDetails", new { imdbID = movie.ImdbID })">
+                            @if (movie.Poster == "N/A")
+                            {
+                                <img src="~/img/NoPosterAvailable.png" alt="toppfilmer" class="top-movie">
+                            }
+                            else
+                            {
+                                <img src="@movie.Poster" alt="toppfilmer" id="searchedMovieImg">
+                            }
+                        </a>
+                        <p>
+                            <b>Title:</b> @movie.Title<br /><br />
+                            <b>Year:</b> @movie.Year<br /><br />
+                            <b>Genre:</b> @movie.Genre<br /><br />
+                            <b>Director:</b> @movie.Director<br /><br />
+                            <b>Type:</b> @movie.Type<br /><br />
+
+                            @if (movie.Ratings.Count == 0)
+                            {
+                                <i>No rating available.</i>
+                            }
+                            else
+                            {
+                                <span><b>Ratings:</b></span><br />
+                                @foreach (var rating in movie.Ratings)
+                                {
+                                    <span>@rating.Source: <b>@rating.Value</b></span>
+
+                                    <br />
+                                }
+                            }
+                        </p>
+                    </div>
+
+                }
+
+
+
+
+                <div class="navigation-container">
+                    <p>Page: <b>@Model.CurrentPage</b> of <b>@Model.TotalPages</b> </p>
+                    <div class="navigation-flex">
+                        <form action="@Url.Action("PreviousPage", "Search")" method="get">
+                            <input hidden="hidden" id="currentPage" name="currentPage" value="@Model.CurrentPage" />
+                            <input hidden="hidden" id="searchString" name="searchString" value="@Model.SearchString" />
+                            <input hidden="hidden" id="cinematicType" name="cinematicType" value="@Model.SelectedType" />
+                            <input class="btnPrevious" type="submit" value="Previous" id="navigationBtn-previous" />
+                        </form>
+                        <form action="@Url.Action("NextPage", "Search")" method="get">
+                            <input hidden="hidden" id="currentPage" name="currentPage" value="@Model.CurrentPage" />
+                            <input hidden="hidden" id="searchString" name="searchString" value="@Model.SearchString" />
+                            <input hidden="hidden" id="cinematicType" name="cinematicType" value="@Model.SelectedType" />
+                            <input class="btnNext" type="submit" value="Next" id="navigationBtn-next" />
+                        </form>
+                    </div>
+                </div>
+            }
         </div>
-    </div>
-        }
-    </div>
-</main>
+    </main>
 
 <script src="~/js/search.js"></script>
 

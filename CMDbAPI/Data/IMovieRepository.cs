@@ -77,7 +77,8 @@ namespace CMDbAPI
         /// <param name="pageNumber"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        Task<SearchViewModel> GetAllCinematicTypesContaining(string searchString, int pageNumber=1, string type=null);
+        Task<SearchViewModel> GetAllCinematicTypesContaining(string searchString, int pageNumber = 1, string type = null);
+        //Task<List<SearchMovieDTO>> GetAllCinematicTypesContaining(string searchString, int pageNumber = 1, string type = null);
 
     }
 }

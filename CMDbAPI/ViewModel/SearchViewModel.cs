@@ -9,7 +9,7 @@ namespace CMDbAPI.ViewModel
 {
     public class SearchViewModel
     {
-        public List<SearchMovieDTO> Search { get; set; }
+        public List<SearchMovieDTO> Search { get; set; } = new List<SearchMovieDTO>();
 
         public string SelectedType { get; set; }
         public string SearchString { get; set; }
@@ -42,6 +42,8 @@ namespace CMDbAPI.ViewModel
 
         public SearchViewModel()
         {
+
+
             types = new List<SelectListItem>
             {
                 new SelectListItem { Value = null, Text = "All"},

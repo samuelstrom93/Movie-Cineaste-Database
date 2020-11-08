@@ -285,6 +285,21 @@ namespace CMDbAPI
             return await apiWebClient.GetAsync<SearchViewModel>(urlString);
 
         }
+
+        //public async Task<List<SearchMovieDTO>> GetAllCinematicTypesContaining(string searchString, int pageNumber = 1, string type = null)
+        //{
+        //    string urlString;
+
+        //    if (type != null)
+        //    {
+        //        urlString = $"{baseUrl}s={searchString}&type={type}&page={pageNumber}{accessKey}";
+        //        //return await apiWebClient.GetAsync<SearchViewModel>(urlString);
+        //        return await apiWebClient.GetAsync<List<SearchMovieDTO>>(urlString);
+        //    }
+        //    urlString = $"{baseUrl}s={searchString}&page={pageNumber}{accessKey}";
+        //    return await apiWebClient.GetAsync<List<SearchMovieDTO>>(urlString);
+
+        //}
     }
 
     #endregion

@@ -240,16 +240,18 @@ fieldset p {
     clear: both;
 }
 
-
 #SelectedType {
     margin: 5px 0px 0px 10px;
+}
+
+.form-select {
+    float: left;
 }
 
 #form-submit {
     background-color: darkgrey;
     border: thin solid black;
     cursor: pointer;
-    margin-left: 0.5%;
 }
 
 #form-submit:hover {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using CMDB.Extensions;
+using CMDbAPI.Models.DTO;
 using CMDbAPI.ViewModel;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,12 +26,15 @@ namespace CMDbAPI.Controllers
 
         /// <summary>
         /// Inspiration från Microsoft dokumentation: https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/sort-filter-page?view=aspnetcore-3.1#feedback
-        /// Vi hämtar resultat ifrån OMDB utifrån inparameter 'searchString'.
-        /// Vi använder sedan en pagination-lösning för att navigera till föregående och nästa sida.
+        /// Har inte hunnit putsa till koden så mycket vi har velat i denna controller. Hade gärna flyttat mycket kod till SearchViewModel istället för ren kod här i controllern.
+        /// Hade gärna velat slimma till mycket och få bort onödig kod men har inte hunnit pga deadline.
         /// </summary>
         /// <param name="searchString"></param>
+        /// <param name="pageNumber"></param>
+        /// <param name="currentFilter"></param>
+        /// <param name="sortOrder"></param>
+        /// <param name="selectedType"></param>
         /// <returns></returns>
-        [HttpGet]
         public async Task<IActionResult> Index(string searchString, int? pageNumber, string currentFilter, string sortOrder, string selectedType)
         {
             if (searchString != null)
@@ -45,28 +48,15 @@ namespace CMDbAPI.Controllers
             pageNumber = pageNumber ?? 1;
             ViewData["CurrentSort"] = sortOrder;
             ViewData["CurrentFilter"] = searchString;
+            ViewData["SelectedType"] = selectedType;
+            searchViewModelHelper = await movieRepository.GetAllCinematicTypesContaining(searchString, (int)pageNumber, selectedType);
 
-
-            
             if (!String.IsNullOrEmpty(searchString))
             {
-                int searchPageNmbr = 1;
-                do
-                {
-                    searchViewModelHelper = await movieRepository.GetAllCinematicTypesContaining(searchString, searchPageNmbr, selectedType);
-
-                    foreach (var movie in searchViewModelHelper.Search)
-                    {
-                        searchViewModel.Search.Add(movie);
-                    }
-                    searchPageNmbr++;
-                    
-                } while (searchViewModelHelper.totalResults > searchViewModel.Search.Count());
-
+                searchViewModel.Search = await movieRepository.GetResultsFromAllPages(searchViewModelHelper, searchString, selectedType);
             }
 
-            searchViewModelHelper = await movieRepository.GetAllCinematicTypesContaining(searchString, 1, selectedType);
-            if (searchViewModelHelper.totalResults == 0)
+            if (searchViewModelHelper.totalResults == 0 || String.IsNullOrEmpty(searchString))
             {
                 return View(searchViewModel);
 
@@ -87,7 +77,6 @@ namespace CMDbAPI.Controllers
                 };
                 searchViewModel.PageList.Add(item);
             };
-
 
             ViewData["TitleSortParm"] = sortOrder == "Title" ? "title_desc" : "Title";
             ViewData["YearSortParm"] = sortOrder == "Year" ? "year_desc" : "Year";
@@ -111,8 +100,6 @@ namespace CMDbAPI.Controllers
                     break;
             }
 
-
-            // Returnera en MovieDTO eller annan klass istället för en vymodell?
             MovieDetailsViewModel movieDetailsViewModel;
             foreach (var movie in searchViewModel.Search)
             {
@@ -121,7 +108,6 @@ namespace CMDbAPI.Controllers
                 movie.Genre = movieDetailsViewModel.Genre;
                 movie.Ratings = movieDetailsViewModel.Ratings;
             }
-
 
             return View(searchViewModel);
         }

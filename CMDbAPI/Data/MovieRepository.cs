@@ -286,20 +286,23 @@ namespace CMDbAPI
 
         }
 
-        //public async Task<List<SearchMovieDTO>> GetAllCinematicTypesContaining(string searchString, int pageNumber = 1, string type = null)
-        //{
-        //    string urlString;
+        public async Task<List<SearchMovieDTO>> GetResultsFromAllPages(SearchViewModel searchViewModelHelper, string searchString, string selectedType)
+        {
+            SearchViewModel searchViewModel = new SearchViewModel();
+            int searchPageNmbr = 1;
+            while (searchViewModelHelper.totalResults > searchViewModel.Search.Count)
+            {
+                searchViewModelHelper = await GetAllCinematicTypesContaining(searchString, searchPageNmbr, selectedType);
 
-        //    if (type != null)
-        //    {
-        //        urlString = $"{baseUrl}s={searchString}&type={type}&page={pageNumber}{accessKey}";
-        //        //return await apiWebClient.GetAsync<SearchViewModel>(urlString);
-        //        return await apiWebClient.GetAsync<List<SearchMovieDTO>>(urlString);
-        //    }
-        //    urlString = $"{baseUrl}s={searchString}&page={pageNumber}{accessKey}";
-        //    return await apiWebClient.GetAsync<List<SearchMovieDTO>>(urlString);
+                foreach (var movie in searchViewModelHelper.Search)
+                {
+                    searchViewModel.Search.Add(movie);
+                }
+                searchPageNmbr++;
+            }
 
-        //}
+            return searchViewModel.Search;
+        }
     }
 
     #endregion

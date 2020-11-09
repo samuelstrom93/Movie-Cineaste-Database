@@ -1,5 +1,4 @@
-﻿using CMDB.Extensions;
-using CMDbAPI.Models.DTO;
+﻿using CMDbAPI.Models.DTO;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -21,7 +20,6 @@ namespace CMDbAPI.ViewModel
 
         public List<SelectListItem> PageList = new List<SelectListItem>();
 
-        // Pagination-lösning tagen ifrån docs.Microsoft.com
         public bool HasPreviousPage
         {
             get

@@ -78,7 +78,15 @@ namespace CMDbAPI
         /// <param name="type"></param>
         /// <returns></returns>
         Task<SearchViewModel> GetAllCinematicTypesContaining(string searchString, int pageNumber = 1, string type = null);
-        //Task<List<SearchMovieDTO>> GetAllCinematicTypesContaining(string searchString, int pageNumber = 1, string type = null);
+
+        /// <summary>
+        /// Används för att hämta resultat från respektive
+        /// </summary>
+        /// <param name="searchViewModelHelper"></param>
+        /// <param name="searchString"></param>
+        /// <param name="selectedType"></param>
+        /// <returns></returns>
+        Task<List<SearchMovieDTO>> GetResultsFromAllPages(SearchViewModel searchViewModelHelper, string searchString, string selectedType = null);
 
     }
 }

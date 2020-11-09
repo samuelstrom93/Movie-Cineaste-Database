@@ -19,11 +19,11 @@
         {
             <span id="left">
                 <label><b>Sort by:</b></label><br />
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["TitleSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Title</a>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["YearSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Year</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["TitleSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-selectedType="@ViewData["SelectedType"]" >Title</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["YearSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-selectedType="@ViewData["SelectedType"]">Year</a>
 
             </span>
-            <form asp-action="Index" class="form-selectType" method="get">
+            <form asp-action="Index" class="form-select" method="get">
                 <input hidden="hidden" name="currentFilter" value="@ViewData["CurrentFilter"]" />
                 <input hidden="hidden" name="sortOrder" value="@ViewData["CurrentSort"]" />
                 <input hidden="hidden" name="pageNumber" value="@ViewData["PageIndex"]" />
@@ -76,7 +76,6 @@
                         }
                     </p>
                 </div>
-
             }
 
             <div class="navigation-container">
@@ -84,6 +83,7 @@
                 <form asp-action="Index" class="form-selectType" method="get">
                     <input hidden="hidden" name="currentFilter" value="@ViewData["CurrentFilter"]" />
                     <input hidden="hidden" name="sortOrder" value="@ViewData["CurrentSort"]" />
+                    <input hidden="hidden" name="selectedType" value="@ViewData["SelectedType"]" />
                     <p>
                         Page:
                         @Html.DropDownList("pageNumber", new SelectList(Model.PageList, "Value", "Text"), new { @onchange = "@onChange(this.value)" })
@@ -97,6 +97,7 @@
                        asp-route-sortOrder="@ViewData["CurrentSort"]"
                        asp-route-pageNumber="@(Model.PageIndex - 1)"
                        asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       asp-route-selectedType="@ViewData["SelectedType"]"
                        class="btn btn-default @prevDisabled">
                         Previous
                     </a>
@@ -104,6 +105,7 @@
                        asp-route-sortOrder="@ViewData["CurrentSort"]"
                        asp-route-pageNumber="@(Model.PageIndex + 1)"
                        asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       asp-route-selectedType="@ViewData["SelectedType"]"
                        class="btn btn-default @nextDisabled">
                         Next
                     </a>

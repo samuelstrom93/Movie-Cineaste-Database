@@ -16,11 +16,10 @@ namespace CMDbAPI.ViewModel
         public string SearchString { get; set; }
 
         public int totalResults { get; set; }
-        public int FirstPage { get; set; }
         public int PageIndex { get; set; } 
-        public int PreviousPage { get; set; }
         public int TotalPages { get; set; }
 
+        public List<SelectListItem> PageList = new List<SelectListItem>();
 
         // Pagination-lösning tagen ifrån docs.Microsoft.com
         public bool HasPreviousPage
@@ -61,8 +60,6 @@ namespace CMDbAPI.ViewModel
 
         public SearchViewModel()
         {
-
-
             types = new List<SelectListItem>
             {
                 new SelectListItem { Value = null, Text = "All"},

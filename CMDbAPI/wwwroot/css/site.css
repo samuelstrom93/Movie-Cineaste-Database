@@ -240,16 +240,17 @@ fieldset p {
     clear: both;
 }
 
-.form-selectType {
-    float: left;
-}
 
 #form-submit {
     background-color: darkgrey;
     border: thin solid black;
     cursor: pointer;
+    margin-left: 0.5%;
 }
 
+#form-submit:hover {
+    background-color: lightgrey;   
+}
 
 .navigation-container {
     text-align: center;
@@ -265,8 +266,8 @@ fieldset p {
 }
 
 .btn.btn-default {
-    width: 8vh;
-    height: 2vh;
+    width: 7vh;
+    height: 1.8vh;
     background-color: darkgrey;
     cursor: pointer;
     border: thin solid black;
@@ -283,8 +284,8 @@ fieldset p {
 }
 
 .btn.btn-default.disabled {
-    width: 8vh;
-    height: 2vh;
+    width: 7vh;
+    height: 1.8vh;
     background-color: darkgrey;
     cursor: pointer;
     border: thin solid black;
@@ -297,6 +298,10 @@ fieldset p {
     margin: 1%;
 }
 
+#left {
+    float: left;
+    font: bold large Times;
+}
 
 /* ----------------MovieDetails---------------------*/
 .wrapper {
@@ -347,6 +352,12 @@ fieldset p {
 #center {
     text-align: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    clear: both;
+}
+
+.div-center {
+    margin: 1.5% auto;
+    text-align: center;
 }
 
 #plot {
@@ -433,8 +444,6 @@ fieldset p {
 .dislike-btn:disabled {
     pointer-events: none;
 }
-
-
 
 .low-score {
     background: red;

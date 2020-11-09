@@ -7,6 +7,7 @@ using CMDB.Extensions;
 using CMDbAPI.ViewModel;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CMDbAPI.Controllers
 {
@@ -14,7 +15,6 @@ namespace CMDbAPI.Controllers
     {
 
         private IMovieRepository movieRepository;
-        //private SearchViewModel searchViewModel;
         private SearchViewModel searchViewModelHelper;
         private SearchViewModel searchViewModel = new SearchViewModel();
         private int pageSize = 10;
@@ -53,8 +53,12 @@ namespace CMDbAPI.Controllers
                 int searchPageNmbr = 1;
                 do
                 {
-
                     searchViewModelHelper = await movieRepository.GetAllCinematicTypesContaining(searchString, searchPageNmbr);
+
+                    //if (searchViewModelHelper.Search.Count == 0)
+                    //{
+                    //    break;
+                    //}
 
                     foreach (var movie in searchViewModelHelper.Search)
                     {
@@ -62,15 +66,33 @@ namespace CMDbAPI.Controllers
                     }
                     searchPageNmbr++;
                     
-                } while (searchViewModelHelper.totalResults >= searchViewModel.Search.Count());
+                } while (searchViewModelHelper.totalResults > searchViewModel.Search.Count());
+
             }
 
             searchViewModelHelper = await movieRepository.GetAllCinematicTypesContaining(searchString);
+            if (searchViewModelHelper.totalResults == 0)
+            {
+                return View(searchViewModel);
+
+            }
             searchViewModel.totalResults = searchViewModelHelper.totalResults;
 
             searchViewModel.PageIndex = (int)pageNumber;
             searchViewModel.TotalPages = (int)Math.Ceiling(searchViewModel.totalResults / (double)pageSize);
             int excludeRecords = (int)((pageSize * pageNumber) - pageSize);
+
+            SelectListItem item;
+
+            for (int i = 1; i <= searchViewModel.TotalPages; i++)
+            {
+                item = new SelectListItem
+                {
+                    Value = i.ToString(),
+                    Text = i.ToString(),
+                };
+                searchViewModel.PageList.Add(item);
+            };
 
 
             ViewData["TitleSortParm"] = sortOrder == "Title" ? "title_desc" : "Title";

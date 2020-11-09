@@ -9,16 +9,32 @@ namespace CMDbAPI.ViewModel
 {
     public class SearchViewModel
     {
-        public List<SearchMovieDTO> Search { get; set; }
+        public List<SearchMovieDTO> Search { get; set; } = new List<SearchMovieDTO>();
 
         public string SelectedType { get; set; }
         public string SearchString { get; set; }
 
         public int totalResults { get; set; }
-        public int FirstPage { get; set; } = 1;
-        public int CurrentPage { get; set; } = 1;
-        public int PreviousPage { get; set; }
+        public int PageIndex { get; set; } 
         public int TotalPages { get; set; }
+
+        public List<SelectListItem> PageList = new List<SelectListItem>();
+
+        public bool HasPreviousPage
+        {
+            get
+            {
+                return (PageIndex > 1);
+            }
+        }
+
+        public bool HasNextPage
+        {
+            get
+            {
+                return (PageIndex < TotalPages);
+            }
+        }
 
         private List<SelectListItem> types;
 

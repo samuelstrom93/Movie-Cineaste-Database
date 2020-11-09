@@ -1,29 +1,43 @@
 ﻿@model CMDbAPI.ViewModel.SearchViewModel
 
-@Html.HiddenFor(x => x.FirstPage)
 @Html.HiddenFor(x => x.TotalPages)
 
 <main>
 
-    <form asp-action="CinematicSelection" asp-controller="Search" class="form-selectType" method="get">
-        <input hidden="hidden" id="searchString" name="searchString" value="@Model.SearchString" />
-        <input hidden="hidden" id="currentPage" name="currentPage" value="@Model.CurrentPage" />
-        <label><b>Select Type:</b></label>
-        @Html.DropDownListFor(x => Model.SelectedType, new SelectList(Model.Types, "Value", "Text"), new { @onchange = "@onChange(this.value)" })
-        <button type="submit" id="form-submit">OK</button>
-    </form>
+
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
 
     <div class="search-container">
-        @if (Model.Search == null)
+        @if (Model.totalResults == 0)
         {
-            <p id="center">No results found for <b>"@Model.SearchString"</b> </p>
+            <p id="center">No results found for <b>"@ViewData["CurrentFilter"]"</b> </p>
         }
         else
         {
-            <p id="center">
-                Results for: <b>"@Model.SearchString"</b><br />
-                Total hits: <b>@Model.totalResults</b> Divided into: <b>@Model.TotalPages</b> pages
-            </p>
+            <span id="left">
+                <label><b>Sort by:</b></label><br />
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["TitleSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-selectedType="@ViewData["SelectedType"]" >Title</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["YearSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-selectedType="@ViewData["SelectedType"]">Year</a>
+
+            </span>
+            <form asp-action="Index" class="form-select" method="get">
+                <input hidden="hidden" name="currentFilter" value="@ViewData["CurrentFilter"]" />
+                <input hidden="hidden" name="sortOrder" value="@ViewData["CurrentSort"]" />
+                <input hidden="hidden" name="pageNumber" value="@ViewData["PageIndex"]" />
+                <br />
+                @Html.DropDownListFor(x => Model.SelectedType, new SelectList(Model.Types, "Value", "Text"))
+                <button type="submit" id="form-submit">OK</button>
+            </form>
+            <div class="div-center">
+                <span id="center">
+                    Results for: <b>"@ViewData["CurrentFilter"]"</b><br />
+                    Total hits: <b>@Model.totalResults</b> Divided into: <b>@Model.TotalPages</b> pages
+
+                </span>
+            </div>
 
             @foreach (var movie in Model.Search)
             {
@@ -62,26 +76,41 @@
                         }
                     </p>
                 </div>
-
             }
 
-    <div class="navigation-container">
-        <p>Page: <b>@Model.CurrentPage</b> of <b>@Model.TotalPages</b> </p>
-        <div class="navigation-flex">
-            <form action="@Url.Action("PreviousPage", "Search")" method="get">
-                <input hidden="hidden" id="currentPage" name="currentPage" value="@Model.CurrentPage" />
-                <input hidden="hidden" id="searchString" name="searchString" value="@Model.SearchString" />
-                <input hidden="hidden" id="cinematicType" name="cinematicType" value="@Model.SelectedType" />
-                <input class="btnPrevious" type="submit" value="Previous" id="navigationBtn-previous" />
-            </form>
-            <form action="@Url.Action("NextPage", "Search")" method="get">
-                <input hidden="hidden" id="currentPage" name="currentPage" value="@Model.CurrentPage" />
-                <input hidden="hidden" id="searchString" name="searchString" value="@Model.SearchString" />
-                <input hidden="hidden" id="cinematicType" name="cinematicType" value="@Model.SelectedType" />
-                <input class="btnNext" type="submit" value="Next" id="navigationBtn-next" />
-            </form>
-        </div>
-    </div>
+            <div class="navigation-container">
+
+                <form asp-action="Index" class="form-selectType" method="get">
+                    <input hidden="hidden" name="currentFilter" value="@ViewData["CurrentFilter"]" />
+                    <input hidden="hidden" name="sortOrder" value="@ViewData["CurrentSort"]" />
+                    <input hidden="hidden" name="selectedType" value="@ViewData["SelectedType"]" />
+                    <p>
+                        Page:
+                        @Html.DropDownList("pageNumber", new SelectList(Model.PageList, "Value", "Text"), new { @onchange = "@onChange(this.value)" })
+                        of <b>@Model.TotalPages</b>
+                        <button type="submit" id="form-submit">GO</button>
+                    </p>
+                </form>
+
+                <div class="navigation-flex">
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@ViewData["CurrentSort"]"
+                       asp-route-pageNumber="@(Model.PageIndex - 1)"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       asp-route-selectedType="@ViewData["SelectedType"]"
+                       class="btn btn-default @prevDisabled">
+                        Previous
+                    </a>
+                    <a asp-action="Index"
+                       asp-route-sortOrder="@ViewData["CurrentSort"]"
+                       asp-route-pageNumber="@(Model.PageIndex + 1)"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       asp-route-selectedType="@ViewData["SelectedType"]"
+                       class="btn btn-default @nextDisabled">
+                        Next
+                    </a>
+                </div>
+            </div>
         }
     </div>
 </main>

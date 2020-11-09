@@ -2,6 +2,7 @@
 using CMDbAPI.Models.DTO;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,6 +21,7 @@ namespace CMDbAPI.ViewModel
         public string Plot { get; set; }
         public string Director { get; set; }
         public List<Ratings> Ratings { get; set; } = new List<Ratings>();
+
         public int NumberOfLikes { get; set; }        
         public int NumberOfDislikes { get; set; }
 

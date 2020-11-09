@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using CMDbAPI.Models.DTO;
 using CMDbAPI.ViewModel;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CMDbAPI.Controllers
 {
@@ -13,6 +15,9 @@ namespace CMDbAPI.Controllers
     {
 
         private IMovieRepository movieRepository;
+        private SearchViewModel searchViewModelHelper;
+        private SearchViewModel searchViewModel = new SearchViewModel();
+        private int pageSize = 10;
 
         public SearchController(IMovieRepository movieRepository)
         {
@@ -20,177 +25,91 @@ namespace CMDbAPI.Controllers
         }
 
         /// <summary>
-        /// Vi hämtar resultat ifrån OMDB utifrån inparameter 'searchString'.
-        /// Vi använder sedan en pagination-lösning för att navigera till föregående och nästa sida.
+        /// Inspiration från Microsoft dokumentation: https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/sort-filter-page?view=aspnetcore-3.1#feedback
+        /// Har inte hunnit putsa till koden så mycket vi har velat i denna controller. Hade gärna flyttat mycket kod till SearchViewModel istället för ren kod här i controllern.
+        /// Hade gärna velat slimma till mycket och få bort onödig kod men har inte hunnit pga deadline.
         /// </summary>
         /// <param name="searchString"></param>
+        /// <param name="pageNumber"></param>
+        /// <param name="currentFilter"></param>
+        /// <param name="sortOrder"></param>
+        /// <param name="selectedType"></param>
         /// <returns></returns>
-        [HttpGet]
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, int? pageNumber, string currentFilter, string sortOrder, string selectedType)
         {
-            try
+            if (searchString != null)
             {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            pageNumber = pageNumber ?? 1;
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["CurrentFilter"] = searchString;
+            ViewData["SelectedType"] = selectedType;
+            searchViewModelHelper = await movieRepository.GetAllCinematicTypesContaining(searchString, (int)pageNumber, selectedType);
 
-                // Instansierar en vymodell och hämtar resultatet ifrån sökningen
-                var searchViewModel = await movieRepository.GetAllCinematicTypesContaining(searchString);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                searchViewModel.Search = await movieRepository.GetResultsFromAllPages(searchViewModelHelper, searchString, selectedType);
+            }
 
-
-                // Hur många sidor som behövs för kunna navigera mellan alla sökningsträffar
-                int pageSize = 10;
-                int totalPages = (int)Math.Ceiling(searchViewModel.totalResults / (double)pageSize);
-                searchViewModel.TotalPages = totalPages;
-                searchViewModel.SearchString = searchString;
-                
-               
-                if (searchViewModel.Search == null)
-                {
-                    return View(searchViewModel);
-                }
-
-                // Hämtar mer detaljer till varje respektive film ifrån OMDB.
-                MovieDetailsViewModel movieDetailsViewModel;
-                foreach (var movie in searchViewModel.Search)
-                {
-                    movieDetailsViewModel = await movieRepository.GetSummarySingleMovie(movie.ImdbID);
-                    movie.Director = movieDetailsViewModel.Director;
-                    movie.Genre = movieDetailsViewModel.Genre;
-                    movie.Ratings = movieDetailsViewModel.Ratings;
-                }
+            if (searchViewModelHelper.totalResults == 0 || String.IsNullOrEmpty(searchString))
+            {
                 return View(searchViewModel);
+
             }
-            catch (Exception)
+            searchViewModel.totalResults = searchViewModelHelper.totalResults;
+            searchViewModel.PageIndex = (int)pageNumber;
+            searchViewModel.TotalPages = (int)Math.Ceiling(searchViewModel.totalResults / (double)pageSize);
+            int excludeRecords = (int)((pageSize * pageNumber) - pageSize);
+
+            SelectListItem item;
+
+            for (int i = 1; i <= searchViewModel.TotalPages; i++)
             {
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Används för att navigera framåt.
-        /// </summary>
-        /// <param name="searchString"></param>
-        /// <param name="currentPage"></param>
-        /// <param name="cinematicType">Film/serie/spel</param>
-        /// <returns></returns>
-        [HttpGet]
-        public async Task<IActionResult> NextPage(string searchString, int currentPage, string cinematicType)
-        {
-            try
-            {
-                int nextPage = currentPage+1;
-                SearchViewModel searchViewModel = new SearchViewModel();
-                searchViewModel = await movieRepository.GetAllCinematicTypesContaining(searchString, nextPage, cinematicType );
-                searchViewModel.SearchString = searchString;
-                searchViewModel.CurrentPage = nextPage;
-                searchViewModel.SelectedType = cinematicType;
-
-                int pageSize = 10;
-                var totalPages = (int)Math.Ceiling(searchViewModel.totalResults / (double)pageSize);
-                searchViewModel.TotalPages = totalPages;
-
-                MovieDetailsViewModel movieDetailsViewModel;
-                foreach (var movie in searchViewModel.Search)
+                item = new SelectListItem
                 {
-                    movieDetailsViewModel = await movieRepository.GetSummarySingleMovie(movie.ImdbID);
-                    movie.Director = movieDetailsViewModel.Director;
-                    movie.Genre = movieDetailsViewModel.Genre;
-                    movie.Ratings = movieDetailsViewModel.Ratings;
-                }    
-                
-                return View("index", searchViewModel);
-            }
-            catch (Exception)
+                    Value = i.ToString(),
+                    Text = i.ToString(),
+                };
+                searchViewModel.PageList.Add(item);
+            };
+
+            ViewData["TitleSortParm"] = sortOrder == "Title" ? "title_desc" : "Title";
+            ViewData["YearSortParm"] = sortOrder == "Year" ? "year_desc" : "Year";
+
+            switch (sortOrder)
             {
-
-                throw;
-            }         
-        }
-
-        /// <summary>
-        /// Används för att navigera bakåt
-        /// </summary>
-        /// <param name="searchString"></param>
-        /// <param name="currentPage"></param>
-        /// <param name="cinematicType">Film/serie/spel</param>
-        /// <returns></returns>
-        [HttpGet]
-        public async Task<IActionResult> PreviousPage(string searchString, int currentPage, string cinematicType)
-        {
-            try
-            {
-                int previousPage = currentPage - 1;
-                SearchViewModel searchViewModel = new SearchViewModel();
-                searchViewModel = await movieRepository.GetAllCinematicTypesContaining(searchString, previousPage, cinematicType);
-                searchViewModel.SearchString = searchString;
-                searchViewModel.CurrentPage = previousPage;
-                searchViewModel.SelectedType = cinematicType;
-
-                int pageSize = 10;
-                var totalPages = (int)Math.Ceiling(searchViewModel.totalResults / (double)pageSize);
-                searchViewModel.TotalPages = totalPages;
-
-                MovieDetailsViewModel movieDetailsViewModel;
-                foreach (var movie in searchViewModel.Search)
-                {
-                    movieDetailsViewModel = await movieRepository.GetSummarySingleMovie(movie.ImdbID);
-                    movie.Director = movieDetailsViewModel.Director;
-                    movie.Genre = movieDetailsViewModel.Genre;
-                    movie.Ratings = movieDetailsViewModel.Ratings;
-                }
-
-                return View("index", searchViewModel);
+                case "Title":
+                    searchViewModel.Search = searchViewModel.Search.OrderBy(x => x.Title).Skip(excludeRecords).Take(pageSize).ToList();
+                    break;
+                case "title_desc":
+                    searchViewModel.Search = searchViewModel.Search.OrderByDescending(x => x.Title).Skip(excludeRecords).Take(pageSize).ToList(); 
+                    break;
+                case "Year":
+                    searchViewModel.Search = searchViewModel.Search.OrderBy(x => x.Year).Skip(excludeRecords).Take(pageSize).ToList();
+                    break;
+                case "year_desc":
+                    searchViewModel.Search = searchViewModel.Search.OrderByDescending(x => x.Year).Skip(excludeRecords).Take(pageSize).ToList(); 
+                    break;
+                default:
+                    searchViewModel.Search = searchViewModel.Search.Skip(excludeRecords).Take(pageSize).ToList();
+                    break;
             }
-            catch (Exception)
+
+            MovieDetailsViewModel movieDetailsViewModel;
+            foreach (var movie in searchViewModel.Search)
             {
-
-                throw;
+                movieDetailsViewModel = await movieRepository.GetSummarySingleMovie(movie.ImdbID);
+                movie.Director = movieDetailsViewModel.Director;
+                movie.Genre = movieDetailsViewModel.Genre;
+                movie.Ratings = movieDetailsViewModel.Ratings;
             }
-        }
 
-        /// <summary>
-        /// Metod för att välja typ av medium som användaren vill visa i sökningen - Film, serie eller spel.
-        /// </summary>
-        /// <param name="oldSearchViewModel"></param>
-        /// <returns></returns>
-        [HttpGet]
-        public async Task<IActionResult> CinematicSelection(SearchViewModel oldSearchViewModel)
-        {
-            try
-            {
-                int page = 1;
-                var searchString = oldSearchViewModel.SearchString;
-                var cinematicType = oldSearchViewModel.SelectedType;
-                var searchViewModel = await movieRepository.GetAllCinematicTypesContaining(searchString, page, cinematicType);
-
-                if (searchViewModel.Search == null)
-                {
-                    searchViewModel.SearchString = searchString;
-                    return View("index",searchViewModel);
-                }
-              
-                int pageSize = 10;
-                var totalPages = (int)Math.Ceiling(searchViewModel.totalResults / (double)pageSize);
-
-                searchViewModel.SearchString = searchString;
-                searchViewModel.SelectedType = cinematicType;
-                searchViewModel.TotalPages = totalPages;
-
-                MovieDetailsViewModel movieDetailsViewModel;
-                foreach (var movie in searchViewModel.Search)
-                {
-                    movieDetailsViewModel = await movieRepository.GetSummarySingleMovie(movie.ImdbID);
-                    movie.Director = movieDetailsViewModel.Director;
-                    movie.Genre = movieDetailsViewModel.Genre;
-                    movie.Ratings = movieDetailsViewModel.Ratings;
-                }
-
-                return View("index", searchViewModel);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-           
-         
+            return View(searchViewModel);
         }
     }
 }

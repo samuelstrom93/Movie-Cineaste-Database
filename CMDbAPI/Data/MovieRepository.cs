@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -247,17 +248,23 @@ namespace CMDbAPI
 
         public async Task<List<HomeTopListMovieDTO>> GetTopListAggregatedData(Parameter parameter)
         {
+            List<Task<HomeTopListMovieDTO>> tasks = new List<Task<HomeTopListMovieDTO>>();
             var toplist = await GetToplist(parameter);
-            List<HomeTopListMovieDTO> toplistMovies = new List<HomeTopListMovieDTO>();
-            HomeTopListMovieDTO topListMovie;
 
             foreach (var movie in toplist)
             {
-                topListMovie = await GetTopListMovieDetails(movie.ImdbID);
-                topListMovie.NumberOfDislikes = movie.NumberOfDislikes;
-                topListMovie.NumberOfLikes = movie.NumberOfLikes;
-                toplistMovies.Add(topListMovie);
+                tasks.Add(GetTopListMovieDetails(movie.ImdbID));
             }
+            var results = Task.WhenAll(tasks);
+
+            var tempToplist = toplist.ToArray();
+            for (int i = 0; i < tasks.Count; i++)
+            {
+                tasks[i].Result.NumberOfLikes = tempToplist[i].NumberOfLikes;
+                tasks[i].Result.NumberOfDislikes = tempToplist[i].NumberOfDislikes;
+            }
+
+            List<HomeTopListMovieDTO> toplistMovies = results.Result.ToList();
             return toplistMovies;
         }
 
@@ -284,6 +291,24 @@ namespace CMDbAPI
             urlString = $"{baseUrl}s={searchString}&page={pageNumber}{accessKey}";
             return await apiWebClient.GetAsync<SearchViewModel>(urlString);
 
+        }
+
+        public async Task<List<SearchMovieDTO>> GetResultsFromAllPages(SearchViewModel searchViewModelHelper, string searchString, string selectedType)
+        {
+            SearchViewModel searchViewModel = new SearchViewModel();
+            int searchPageNmbr = 1;
+            while (searchViewModelHelper.totalResults > searchViewModel.Search.Count)
+            {
+                searchViewModelHelper = await GetAllCinematicTypesContaining(searchString, searchPageNmbr, selectedType);
+
+                foreach (var movie in searchViewModelHelper.Search)
+                {
+                    searchViewModel.Search.Add(movie);
+                }
+                searchPageNmbr++;
+            }
+
+            return searchViewModel.Search;
         }
     }
 

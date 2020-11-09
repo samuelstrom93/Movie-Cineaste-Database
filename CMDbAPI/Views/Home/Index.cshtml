@@ -82,7 +82,7 @@
                         <p id="normal-label"><label class="bigger">Likes</label><br /> <span id="likes">@movie.NumberOfLikes</span></p>
                         <p id="normal-label"><label class="bigger">Dislikes</label><br /><span id="dislikes">@movie.NumberOfDislikes</span></p>
                     </div>
-                    @if (movie.Plot == "No plot available" || movie.Plot == "N/A")
+                    @if (movie.Plot == "No plot available" || movie.Plot == "N/A" || movie.Plot == null)
                     {
                         <p id="plot">
                             <label id="subplot">Plot:</label><br />

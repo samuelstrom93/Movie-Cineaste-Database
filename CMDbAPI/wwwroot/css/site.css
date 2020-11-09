@@ -3,7 +3,7 @@
 }
 
 main {
-    min-height: 20vh;
+    min-height: 10vh;
 }
 
 /*--------------------HEADER-------------  */
@@ -240,7 +240,11 @@ fieldset p {
     clear: both;
 }
 
-.form-selectType {
+#SelectedType {
+    margin: 5px 0px 0px 10px;
+}
+
+.form-select {
     float: left;
 }
 
@@ -250,6 +254,9 @@ fieldset p {
     cursor: pointer;
 }
 
+#form-submit:hover {
+    background-color: lightgrey;   
+}
 
 .navigation-container {
     text-align: center;
@@ -264,44 +271,43 @@ fieldset p {
     justify-content: center;
 }
 
-#navigationBtn-previous {
-    margin-right: 25%;
-    width: 8.5vh;
-    height: 2.5vh;
+.btn.btn-default {
+    width: 7vh;
+    height: 1.8vh;
     background-color: darkgrey;
     cursor: pointer;
     border: thin solid black;
     font-weight: bold;
     font: bold large Times;
+    padding: 5px 15px;
+    color: black;
+    margin: 1%;
+    text-align: center;
 }
 
-#navigationBtn-previous:disabled {
-    pointer-events: none;
-}
-
-#navigationBtn-previous:hover {
+.btn.btn-default:hover {
     background-color: lightgrey;
 }
 
-#navigationBtn-next {
-    margin-left: 25%;
-    width: 8.5vh;
-    height: 2.5vh;
+.btn.btn-default.disabled {
+    width: 7vh;
+    height: 1.8vh;
     background-color: darkgrey;
     cursor: pointer;
     border: thin solid black;
     font-weight: bold;
     font: bold large Times;
-}
-
-#navigationBtn-next:disabled {
     pointer-events: none;
+    opacity: 0.3;
+    padding: 5px 15px;
+    color: black;
+    margin: 1%;
 }
 
-    #navigationBtn-next:hover {
-        background-color: lightgrey;
-    }
-
+#left {
+    float: left;
+    font: bold large Times;
+}
 
 /* ----------------MovieDetails---------------------*/
 .wrapper {
@@ -352,6 +358,12 @@ fieldset p {
 #center {
     text-align: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    clear: both;
+}
+
+.div-center {
+    margin: 1.5% auto;
+    text-align: center;
 }
 
 #plot {
@@ -438,8 +450,6 @@ fieldset p {
 .dislike-btn:disabled {
     pointer-events: none;
 }
-
-
 
 .low-score {
     background: red;

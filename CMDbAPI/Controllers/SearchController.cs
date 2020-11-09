@@ -32,7 +32,7 @@ namespace CMDbAPI.Controllers
         /// <param name="searchString"></param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> Index(string searchString, int? pageNumber, string currentFilter, string sortOrder)
+        public async Task<IActionResult> Index(string searchString, int? pageNumber, string currentFilter, string sortOrder, string selectedType)
         {
             if (searchString != null)
             {
@@ -53,12 +53,7 @@ namespace CMDbAPI.Controllers
                 int searchPageNmbr = 1;
                 do
                 {
-                    searchViewModelHelper = await movieRepository.GetAllCinematicTypesContaining(searchString, searchPageNmbr);
-
-                    //if (searchViewModelHelper.Search.Count == 0)
-                    //{
-                    //    break;
-                    //}
+                    searchViewModelHelper = await movieRepository.GetAllCinematicTypesContaining(searchString, searchPageNmbr, selectedType);
 
                     foreach (var movie in searchViewModelHelper.Search)
                     {
@@ -70,14 +65,13 @@ namespace CMDbAPI.Controllers
 
             }
 
-            searchViewModelHelper = await movieRepository.GetAllCinematicTypesContaining(searchString);
+            searchViewModelHelper = await movieRepository.GetAllCinematicTypesContaining(searchString, 1, selectedType);
             if (searchViewModelHelper.totalResults == 0)
             {
                 return View(searchViewModel);
 
             }
             searchViewModel.totalResults = searchViewModelHelper.totalResults;
-
             searchViewModel.PageIndex = (int)pageNumber;
             searchViewModel.TotalPages = (int)Math.Ceiling(searchViewModel.totalResults / (double)pageSize);
             int excludeRecords = (int)((pageSize * pageNumber) - pageSize);

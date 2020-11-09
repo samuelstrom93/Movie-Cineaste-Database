@@ -3,7 +3,7 @@
 }
 
 main {
-    min-height: 20vh;
+    min-height: 10vh;
 }
 
 /*--------------------HEADER-------------  */
@@ -240,6 +240,10 @@ fieldset p {
     clear: both;
 }
 
+
+#SelectedType {
+    margin: 5px 0px 0px 10px;
+}
 
 #form-submit {
     background-color: darkgrey;

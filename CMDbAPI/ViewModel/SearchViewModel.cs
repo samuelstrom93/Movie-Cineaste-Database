@@ -1,4 +1,5 @@
-﻿using CMDbAPI.Models.DTO;
+﻿using CMDB.Extensions;
+using CMDbAPI.Models.DTO;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,28 @@ namespace CMDbAPI.ViewModel
         public string SearchString { get; set; }
 
         public int totalResults { get; set; }
-        public int FirstPage { get; set; } = 1;
-        public int CurrentPage { get; set; } = 1;
+        public int FirstPage { get; set; }
+        public int PageIndex { get; set; } 
         public int PreviousPage { get; set; }
         public int TotalPages { get; set; }
+
+
+        // Pagination-lösning tagen ifrån docs.Microsoft.com
+        public bool HasPreviousPage
+        {
+            get
+            {
+                return (PageIndex > 1);
+            }
+        }
+
+        public bool HasNextPage
+        {
+            get
+            {
+                return (PageIndex < TotalPages);
+            }
+        }
 
         private List<SelectListItem> types;
 

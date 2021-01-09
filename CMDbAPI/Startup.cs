@@ -17,7 +17,6 @@ namespace CMDbAPI
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
@@ -38,7 +37,6 @@ namespace CMDbAPI
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -47,7 +45,7 @@ namespace CMDbAPI
             }
             else
             {
-                app.UseExceptionHandler("/Error"); //Använd som exempel, använd EJ i skarpt läge! Kan visa känslig information!
+                app.UseExceptionHandler("/Error"); //Anv?nd som exempel, anv?nd EJ i skarpt l?ge! Kan visa k?nslig information!
                 app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");               
             }
 
@@ -57,18 +55,7 @@ namespace CMDbAPI
             app.UseRouting();
             app.UseAuthorization();
 
-            //else
-            //{
-            //    app.UseExceptionHandler("/Home/Error");
-            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-            //    app.UseHsts();
-            //}
-
-            //app.UseHttpsRedirection();
-            //app.UseStaticFiles();
-            //app.UseRouting();
-            //app.UseAuthorization();
-
+            
 
 
             app.UseEndpoints(endpoints =>
@@ -79,12 +66,7 @@ namespace CMDbAPI
                     );
             });
 
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllers();
-            //});
-
-            //app.UseCors(MyAllowSpecificOrigins);
+            /
         }
 
     }

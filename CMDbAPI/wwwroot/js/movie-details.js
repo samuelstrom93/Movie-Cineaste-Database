@@ -46,6 +46,7 @@ const movieTitle = document.querySelector('.center').textContent;
 const column = document.querySelector('.ratings-container')
 const newText = document.createElement('h4')
 
+let originUrl = 'https://localhost:5001';
 
 function like() {
     let url = new URL('/api/movie/' + imdbID + '/like', window.location.origin);
@@ -71,15 +72,11 @@ function like() {
 
 
 function dislike() {
-
-    let url = new URL('/api/movie/' + imdbID + '/dislike', window.location.origin);
-    $.ajax({
-        url: url,
-        type: 'GET',
-        dataType: 'json',
-        success: function (response) {
-            console.log(response);
-            document.querySelector('#dislikes').textContent = response.numberOfDislikes;
+    fetch(originUrl + '/api/movie/' + imdbID + '/dislike')
+        .then((response) => response.json())
+        .then(function (data) {
+            console.log(data);
+            document.querySelector('#dislikes').textContent = data.numberOfDislikes;
             likeBtn.disabled = true;
             dislikeBtn.disabled = true;
             likeBtn.style.opacity = "0.3";
@@ -88,7 +85,9 @@ function dislike() {
             newText.appendChild(likeText)
             newText.style.color = "red";
             column.appendChild(newText)
-        },
-        error: function (response) { console.log(response) }
-    });
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 }
+

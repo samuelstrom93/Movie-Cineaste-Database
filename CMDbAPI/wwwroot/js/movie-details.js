@@ -49,32 +49,6 @@ const newText = document.createElement('h4')
 let originUrl = 'https://localhost:5001';
 
 
-
-
-
-//function like() {
-//    let url = new URL('/api/movie/' + imdbID + '/like', window.location.origin);
-//    $.ajax({
-//        url: url,
-//        type: 'GET',
-//        dataType: 'json',
-//        success: function (response) {
-//            console.log(response);
-//            document.querySelector('#likes').textContent = response.numberOfLikes;
-//            likeBtn.disabled = true;
-//            dislikeBtn.disabled = true;
-//            likeBtn.style.opacity = "0.3";
-//            dislikeBtn.style.opacity = "0.3";
-//            let likeText = document.createTextNode(`You liked "${movieTitle}"!`);
-//            newText.appendChild(likeText)
-//            newText.style.color = "green";
-//            column.appendChild(newText)
-//        },
-//        error: function (response) { console.log(response) }
-//    })
-//}
-
-
 function like() {
     fetch(originUrl + '/api/movie/' + imdbID + '/like')
         .then((response) => response.json())

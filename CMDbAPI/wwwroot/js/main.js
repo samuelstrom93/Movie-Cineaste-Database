@@ -58,6 +58,5 @@ for (let i = 0; i < pies.length; i++) {
             }
             break;
         default:
-            console.log("Ingen rating alls")
     }
 }

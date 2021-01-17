@@ -1,0 +1,77 @@
+﻿header {
+    min-height: 10vh;
+    background: #ba2d2d;
+    background: linear-gradient(to bottom right, #C70D0D, rgb(148, 15, 15));
+}
+
+header a {
+    color: #eee;
+    text-decoration: none;
+}
+
+#title-header {
+    font: bold xx-large Georgia;
+    color: white;
+    margin: 0%;
+}
+
+a:hover {
+    background: black;
+    background-color: hsla(0, 0%, 2%, 0.2);
+}
+
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    text-align: center;
+}
+
+.form-flex {
+    display: flex;
+    margin-right: 25%;
+}
+
+.movie-search {
+    height: 40px;
+    border-radius: 5px;
+}
+
+input[type="text"] {
+    padding-left: 3%;
+    font-size: 20px;
+    width: 550px;
+}
+
+.btn-moviesearch {
+    height: 42px;
+    width: 25%;
+    margin: auto;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+}
+
+.btn-moviesearch:hover {
+    cursor: pointer;
+    background-color: grey;
+}
+
+.header-flex figure {
+    margin: 1% 0%;
+}
+
+#home {
+    margin-left: 2.5%;
+}
+
+.CMDb-icon {
+    height: 100px;
+    width: 100px;
+}
+
+header figcaption {
+    text-align: center;
+    font-weight: bold;
+}

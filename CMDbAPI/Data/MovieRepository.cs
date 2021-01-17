@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -245,6 +246,8 @@ namespace CMDbAPI
             string urlString = baseUrl + "i=" + imdbId + accessKey;
             return await apiWebClient.GetAsync<HomeTopListMovieDTO>(urlString);
         }
+
+
 
         public async Task<List<HomeTopListMovieDTO>> GetTopListAggregatedData(Parameter parameter)
         {

@@ -23,9 +23,9 @@ namespace CMDbAPI.Infrastructure
             {
                 var response = await client.GetAsync(urlString, HttpCompletionOption.ResponseHeadersRead);
                 response.EnsureSuccessStatusCode();
-                var data = await response.Content.ReadAsStringAsync();              
-               var result = JsonConvert.DeserializeObject<T>(data);
-               return result;
+                var data = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<T>(data);
+                return result;
             }
         }
     }

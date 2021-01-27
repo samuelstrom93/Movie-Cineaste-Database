@@ -1,0 +1,68 @@
+﻿
+
+@media (max-width: 980px) {
+    html {
+        width: 100%;
+    }
+
+    .movie-title {
+        font-size: 1.75em;
+    }
+
+    .top-movie {
+        width: 200px;
+        height: 250px;
+    }
+
+    .header-flex {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    input[type="text"] {
+        padding-left: 3%;
+        font-size: 20px;
+        width: auto;
+    }
+
+    img {
+        width: 150px;
+        height: 200px;
+    }
+
+    .center {
+        font-size: 1.5em;
+    }
+
+    .like-btn {
+        height: 5vh;
+        width: 15vh;
+    }
+
+    .dislike-btn {
+        height: 5vh;
+        width: 15vh;
+    }
+
+    #searchedMovieImg {
+        width: 150px;
+        height: 200px;
+    }
+
+    .search-movies-flexbox {
+        width: 100%;
+        border: none;
+        border-bottom: thin solid black;
+    }
+
+    figcaption {
+        width: 200px;
+        padding: 3px 0;
+    }
+
+    .form-flex {
+        margin: 1% auto;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+}

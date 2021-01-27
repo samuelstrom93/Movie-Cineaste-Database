@@ -1,0 +1,13 @@
+﻿.site-footer {
+    height: 10vh;
+    padding: 1%;
+    background: #ba2d2d;
+    color: #fff;
+    background: linear-gradient(to bottom right, #C70D0D, rgb(148, 15, 15));
+    font-size: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+

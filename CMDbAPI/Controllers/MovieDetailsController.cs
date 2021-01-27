@@ -25,15 +25,10 @@ namespace CMDbAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string imdbID)
         {
-            try
-            {
-                MovieDetailsViewModel movieDetailsViewModel = await movieRepository.GetSummarySingleMovie(imdbID);
-                return View(movieDetailsViewModel);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            
+            MovieDetailsViewModel movieDetailsViewModel = await movieRepository.GetSummarySingleMovie(imdbID);
+            return View(movieDetailsViewModel);
+            
         }
     }
 }

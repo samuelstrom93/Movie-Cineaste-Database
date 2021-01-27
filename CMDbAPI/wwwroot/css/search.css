@@ -1,0 +1,98 @@
+﻿
+.search-container {
+    margin: 1% auto;
+}
+
+.search-movies-flexbox {
+    display: flex;
+    border: 1px solid black;
+    align-items: center;
+    font: large Georgia;
+    width: 80%;
+    margin: auto;
+}
+
+    .search-movies-flexbox p {
+        margin-left: 5%;
+    }
+
+    .search-movies-flexbox img {
+        width: 240px;
+        height: 320px;
+        margin-left: 0px;
+    }
+
+#center {
+    text-align: center;
+    font-size: 20px;
+    clear: both;
+}
+
+#SelectedType {
+    margin: 5px 0 0 10px;
+}
+
+.form-select {
+    float: left;
+}
+
+#form-submit {
+    background-color: darkgrey;
+    border: thin solid black;
+    cursor: pointer;
+}
+
+    #form-submit:hover {
+        background-color: lightgrey;
+    }
+
+.navigation-container {
+    text-align: center;
+}
+
+    .navigation-container p {
+        font: larger Times;
+    }
+
+.navigation-flex {
+    display: flex;
+    justify-content: center;
+}
+
+.btn.btn-default {
+    width: 7vh;
+    height: 1.8vh;
+    background-color: darkgrey;
+    cursor: pointer;
+    border: thin solid black;
+    font-weight: bold;
+    font: bold large Times;
+    padding: 5px 15px;
+    color: black;
+    margin: 1%;
+    text-align: center;
+}
+
+    .btn.btn-default:hover {
+        background-color: lightgrey;
+    }
+
+    .btn.btn-default.disabled {
+        width: 7vh;
+        height: 1.8vh;
+        background-color: darkgrey;
+        cursor: pointer;
+        border: thin solid black;
+        font-weight: bold;
+        font: bold large Times;
+        pointer-events: none;
+        opacity: 0.3;
+        padding: 5px 15px;
+        color: black;
+        margin: 1%;
+    }
+
+#left {
+    float: left;
+    font: bold large Times;
+}

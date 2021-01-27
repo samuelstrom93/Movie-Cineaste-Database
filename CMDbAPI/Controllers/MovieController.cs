@@ -30,52 +30,34 @@ namespace CMDbAPI.Controllers
         // GET: api/Movie/
         public async Task<ActionResult<Movie>> MovieRating(string imdbId)
         {
-            try
-            {
-                return await context.GetMovieRatings(imdbId);
-            }
-            catch (System.Exception)
-            {
-                throw;
-            }
+            
+            return await context.GetMovieRatings(imdbId);
+            
         }
 
         [HttpGet("{imdbId}/like")]
         // GET: api/Movie/3/Like
         public async Task<ActionResult<Movie>> LikeMovie(string imdbId)
         {
-            try
-            {
+            
+            if (!imdbId.IsValidImdbId())
+                return BadRequest();
 
-                if (!imdbId.IsValidImdbId())
-                    return BadRequest();
-
-                return await context.Rate(imdbId);
-            }
-            catch (System.Exception)
-            {
-
-                throw;
-            }
+            return await context.Rate(imdbId);
+            
         }
 
         [HttpGet("{imdbId}/dislike")]
         // GET: api/Movie/3/Dislike
         public async Task<ActionResult<Movie>> DislikeMovie(string imdbId)
         {
-            try
-            {
-                if (!imdbId.IsValidImdbId())
-                    return BadRequest();
+            
+            if (!imdbId.IsValidImdbId())
+                return BadRequest();
 
-                return await context.Rate(imdbId, Rating.Dislike);
+            return await context.Rate(imdbId, Rating.Dislike);
 
-            }
-            catch (System.Exception)
-            {
-
-                throw;
-            }
+            
         }
     }
 }

@@ -35,7 +35,6 @@ for (let i = 0; i < pies.length; i++) {
             }
             break;
         default:
-            console.log("Ingen rating alls")
     }
 }
 
@@ -53,7 +52,6 @@ function like() {
     fetch(originUrl + '/api/movie/' + imdbID + '/like')
         .then((response) => response.json())
         .then(function (data) {
-            console.log(data);
             document.querySelector('#likes').textContent = data.numberOfLikes;
             likeBtn.disabled = true;
             dislikeBtn.disabled = true;
@@ -74,7 +72,6 @@ function dislike() {
     fetch(originUrl + '/api/movie/' + imdbID + '/dislike')
         .then((response) => response.json())
         .then(function (data) {
-            console.log(data);
             document.querySelector('#dislikes').textContent = data.numberOfDislikes;
             likeBtn.disabled = true;
             dislikeBtn.disabled = true;

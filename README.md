@@ -1,6 +1,6 @@
 # CMDB - Cineaste Movie Database
 
-Vi har skapat en webbsida för filmälskare. Här jobbar vi emot två API:er - ett för att hämta information om filmer via OMDB API och sedan använder vi ID:et för att hämta information om antal likes eller dislikes i CMDB API:et eller lägga till en like eller dislike för det specifika ID:et.
+Jag och en kursare har skapat en webbsida för filmälskare. Här jobbar vi emot två API:er - ett för att hämta information om filmer via OMDB API och sedan använder vi ID:et för att hämta information om antal likes eller dislikes i CMDB API:et eller lägga till en like eller dislike för det specifika ID:et.
 
 
 ## Tekniker

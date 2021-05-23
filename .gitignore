@@ -341,3 +341,5 @@ healthchecksdb
 
 CMDbAPI/appsettings.json
 *.json
+
+*.appsettings.json
